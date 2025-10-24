@@ -1,0 +1,98 @@
+<script setup lang="ts"></script>
+<template>
+  <div class="filters-section">
+    <div class="filters-container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search NFTs, collections, or creators...">
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Art</button>
+        <button class="filter-btn">Gaming</button>
+        <button class="filter-btn">Music</button>
+        <button class="filter-btn">Photography</button>
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn">Price: Low to High</button>
+        <button class="filter-btn">Recently Listed</button>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+  .filters-section {
+    padding: 0 60px 30px;
+  }
+
+  .filters-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 14px 20px 14px 45px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    transition: all 0.3s;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: rgba(102, 126, 234, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .filter-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  .filter-btn {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(102, 126, 234, 0.5);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    color: white;
+  }
+</style>
