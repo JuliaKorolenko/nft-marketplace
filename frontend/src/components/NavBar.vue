@@ -1,29 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { connectMetaMask, getBalance, subscribeToAccountChanges } from '@/wallet';
-import type { AccountChangeInfo } from "@/types/common";
+// import { ref, onMounted } from 'vue';
+// import { connectMetaMask, getBalance, subscribeToAccountChanges } from '@/wallet';
+import { useConnectMetamask } from '@/composables/useConnectMetamask';
 
-onMounted(() => {
-  subscribeToAccountChanges((obj: AccountChangeInfo) => {
-    console.log(">>>> Account changed to:", obj.userAddress);
+const { connect, account, balance, provider, chainId, isConnected } = useConnectMetamask();
 
-    // userAddress = obj.address;
-    // userAddressSpan.textContent = obj.address.slice(0, 6) + '...' + obj.address.slice(-4);
-  });
-});
-
-async function handleConnect() {
-    try{
-      const res = await connectMetaMask();
-
-      if (res) {
-        console.log(">>> res", res);
-        
-      }
-    } catch (error) {
-      console.error("Ошибка при подключении:", error);
-    }
-  }
+// const handleConnect = async () => {
+//   try {
+//     await connect();
+//   } catch (error) {
+//     console.error('Error connecting wallet:', error);
+//   }
+// };
 
 </script>
 <template>
@@ -34,8 +22,9 @@ async function handleConnect() {
         <li><a href="#collections">Collections</a></li>
         <li><a href="#create">Create</a></li>
         <li><a href="#profile">Profile</a></li>
+        <li>{{ account, balance, provider, chainId, isConnected }}</li>
     </ul>
-    <button class="wallet-btn" @click="handleConnect">Connect Wallet</button>
+    <button class="wallet-btn" @click="connect">Connect Wallet</button>
   </nav>
 </template>
 <style scoped>
