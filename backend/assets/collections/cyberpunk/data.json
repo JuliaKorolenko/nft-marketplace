@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Neon Muse",
+    "collection": "Cyberpunk",
+    "description": "Neon Muse — born from electric dreams and coded emotions. Half-human, half-signal, she reflects the beauty of the digital age — where light replaces soul, and data whispers like poetry.",
+    "attributes": [
+      { "trait_type": "Role", "value": "Muse" },
+      { "trait_type": "Theme", "value": "Cyberpunk" },
+      { "trait_type": "Mood", "value": "Ethereal" },
+      { "trait_type": "Augmentations", "value": "Neural Links, Bioluminescent Skin" },
+      { "trait_type": "Color Palette", "value": "Magenta & Cyan" },
+      { "trait_type": "Environment", "value": "Neon District" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Rarity Score", "value": 98 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Neon Oracle",
+    "collection": "Cyberpunk",
+    "description": "Neon Oracle - a sentient AI awakened in the neon depths of the city. Her eyes hold the data of countless lives, her circuits pulse with digital dreams.",
+    "attributes": [
+      { "trait_type": "Role", "value": "Oracle" },
+      { "trait_type": "Theme", "value": "Cyberpunk" },
+      { "trait_type": "Mood", "value": "Serene" },
+      { "trait_type": "Color Palette", "value": "Neon Pink & Blue" },
+      { "trait_type": "Background", "value": "City Lights" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Rarity Score", "value": 78 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Data Runner",
+    "collection": "Cyberpunk",
+    "description": "Data Runner - a rebel courier who moves through the city’s digital veins. Fast, silent, and unstoppable, he carries encrypted memories of a vanished future.",
+    "attributes": [
+      { "trait_type": "Role", "value": "Runner" },
+      { "trait_type": "Theme", "value": "Cyberpunk" },
+      { "trait_type": "Mood", "value": "Defiant" },
+      { "trait_type": "Hair Color", "value": "Silver Blue" },
+      { "trait_type": "Gear", "value": "Neural Visor, Street Jacket" },
+      { "trait_type": "Environment", "value": "Urban District" },
+      { "trait_type": "Rarity", "value": "Common" },
+      { "trait_type": "Rarity Score", "value": 43 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Crimson Seer",
+    "collection": "Cyberpunk",
+    "description": "Crimson Seer - a figure who walks the crowded neon streets with eyes hidden behind glowing red optics. She sees not the present, but streams of future data reflected in her visor — decoding fate in the pulse of the city.",
+    "attributes": [
+      { "trait_type": "Role", "value": "Seer" },
+      { "trait_type": "Theme", "value": "Cyberpunk" },
+      { "trait_type": "Mood", "value": "Focused" },
+      { "trait_type": "Gear", "value": "Crimson Visor" },
+      { "trait_type": "Outfit", "value": "Tech Jacket" },
+      { "trait_type": "Color Palette", "value": "Red & Black" },
+      { "trait_type": "Environment", "value": "Neon City" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Rarity Score", "value": 85 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Solar Pilot",
+    "collection": "Cyberpunk",
+    "description": "Solar Pilot — explorer of forgotten star routes and digital horizons. Her visor reflects the glow of dying suns as she navigates through luminous data storms, guided only by instinct and code.",
+    "attributes": [
+      { "trait_type": "Role", "value": "Pilot" },
+      { "trait_type": "Theme", "value": "Cyberpunk" },
+      { "trait_type": "Mood", "value": "Determined" },
+      { "trait_type": "Gear", "value": "Flight Helmet, Neon Visor" },
+      { "trait_type": "Outfit", "value": "Space Suit" },
+      { "trait_type": "Color Palette", "value": "Orange & Amber" },
+      { "trait_type": "Environment", "value": "Starship Interior" },
+      { "trait_type": "Rarity", "value": "Uncommon" },
+      { "trait_type": "Rarity Score", "value": 65 }
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Midnight Vigil",
+    "collection": "Surrealism",
+    "description": "Midnight Vigil — where azure smoke dances with moonlight over endless waters. A lone chair stands witness to the celestial theater, as shooting stars trace invisible paths through the cosmic tapestry above.",
+    "attributes": [
+      { "trait_type": "Theme", "value": "Nocturnal Fantasy" },
+      { "trait_type": "Mood", "value": "Mystical" },
+      { "trait_type": "Celestial Body", "value": "Full Moon" },
+      { "trait_type": "Color Palette", "value": "Electric Blue & Teal" },
+      { "trait_type": "Elements", "value": "Smoke, Stars, Water, Vegetation" },
+      { "trait_type": "Environment", "value": "Moonlit Shore" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Rarity Score", "value": 85 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Circle of Cosmos",
+    "collection": "Surrealism",
+    "description": "Circle of Cosmos — an ancient wooden ring blooming with planetary spheres, each a world unto itself. Gravity defied, time suspended, as the gateway stands between desert and ocean, offering passage to infinite dimensions.",
+    "attributes": [
+      { "trait_type": "Theme", "value": "Dimensional Portal" },
+      { "trait_type": "Mood", "value": "Wondrous" },
+      { "trait_type": "Structure", "value": "Cosmic Ring" },
+      { "trait_type": "Color Palette", "value": "Earth Tones & Rainbow Spheres" },
+      { "trait_type": "Elements", "value": "Wood, Planets, Water, Sky" },
+      { "trait_type": "Environment", "value": "Liminal Shore" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Rarity Score", "value": 95 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Cloud Anchor",
+    "collection": "Surrealism",
+    "description": "Cloud Anchor — a pristine platform floating between realms, where a single cumulus cloud is tethered by gossamer chains. Pastel arches frame the impossible, and reality mirrors itself in crystalline waters below.",
+    "attributes": [
+      { "trait_type": "Theme", "value": "Ethereal Architecture" },
+      { "trait_type": "Mood", "value": "Peaceful" },
+      { "trait_type": "Structure", "value": "Floating Sanctuary" },
+      { "trait_type": "Color Palette", "value": "Iridescent Pink & Aqua" },
+      { "trait_type": "Elements", "value": "Cloud, Arches, Stones, Reflection" },
+      { "trait_type": "Environment", "value": "Infinite Waters" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Rarity Score", "value": 70 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "The Clouded Rooms",
+    "collection": "Surrealism",
+    "description": "The Clouded Rooms — step into recursion where walls dissolve into sky. Each doorframe reveals another layer of reality melting away, as clouds drift through wooden halls that refuse to obey the laws of space.",
+    "attributes": [
+      { "trait_type": "Theme", "value": "Interior Paradox" },
+      { "trait_type": "Mood", "value": "Disorienting" },
+      { "trait_type": "Structure", "value": "Nested Realities" },
+      { "trait_type": "Color Palette", "value": "Sky Blue & Warm Beige" },
+      { "trait_type": "Elements", "value": "Clouds, Frames, Light, Wood" },
+      { "trait_type": "Environment", "value": "Impossible Interior" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Rarity Score", "value": 72 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Root & Frame",
+    "collection": "Surrealism",
+    "description": "Root & Frame — civilization surrenders as nature reclaims its throne. A towering tree bursts through infinite doorways, bringing forest floor and ferns into sterile rooms, dissolving the boundary between shelter and wilderness.",
+    "attributes": [
+      { "trait_type": "Theme", "value": "Nature Reclaimed" },
+      { "trait_type": "Mood", "value": "Harmonious" },
+      { "trait_type": "Structure", "value": "Merged Spaces" },
+      { "trait_type": "Color Palette", "value": "Forest Green & Ivory" },
+      { "trait_type": "Elements", "value": "Tree, Ferns, Frames, Sky" },
+      { "trait_type": "Environment", "value": "Hybrid Realm" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Rarity Score", "value": 88 }
+    ]
+  }
+]

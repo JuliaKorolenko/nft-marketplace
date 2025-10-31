@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Stardust Unicorn",
+    "collection": "Mythical Creatures",
+    "description": "Stardust Unicorn — born from cosmic light and ancient magic, this celestial being gallops through nebulae and stardust. Its spiral horn channels the energy of distant galaxies, leaving trails of purple luminescence across the void.",
+    "attributes": [
+      { "trait_type": "Species", "value": "Unicorn" },
+      { "trait_type": "Element", "value": "Cosmic" },
+      { "trait_type": "Mood", "value": "Majestic" },
+      { "trait_type": "Color Palette", "value": "Pearl White & Purple" },
+      { "trait_type": "Special Features", "value": "Spiral Horn, Flowing Mane" },
+      { "trait_type": "Environment", "value": "Nebula Sky" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Rarity Score", "value": 96 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Tidecaller King",
+    "collection": "Mythical Creatures",
+    "description": "Tidecaller King — an ancient ocean sovereign adorned with coral crown and ornate armor forged in the abyss. His glowing amber eyes pierce through deep waters, commanding tides and storms with a mere thought.",
+    "attributes": [
+      { "trait_type": "Species", "value": "Sea Guardian" },
+      { "trait_type": "Element", "value": "Water" },
+      { "trait_type": "Mood", "value": "Commanding" },
+      { "trait_type": "Color Palette", "value": "Turquoise & Gold" },
+      { "trait_type": "Special Features", "value": "Coral Crown, Ancient Armor" },
+      { "trait_type": "Environment", "value": "Ocean Depths" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Rarity Score", "value": 89 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Eternal Phoenix",
+    "collection": "Mythical Creatures",
+    "description": "Eternal Phoenix — reborn from flames countless times, this immortal bird spreads wings of living fire across mountain peaks. Each feather burns with the intensity of a thousand sunsets, embodying cycles of death and rebirth.",
+    "attributes": [
+      { "trait_type": "Species", "value": "Phoenix" },
+      { "trait_type": "Element", "value": "Fire" },
+      { "trait_type": "Mood", "value": "Triumphant" },
+      { "trait_type": "Color Palette", "value": "Crimson & Gold" },
+      { "trait_type": "Special Features", "value": "Flame Wings, Flowing Tail" },
+      { "trait_type": "Environment", "value": "Mountain Summit" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Rarity Score", "value": 98 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Leviathan's Awakening",
+    "collection": "Mythical Creatures",
+    "description": "Leviathan's Awakening — from the darkest trenches rises a dragon of the deep, scales like ancient jade and eyes burning with primordial fury. When it stirs, the ocean trembles and legends come alive.",
+    "attributes": [
+      { "trait_type": "Species", "value": "Sea Dragon" },
+      { "trait_type": "Element", "value": "Water" },
+      { "trait_type": "Mood", "value": "Menacing" },
+      { "trait_type": "Color Palette", "value": "Teal & Golden" },
+      { "trait_type": "Special Features", "value": "Scaled Armor, Glowing Eyes, Sharp Fangs" },
+      { "trait_type": "Environment", "value": "Underwater Realm" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Rarity Score", "value": 94 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Emerald Sprite",
+    "collection": "Mythical Creatures",
+    "description": "Emerald Sprite — guardian of forgotten forests, she weaves starlight into her hair and wraps herself in living vines. Her luminous wings shimmer with bioluminescent magic as she protects the sacred groves from mortal eyes.",
+    "attributes": [
+      { "trait_type": "Species", "value": "Forest Fairy" },
+      { "trait_type": "Element", "value": "Nature" },
+      { "trait_type": "Mood", "value": "Enchanting" },
+      { "trait_type": "Color Palette", "value": "Emerald & Gold" },
+      { "trait_type": "Special Features", "value": "Translucent Wings, Star Crown, Living Vines" },
+      { "trait_type": "Environment", "value": "Mystical Forest" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Rarity Score", "value": 87 }
+    ]
+  }
+]
