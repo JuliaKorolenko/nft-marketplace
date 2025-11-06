@@ -6,6 +6,7 @@ import path from 'path';
 import * as dotenv from 'dotenv';
 import { PinataSDK } from "pinata";
 import { PATHS } from '../config/path.js';
+import { type } from 'os';
 
 dotenv.config();
 
@@ -18,21 +19,51 @@ const pinata = new PinataSDK({
   pinataGateway: process.env.PINATA_GATEWAY || 'gateway.pinata.cloud',
 });
 
+const groupCache = new Map();
+
+// async function getOrCreateGroup(collectionName) {
+//   if (groupCache.has(collectionName)) {
+//     return groupCache.get(collectionName);
+//   }
+//   try {
+//     const groupsList = await pinata.groups.public.list();
+//     const existingGroup = groupsList.groups?.find(group => group.name === collectionName);
+
+//     if (existingGroup) {
+//       groupCache.set(collectionName, existingGroup.id);
+//       return existingGroup.id;
+//     }
+
+//     const newGroup = await pinata.groups.public.create({
+//       name: collectionName,
+//     });
+
+//     groupCache.set(collectionName, newGroup.id);
+//     console.log(`✓ Created new group for collection ${collectionName}:`, newGroup.id);
+//     return newGroup.id;
+
+//   } catch (error) {
+//     console.error(`✗ Error creating/getting group for collection ${collectionName}:`, error.message);
+//     return null;
+//   }
+// }
+
+
+
 async function uploadImage(imagePath, collectionName, imageId) {
-  console.log(">> Uploading image:", imagePath, collectionName, imageId);
+  // console.log(">> Uploading image:", imagePath, collectionName, imageId);
   try {
-    // const fileBuffer = fs.createReadStream(imagePath);
     const fileName = path.basename(imagePath);
     const blob = new Blob([fs.readFileSync(imagePath)]);
-      // const testFile = new File([blob], 'test_img', {
-      //   type: 'image/jpeg',
-      // });
 
-    // const blob = new Blob([fileBuffer], {
-    //   type: `image/${path.extname(imagePath).slice(1)}`,
-    // });
+    const extension = path.extname(imagePath).toLowerCase();
+    if (!['.jpg', '.jpeg', '.png', '.gif'].includes(extension)) {
+      throw new Error(`Unsupported file type: ${extension}`);
+    }
+    const newFileName = `${collectionName}-${imageId}.${extension}`;
+    // const groupId = await getOrCreateGroup(collectionName);
 
-    const file = new File([blob], fileName, {
+    const file = new File([blob], newFileName, {
       type: `image/${path.extname(imagePath).slice(1)}`,
     });
 
@@ -44,20 +75,66 @@ async function uploadImage(imagePath, collectionName, imageId) {
           itemId: imageId.toString(),
         },
       },
-      // groupId: collectionName,
+      // ...(groupId && { groupId }),
     });
 
-    const imageUrl = `https://${process.env.PINATA_GATEWAY}/ipfs/${upload.IpfsHash}`
+    const ipfsHash = upload.IpfsHash || upload.ipfsHash || upload.cid;
+    if (!ipfsHash) {
+      console.error("❌ Upload response:", upload);
+      throw new Error("Failed to get IPFS hash");
+    }
+
+    const imageUrl = `https://${process.env.PINATA_GATEWAY}/ipfs/${ipfsHash}`;
     console.log(`✓ Uploaded image for item ${imageId} in collection ${collectionName}: ${imageUrl}`);
     return {  
       imageUrl,
-      ipfsHash: upload.IpfsHash
+      ipfsHash
     };
 
   } catch (error) {
     console.error(`✗ Error uploading image for item ${imageId} in collection ${collectionName}:`, error.message);
   }
+}
 
+// async function uploadMetadata(metadata, collectionName, itemId, groupId) {
+async function uploadMetadata(metadata, collectionName, itemId) {
+  try {
+    const metadataFileName = `${collectionName}-${itemId}-metadata.json`;
+    const blob = new Blob([JSON.stringify(metadata)]);
+
+    const file = new File([blob], metadataFileName, {
+      type: 'application/json',
+    });
+
+    const upload = await pinata.upload.public.file(file, {
+      metadata: {
+        name: `${collectionName}-${itemId}-metadata`,
+        keyvalues: {
+          collection: collectionName,
+          itemId: itemId.toString(),
+          type: 'metadata',
+        },
+      },
+      // ...(groupId && { groupId }),
+    });
+
+    const ipfsHash = upload.IpfsHash || upload.ipfsHash || upload.cid;
+    
+    if (!ipfsHash) {
+      console.error("Upload response:", upload);
+      throw new Error("Failed to get IPFS hash");
+    }
+
+    const metadataUrl = `https://${process.env.PINATA_GATEWAY}/ipfs/${ipfsHash}`;
+    console.log(`✓ Uploaded metadata for item ${itemId} in collection ${collectionName}: ${metadataUrl}`);
+    return {
+      metadataUrl,
+      ipfsHash
+    };
+
+  } catch (error) {
+    console.error(`✗ Error uploading metadata for item ${itemId} in collection ${collectionName}:`, error.message);
+  }
 }
 
 async function processCollection(collectionPath) {
@@ -103,13 +180,28 @@ async function processCollection(collectionPath) {
 
       if(imageData) {
       // Добавляем данные об изображении в метаданные
-        const updatedItem = {
-         ...item,
-          image: imageData.imageUrl,
-          ipfsHash: imageData.ipfsHash,
-          imageFileName: imageFile,
-        };
-        updatedData.push(updatedItem);
+      const nftMetadata = {
+        name: item.name,
+        description: item.description,
+        image: `ipfs://${imageData.ipfsHash}`,
+        external_url: imageData.imageUrl,
+        attributes: item.attributes || [],
+      };
+
+      const metadataData = await uploadMetadata(nftMetadata, collectionName, item.id);
+
+      const updatedItem = {
+        ...item,
+        image: imageData.imageUrl,
+        imageIpfsHash: imageData.ipfsHash,
+        imageUrl: `ipfs://${imageData.ipfsHash}`,
+        metadataUrl: metadataData ? metadataData.metadataUrl : null,
+        metadataIpfsHash: metadataData ? metadataData.ipfsHash : null,
+        imageFileName: imageFile,
+      };
+
+      updatedData.push(updatedItem);
+
     } else {  
       updatedData.push(item); // Если загрузка не удалась, сохраняем оригинальный элемент
     }
@@ -169,31 +261,8 @@ async function uploadCollections() {
 }
 
 async function testUpload() {
-  const testPath = 'D:/blockchain/NFT-marketplace/backend/assets/collections/cyberpunk/images/2.jpg'; // создайте тестовое изображение
-  const fileBuffer = fs.createReadStream(testPath);
-  const fileName = path.basename(testPath);
-
-  const blob = new Blob([fs.readFileSync(testPath)]);
-  const testFile = new File([blob], 'test_img', {
-    type: 'image/jpeg',
-  });
-
-
-  try {
-    // const blob = new Blob([fileBuffer], {
-    //   type: `image/${path.extname(testPath).slice(1)}`,
-    // });
-
-    // const file = new File([blob], fileName, {
-    //   type: blob.type,
-    // });
-    const upload = await pinata.upload.public.file(testFile);
-
-    console.log('Test upload:', upload);
-    console.log('URL:', `https://${process.env.PINATA_GATEWAY}/ipfs/${upload.IpfsHash}`);
-  } catch (error) {
-    console.error('Test error:', error);
-  }
+  const groupsList = await pinata.groups.public.list();
+  console.log(">>>> Groups List:", groupsList);
 }
 
 uploadCollections().catch((error) => {

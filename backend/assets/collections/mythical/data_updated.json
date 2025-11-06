@@ -1,0 +1,232 @@
+[
+  {
+    "id": 1,
+    "name": "Stardust Unicorn",
+    "collection": "Mythical Creatures",
+    "description": "Stardust Unicorn — born from cosmic light and ancient magic, this celestial being gallops through nebulae and stardust. Its spiral horn channels the energy of distant galaxies, leaving trails of purple luminescence across the void.",
+    "attributes": [
+      {
+        "trait_type": "Species",
+        "value": "Unicorn"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Cosmic"
+      },
+      {
+        "trait_type": "Mood",
+        "value": "Majestic"
+      },
+      {
+        "trait_type": "Color Palette",
+        "value": "Pearl White & Purple"
+      },
+      {
+        "trait_type": "Special Features",
+        "value": "Spiral Horn, Flowing Mane"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Nebula Sky"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Rarity Score",
+        "value": 96
+      }
+    ],
+    "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
+    "imageIpfsHash": "bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
+    "imageUrl": "ipfs://bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
+    "metadataUrl": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreibgze4khxhmfqgqwxnarmkb5fzljppat27s52biukovzwasqcyaua",
+    "metadataIpfsHash": "bafkreibgze4khxhmfqgqwxnarmkb5fzljppat27s52biukovzwasqcyaua",
+    "imageFileName": "1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Tidecaller King",
+    "collection": "Mythical Creatures",
+    "description": "Tidecaller King — an ancient ocean sovereign adorned with coral crown and ornate armor forged in the abyss. His glowing amber eyes pierce through deep waters, commanding tides and storms with a mere thought.",
+    "attributes": [
+      {
+        "trait_type": "Species",
+        "value": "Sea Guardian"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Mood",
+        "value": "Commanding"
+      },
+      {
+        "trait_type": "Color Palette",
+        "value": "Turquoise & Gold"
+      },
+      {
+        "trait_type": "Special Features",
+        "value": "Coral Crown, Ancient Armor"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Ocean Depths"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Epic"
+      },
+      {
+        "trait_type": "Rarity Score",
+        "value": 89
+      }
+    ],
+    "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
+    "imageIpfsHash": "bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
+    "imageUrl": "ipfs://bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
+    "metadataUrl": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreia2c3wzgzk5be2qtde7rvqdr66ctvyvrrtavkoyer2755u2aubv64",
+    "metadataIpfsHash": "bafkreia2c3wzgzk5be2qtde7rvqdr66ctvyvrrtavkoyer2755u2aubv64",
+    "imageFileName": "2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Eternal Phoenix",
+    "collection": "Mythical Creatures",
+    "description": "Eternal Phoenix — reborn from flames countless times, this immortal bird spreads wings of living fire across mountain peaks. Each feather burns with the intensity of a thousand sunsets, embodying cycles of death and rebirth.",
+    "attributes": [
+      {
+        "trait_type": "Species",
+        "value": "Phoenix"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Mood",
+        "value": "Triumphant"
+      },
+      {
+        "trait_type": "Color Palette",
+        "value": "Crimson & Gold"
+      },
+      {
+        "trait_type": "Special Features",
+        "value": "Flame Wings, Flowing Tail"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Mountain Summit"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Rarity Score",
+        "value": 98
+      }
+    ],
+    "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
+    "imageIpfsHash": "bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
+    "imageUrl": "ipfs://bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
+    "metadataUrl": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreib7t6p23mitkacdmn4lgjgs6fj5ax3effdsnn5tf2csmcnq5bpanu",
+    "metadataIpfsHash": "bafkreib7t6p23mitkacdmn4lgjgs6fj5ax3effdsnn5tf2csmcnq5bpanu",
+    "imageFileName": "3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Leviathan's Awakening",
+    "collection": "Mythical Creatures",
+    "description": "Leviathan's Awakening — from the darkest trenches rises a dragon of the deep, scales like ancient jade and eyes burning with primordial fury. When it stirs, the ocean trembles and legends come alive.",
+    "attributes": [
+      {
+        "trait_type": "Species",
+        "value": "Sea Dragon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Mood",
+        "value": "Menacing"
+      },
+      {
+        "trait_type": "Color Palette",
+        "value": "Teal & Golden"
+      },
+      {
+        "trait_type": "Special Features",
+        "value": "Scaled Armor, Glowing Eyes, Sharp Fangs"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Underwater Realm"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Rarity Score",
+        "value": 94
+      }
+    ],
+    "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
+    "imageIpfsHash": "bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
+    "imageUrl": "ipfs://bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
+    "metadataUrl": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreihoc5x2kw2l6en7t6bnpxyxxifs5snniizjig56vrprpa5ohel7jq",
+    "metadataIpfsHash": "bafkreihoc5x2kw2l6en7t6bnpxyxxifs5snniizjig56vrprpa5ohel7jq",
+    "imageFileName": "4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Emerald Sprite",
+    "collection": "Mythical Creatures",
+    "description": "Emerald Sprite — guardian of forgotten forests, she weaves starlight into her hair and wraps herself in living vines. Her luminous wings shimmer with bioluminescent magic as she protects the sacred groves from mortal eyes.",
+    "attributes": [
+      {
+        "trait_type": "Species",
+        "value": "Forest Fairy"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Nature"
+      },
+      {
+        "trait_type": "Mood",
+        "value": "Enchanting"
+      },
+      {
+        "trait_type": "Color Palette",
+        "value": "Emerald & Gold"
+      },
+      {
+        "trait_type": "Special Features",
+        "value": "Translucent Wings, Star Crown, Living Vines"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Mystical Forest"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Epic"
+      },
+      {
+        "trait_type": "Rarity Score",
+        "value": 87
+      }
+    ],
+    "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
+    "imageIpfsHash": "bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
+    "imageUrl": "ipfs://bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
+    "metadataUrl": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreidenv4nirilugbsxbj7ql3nmjaawiu4jkv6tjo3la3xyuc5jbteja",
+    "metadataIpfsHash": "bafkreidenv4nirilugbsxbj7ql3nmjaawiu4jkv6tjo3la3xyuc5jbteja",
+    "imageFileName": "5.jpg"
+  }
+]
