@@ -11,6 +11,7 @@ export const useConnectMetamask = () => {
   const address = ref<string | null>(null);
 
   const connect = async () => {
+    
     if (!window.ethereum) {
       throw new Error("MetaMask is not installed");
     }
