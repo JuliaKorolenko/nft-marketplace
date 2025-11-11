@@ -5,7 +5,9 @@
   "scripts": {
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.ts --network sepolia",
-    "upload": "node scripts/uploadAllCollections.js"
+    "upload": "node scripts/uploadAllCollections.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.0.3",
@@ -16,7 +18,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.18.10",
     "chai": "^5.3.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "ethers": "^6.15.0",
     "forge-std": "github:foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.0.7",

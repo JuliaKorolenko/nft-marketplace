@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import NavBar from './components/NavBar.vue';
-import SideBar from './components/SideBar.vue';
-import HeroStats from './components/HeroStats.vue';
-import FiltersSection from './components/FiltersSection.vue';
-import CollectionList from './components/collections/CollectionList.vue';
-import Footer from './components/Footer.vue';
+import NavBar from '@/components/NavBar.vue';
+import SideBar from '@/components/SideBar.vue';
+import HeroStats from '@/components/HeroStats.vue';
+import FiltersSection from '@/components/FiltersSection.vue';
+import CollectionList from '@/components/collections/CollectionList.vue';
+import Footer from '@/components/Footer.vue';
+import { type FilterValue, type SortByValue  } from '@/data/UIElements';
 
+const selectedFilters = ref<FilterValue>('all');
+const selectedSortBy = ref<SortByValue>('up');
 
 </script>
 
@@ -15,8 +18,14 @@ import Footer from './components/Footer.vue';
     <NavBar />
     <SideBar />
     <HeroStats />
-    <FiltersSection />
-    <CollectionList />
+    <FiltersSection
+      v-model:selectedFilters="selectedFilters"
+      v-model:selectedSortBy="selectedSortBy"
+    />
+    <CollectionList
+      :selectedFilters="selectedFilters"
+      :selectedSortBy="selectedSortBy"
+    />
     <Footer />
   </div>
 </template>

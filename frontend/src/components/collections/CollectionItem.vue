@@ -1,26 +1,26 @@
 <script setup lang="ts">
 import { type NFTCard } from '@/types/common';
 defineProps<{
-  nft: NFTCard
+  item: NFTCard
 }>();
 </script>
 <template>
   <div class="nft-card">
     <div class="nft-image-container">
       <img
-        :src="nft.image"
+        :src="item.image"
         class="nft-image"
-        :alt="nft.name"
+        :alt="item.name"
       >
       <div class="nft-badge">On Sale</div>
     </div>
     <div class="nft-content">
       <div class="nft-header">
         <div>
-            <div class="nft-title">{{ nft.name }}</div>
-            <div class="nft-collection">{{ nft.collection }}</div>
+            <div class="nft-title">{{ item.name }}</div>
+            <div class="nft-collection">{{ item.collection }}</div>
         </div>
-        <div class="nft-likes">❤️ {{ nft.likes }}</div>
+        <div class="nft-likes">❤️ {{ item.likes }}</div>
       </div>
       <div class="nft-price-section">
           <div>
@@ -29,7 +29,7 @@ defineProps<{
                   <svg class="eth-icon" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"></path>
                   </svg>
-                  2.5 ETH
+                  {{ item.price  }} ETH
               </div>
           </div>
       </div>

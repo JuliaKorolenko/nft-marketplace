@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import CollectionItem from './CollectionItem.vue';
+import { useGetNftData } from '@/composables/useGetNftData';
 
+const filter = defineModel<string>('selectedFilters', { default: 'all'});
+const sort = defineModel<string>('selectedSortBy', { default: 'up' });
+
+const { isLoading, sortedFilteredCollection } = useGetNftData({ filter, sort });
+
+// console.log(">>> collections", collections.value);
+// const collectionsData = collections.value?.nfts || []
 
 const nfts = [
   {
@@ -88,9 +96,9 @@ const nfts = [
 <template>
   <div class="nft-grid" id="nftGrid">
     <CollectionItem
-      v-for="nft in nfts"
-      :key="nft.id"
-      :nft="nft"
+      v-for="item in sortedFilteredCollection"
+      :key="item.name"
+      :item="item"
     />
   </div>
 </template>

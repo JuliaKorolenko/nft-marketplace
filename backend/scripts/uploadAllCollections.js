@@ -190,13 +190,24 @@ async function processCollection(collectionPath) {
 
       const metadataData = await uploadMetadata(nftMetadata, collectionName, item.id);
 
+      // const updatedItem = {
+      //   ...item,
+      //   image: imageData.imageUrl,
+      //   imageIpfsHash: imageData.ipfsHash,
+      //   imageUrl: `ipfs://${imageData.ipfsHash}`,
+      //   metadataUrl: metadataData ? metadataData.metadataUrl : null,
+      //   metadataIpfsHash: metadataData ? metadataData.ipfsHash : null,
+      //   imageFileName: imageFile,
+      // };
+
       const updatedItem = {
         ...item,
         image: imageData.imageUrl,
         imageIpfsHash: imageData.ipfsHash,
-        imageUrl: `ipfs://${imageData.ipfsHash}`,
-        metadataUrl: metadataData ? metadataData.metadataUrl : null,
-        metadataIpfsHash: metadataData ? metadataData.ipfsHash : null,
+        imageUri: `ipfs://${imageData.ipfsHash}`,
+        metadata: metadataData.metadataUrl,
+        metadataIpfsHash: metadataData.ipfsHash,
+        metadataUri: `ipfs://${metadataData.ipfsHash}`,
         imageFileName: imageFile,
       };
 
@@ -248,9 +259,9 @@ async function uploadCollections() {
       results[folder] = res;
 
       // Сохраняем обновленный data.json
-      const outputDataPath = path.join(folderPath, 'data_updated.json');
-      fs.writeFileSync(outputDataPath, JSON.stringify(res.items, null, 2));
-      console.log(`✓ Updated data.json saved for collection ${folder} at ${outputDataPath}`);
+      // const outputDataPath = path.join(folderPath, 'data_updated.json');
+      // fs.writeFileSync(outputDataPath, JSON.stringify(res.items, null, 2));
+      // console.log(`✓ Updated data.json saved for collection ${folder} at ${outputDataPath}`);
     }
   }
 

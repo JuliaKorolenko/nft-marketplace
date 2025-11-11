@@ -1,4 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue';
+import { filters, sortByOptions} from '@/data/UIElements';
+
+
+const filter = defineModel<string>('selectedFilters');
+const sort = defineModel<string>('selectedSortBy');
+
+
+const sortValue = computed(() => {
+  return sortByOptions.find(option => option.value === sort.value)?.label || '';
+});
+
+
+</script>
+
 <template>
   <div class="filters-section">
     <div class="filters-container">
@@ -7,15 +22,24 @@
         <input type="text" placeholder="Search NFTs, collections, or creators...">
       </div>
       <div class="filter-group">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">Art</button>
-        <button class="filter-btn">Gaming</button>
-        <button class="filter-btn">Music</button>
-        <button class="filter-btn">Photography</button>
+        <button
+          class="filter-btn"
+          :class="{'active': filter===value.value}"
+          v-for="value in filters"
+          :key="value.label"
+          @click="filter = value.value"
+        >
+        {{ value.label }}
+        </button>
       </div>
       <div class="filter-group">
-        <button class="filter-btn">Price: Low to High</button>
-        <button class="filter-btn">Recently Listed</button>
+        <button
+          class="filter-btn"
+          @click="sort === 'up' ? sort = 'down' : sort = 'up'"
+        >
+          {{ sortValue }}
+        </button>
+        <!-- <button class="filter-btn">Recently Listed</button> -->
       </div>
     </div>
   </div>
@@ -74,25 +98,26 @@
   }
 
   .filter-btn {
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 14px;
-    font-weight: 500;
-  }
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+}
 
-  .filter-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(102, 126, 234, 0.5);
-  }
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(102, 126, 234, 0.5);
+}
 
-  .filter-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-color: transparent;
-    color: white;
-  }
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+  
 </style>
