@@ -10,6 +10,7 @@ import { type FilterValue, type SortByValue  } from '@/data/UIElements';
 
 const selectedFilters = ref<FilterValue>('all');
 const selectedSortBy = ref<SortByValue>('up');
+const searchQuery = ref<string>('');
 
 </script>
 
@@ -21,10 +22,12 @@ const selectedSortBy = ref<SortByValue>('up');
     <FiltersSection
       v-model:selectedFilters="selectedFilters"
       v-model:selectedSortBy="selectedSortBy"
+      v-model:searchQuery="searchQuery"
     />
     <CollectionList
       :selectedFilters="selectedFilters"
       :selectedSortBy="selectedSortBy"
+      :searchQuery="searchQuery"
     />
     <Footer />
   </div>

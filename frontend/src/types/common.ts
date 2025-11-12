@@ -14,6 +14,7 @@ export interface NFTCard {
   name: string,
   collection: string,
   price: number,
+  preview_price?: number,
   likes: number,
   image: string,
   status: 'Hot' | 'New' | 'Trending'

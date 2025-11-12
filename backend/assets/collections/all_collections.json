@@ -4,6 +4,43 @@
     "items": [
       {
         "id": 1,
+        "name": "Neon Muse",
+        "collection": "Cyberpunk",
+        "description": "Neon Muse — born from electric dreams and coded emotions. Half-human, half-signal, she reflects the beauty of the digital age — where light replaces soul, and data whispers like poetry.",
+        "attributes": [
+          {
+            "trait_type": "Role",
+            "value": "Muse"
+          },
+          {
+            "trait_type": "Theme",
+            "value": "Cyberpunk"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Ethereal"
+          },
+          {
+            "trait_type": "Augmentations",
+            "value": "Neural Links, Bioluminescent Skin"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Magenta & Cyan"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Neon District"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 98
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreig6w75a2ibh5gccvgcd7a422vmj27w5kklnx4bcgynlzzim5ayvpy",
         "imageIpfsHash": "bafkreig6w75a2ibh5gccvgcd7a422vmj27w5kklnx4bcgynlzzim5ayvpy",
         "imageUri": "ipfs://bafkreig6w75a2ibh5gccvgcd7a422vmj27w5kklnx4bcgynlzzim5ayvpy",
@@ -14,6 +51,39 @@
       },
       {
         "id": 2,
+        "name": "Neon Oracle",
+        "collection": "Cyberpunk",
+        "description": "Neon Oracle - a sentient AI awakened in the neon depths of the city. Her eyes hold the data of countless lives, her circuits pulse with digital dreams.",
+        "attributes": [
+          {
+            "trait_type": "Role",
+            "value": "Oracle"
+          },
+          {
+            "trait_type": "Theme",
+            "value": "Cyberpunk"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Serene"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Neon Pink & Blue"
+          },
+          {
+            "trait_type": "Background",
+            "value": "City Lights"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 78
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreie6h4uphdwaogzej5d7uyvtsbcj7hhje2todxc7wq3gg3jwplouy4",
         "imageIpfsHash": "bafkreie6h4uphdwaogzej5d7uyvtsbcj7hhje2todxc7wq3gg3jwplouy4",
         "imageUri": "ipfs://bafkreie6h4uphdwaogzej5d7uyvtsbcj7hhje2todxc7wq3gg3jwplouy4",
@@ -24,6 +94,43 @@
       },
       {
         "id": 3,
+        "name": "Data Runner",
+        "collection": "Cyberpunk",
+        "description": "Data Runner - a rebel courier who moves through the city’s digital veins. Fast, silent, and unstoppable, he carries encrypted memories of a vanished future.",
+        "attributes": [
+          {
+            "trait_type": "Role",
+            "value": "Runner"
+          },
+          {
+            "trait_type": "Theme",
+            "value": "Cyberpunk"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Defiant"
+          },
+          {
+            "trait_type": "Hair Color",
+            "value": "Silver Blue"
+          },
+          {
+            "trait_type": "Gear",
+            "value": "Neural Visor, Street Jacket"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Urban District"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Common"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 43
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreifxc5wmvv5vplyf4e3e7gsenchlx44ivjrxq5nmsg3raiz4nh64xi",
         "imageIpfsHash": "bafkreifxc5wmvv5vplyf4e3e7gsenchlx44ivjrxq5nmsg3raiz4nh64xi",
         "imageUri": "ipfs://bafkreifxc5wmvv5vplyf4e3e7gsenchlx44ivjrxq5nmsg3raiz4nh64xi",
@@ -34,6 +141,47 @@
       },
       {
         "id": 4,
+        "name": "Crimson Seer",
+        "collection": "Cyberpunk",
+        "description": "Crimson Seer - a figure who walks the crowded neon streets with eyes hidden behind glowing red optics. She sees not the present, but streams of future data reflected in her visor — decoding fate in the pulse of the city.",
+        "attributes": [
+          {
+            "trait_type": "Role",
+            "value": "Seer"
+          },
+          {
+            "trait_type": "Theme",
+            "value": "Cyberpunk"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Focused"
+          },
+          {
+            "trait_type": "Gear",
+            "value": "Crimson Visor"
+          },
+          {
+            "trait_type": "Outfit",
+            "value": "Tech Jacket"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Red & Black"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Neon City"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 85
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreig36uko6mtah7yvi26ehopinpsbfh7tlt2d74fjtlztk3p4ujwrpm",
         "imageIpfsHash": "bafkreig36uko6mtah7yvi26ehopinpsbfh7tlt2d74fjtlztk3p4ujwrpm",
         "imageUri": "ipfs://bafkreig36uko6mtah7yvi26ehopinpsbfh7tlt2d74fjtlztk3p4ujwrpm",
@@ -44,6 +192,47 @@
       },
       {
         "id": 5,
+        "name": "Solar Pilot",
+        "collection": "Cyberpunk",
+        "description": "Solar Pilot — explorer of forgotten star routes and digital horizons. Her visor reflects the glow of dying suns as she navigates through luminous data storms, guided only by instinct and code.",
+        "attributes": [
+          {
+            "trait_type": "Role",
+            "value": "Pilot"
+          },
+          {
+            "trait_type": "Theme",
+            "value": "Cyberpunk"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Determined"
+          },
+          {
+            "trait_type": "Gear",
+            "value": "Flight Helmet, Neon Visor"
+          },
+          {
+            "trait_type": "Outfit",
+            "value": "Space Suit"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Orange & Amber"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Starship Interior"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Uncommon"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 65
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreidapdjlq4bpyl4fgjmllsgax2zkythsr7mjkclpwzmihrpdco56le",
         "imageIpfsHash": "bafkreidapdjlq4bpyl4fgjmllsgax2zkythsr7mjkclpwzmihrpdco56le",
         "imageUri": "ipfs://bafkreidapdjlq4bpyl4fgjmllsgax2zkythsr7mjkclpwzmihrpdco56le",
@@ -59,6 +248,43 @@
     "items": [
       {
         "id": 1,
+        "name": "Stardust Unicorn",
+        "collection": "Mythical Creatures",
+        "description": "Stardust Unicorn — born from cosmic light and ancient magic, this celestial being gallops through nebulae and stardust. Its spiral horn channels the energy of distant galaxies, leaving trails of purple luminescence across the void.",
+        "attributes": [
+          {
+            "trait_type": "Species",
+            "value": "Unicorn"
+          },
+          {
+            "trait_type": "Element",
+            "value": "Cosmic"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Majestic"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Pearl White & Purple"
+          },
+          {
+            "trait_type": "Special Features",
+            "value": "Spiral Horn, Flowing Mane"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Nebula Sky"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 96
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
         "imageIpfsHash": "bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
         "imageUri": "ipfs://bafkreig6f3vhsohx2mba3dzguhvqvqm6ml2k3fcz4sb4ny3ufoko6f6msu",
@@ -69,6 +295,43 @@
       },
       {
         "id": 2,
+        "name": "Tidecaller King",
+        "collection": "Mythical Creatures",
+        "description": "Tidecaller King — an ancient ocean sovereign adorned with coral crown and ornate armor forged in the abyss. His glowing amber eyes pierce through deep waters, commanding tides and storms with a mere thought.",
+        "attributes": [
+          {
+            "trait_type": "Species",
+            "value": "Sea Guardian"
+          },
+          {
+            "trait_type": "Element",
+            "value": "Water"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Commanding"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Turquoise & Gold"
+          },
+          {
+            "trait_type": "Special Features",
+            "value": "Coral Crown, Ancient Armor"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Ocean Depths"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 89
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
         "imageIpfsHash": "bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
         "imageUri": "ipfs://bafkreie6gcadi3fdlbbxwjpyozbziskxs5gweuowjqcrnpqxmvlihhzddi",
@@ -79,6 +342,43 @@
       },
       {
         "id": 3,
+        "name": "Eternal Phoenix",
+        "collection": "Mythical Creatures",
+        "description": "Eternal Phoenix — reborn from flames countless times, this immortal bird spreads wings of living fire across mountain peaks. Each feather burns with the intensity of a thousand sunsets, embodying cycles of death and rebirth.",
+        "attributes": [
+          {
+            "trait_type": "Species",
+            "value": "Phoenix"
+          },
+          {
+            "trait_type": "Element",
+            "value": "Fire"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Triumphant"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Crimson & Gold"
+          },
+          {
+            "trait_type": "Special Features",
+            "value": "Flame Wings, Flowing Tail"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Mountain Summit"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 98
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
         "imageIpfsHash": "bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
         "imageUri": "ipfs://bafkreiddvzsct2eywonsfnz7mucnvle5kjkbcwekeq5fbcnai2nxwo6544",
@@ -89,6 +389,43 @@
       },
       {
         "id": 4,
+        "name": "Leviathan's Awakening",
+        "collection": "Mythical Creatures",
+        "description": "Leviathan's Awakening — from the darkest trenches rises a dragon of the deep, scales like ancient jade and eyes burning with primordial fury. When it stirs, the ocean trembles and legends come alive.",
+        "attributes": [
+          {
+            "trait_type": "Species",
+            "value": "Sea Dragon"
+          },
+          {
+            "trait_type": "Element",
+            "value": "Water"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Menacing"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Teal & Golden"
+          },
+          {
+            "trait_type": "Special Features",
+            "value": "Scaled Armor, Glowing Eyes, Sharp Fangs"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Underwater Realm"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 94
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
         "imageIpfsHash": "bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
         "imageUri": "ipfs://bafkreia3cqiumgjc7flkdwlpry7wzuax2emvf4onv34as6l54kz34zn4mq",
@@ -99,6 +436,43 @@
       },
       {
         "id": 5,
+        "name": "Emerald Sprite",
+        "collection": "Mythical Creatures",
+        "description": "Emerald Sprite — guardian of forgotten forests, she weaves starlight into her hair and wraps herself in living vines. Her luminous wings shimmer with bioluminescent magic as she protects the sacred groves from mortal eyes.",
+        "attributes": [
+          {
+            "trait_type": "Species",
+            "value": "Forest Fairy"
+          },
+          {
+            "trait_type": "Element",
+            "value": "Nature"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Enchanting"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Emerald & Gold"
+          },
+          {
+            "trait_type": "Special Features",
+            "value": "Translucent Wings, Star Crown, Living Vines"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Mystical Forest"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 87
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
         "imageIpfsHash": "bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
         "imageUri": "ipfs://bafkreifcpopry76lnqnhm2sj3zyjw73wnfjiobjgfufa5knsi4rxmendpi",
@@ -114,6 +488,43 @@
     "items": [
       {
         "id": 1,
+        "name": "Lunar Reverie",
+        "collection": "Nebula",
+        "description": "Lunar Reverie — a dreamscape where the moon kisses the ocean and clouds of blue smoke drift like whispers. A solitary chair awaits beneath the stars, inviting you to sit and contemplate the infinite mysteries of the night.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Cosmic Dreamscape"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Contemplative"
+          },
+          {
+            "trait_type": "Celestial Body",
+            "value": "Full Moon"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Deep Blue & Silver"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Water, Smoke, Stars"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Night Ocean"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 75
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreictu36pymbxcp4uy5b5r6a5nlhgfpsrhroxxxmccpdcsv44bgtwt4",
         "imageIpfsHash": "bafkreictu36pymbxcp4uy5b5r6a5nlhgfpsrhroxxxmccpdcsv44bgtwt4",
         "imageUri": "ipfs://bafkreictu36pymbxcp4uy5b5r6a5nlhgfpsrhroxxxmccpdcsv44bgtwt4",
@@ -124,6 +535,43 @@
       },
       {
         "id": 2,
+        "name": "Portal of Wonders",
+        "collection": "Nebula",
+        "description": "Portal of Wonders — an impossible structure woven from ancient wood and cosmic spheres. Each colorful orb holds a universe of its own, floating freely through the gateway that bridges earth and sky.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Surreal Portal"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Mystical"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Organic Gateway"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Multicolor Spheres"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Wood, Planets, Water"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Desert Shore"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 90
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreifkxiaij33vaj5kfwfgynmor4gjdw4pnohd5khajep5nff64wiyd4",
         "imageIpfsHash": "bafkreifkxiaij33vaj5kfwfgynmor4gjdw4pnohd5khajep5nff64wiyd4",
         "imageUri": "ipfs://bafkreifkxiaij33vaj5kfwfgynmor4gjdw4pnohd5khajep5nff64wiyd4",
@@ -134,6 +582,43 @@
       },
       {
         "id": 3,
+        "name": "Sanctuary Drift",
+        "collection": "Nebula",
+        "description": "Sanctuary Drift — a floating platform suspended between water and sky, adorned with graceful arches and a single cloud tethered by invisible threads. A meditation on stillness, where reality reflects its own perfection.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Floating Architecture"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Serene"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Minimalist Platform"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Pastel Pink & Turquoise"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Cloud, Arches, Reflection"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Calm Waters"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 95
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreien3wz3245vqbqt5352xr2p6xmmx7izjuvcq2xd6vzg6rp62aemy4",
         "imageIpfsHash": "bafkreien3wz3245vqbqt5352xr2p6xmmx7izjuvcq2xd6vzg6rp62aemy4",
         "imageUri": "ipfs://bafkreien3wz3245vqbqt5352xr2p6xmmx7izjuvcq2xd6vzg6rp62aemy4",
@@ -144,6 +629,43 @@
       },
       {
         "id": 4,
+        "name": "Threshold of Dreams",
+        "collection": "Nebula",
+        "description": "Threshold of Dreams — step through endless doorways where clouds replace walls and sky becomes floor. Each frame reveals another layer of reality, dissolving the boundaries between inside and infinite.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Recursive Space"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Dreamlike"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Nested Doorways"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Soft Blue & Cream"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Clouds, Frames, Wood Floor"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Indoor Sky"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 88
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreih6lsfyvgoctx2hzpkn26omtomuccrgzlzlh7ngfllnapulmzwsni",
         "imageIpfsHash": "bafkreih6lsfyvgoctx2hzpkn26omtomuccrgzlzlh7ngfllnapulmzwsni",
         "imageUri": "ipfs://bafkreih6lsfyvgoctx2hzpkn26omtomuccrgzlzlh7ngfllnapulmzwsni",
@@ -154,6 +676,43 @@
       },
       {
         "id": 5,
+        "name": "Nature's Gateway",
+        "collection": "Nebula",
+        "description": "Nature's Gateway — where architecture surrenders to the wild. A tree grows through portals of light, bridging dimensions as ferns carpet the floors and reality blurs between room and forest, between human and earth.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Organic Invasion"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Tranquil"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Infinite Frames"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Green & White"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Tree, Ferns, Doorways"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Interior Forest"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 70
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreidewyfsih6qj3t2vg45uxjxforxaq4ocijyarirmgi25cqfye7yaa",
         "imageIpfsHash": "bafkreidewyfsih6qj3t2vg45uxjxforxaq4ocijyarirmgi25cqfye7yaa",
         "imageUri": "ipfs://bafkreidewyfsih6qj3t2vg45uxjxforxaq4ocijyarirmgi25cqfye7yaa",
@@ -169,6 +728,43 @@
     "items": [
       {
         "id": 1,
+        "name": "Midnight Vigil",
+        "collection": "Surrealism",
+        "description": "Midnight Vigil — where azure smoke dances with moonlight over endless waters. A lone chair stands witness to the celestial theater, as shooting stars trace invisible paths through the cosmic tapestry above.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Nocturnal Fantasy"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Mystical"
+          },
+          {
+            "trait_type": "Celestial Body",
+            "value": "Full Moon"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Electric Blue & Teal"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Smoke, Stars, Water, Vegetation"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Moonlit Shore"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 85
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreiamiovyqrrggofbi43my4kdgolypylt6hbrooc4qz5ijdtlno6gri",
         "imageIpfsHash": "bafkreiamiovyqrrggofbi43my4kdgolypylt6hbrooc4qz5ijdtlno6gri",
         "imageUri": "ipfs://bafkreiamiovyqrrggofbi43my4kdgolypylt6hbrooc4qz5ijdtlno6gri",
@@ -179,6 +775,43 @@
       },
       {
         "id": 2,
+        "name": "Circle of Cosmos",
+        "collection": "Surrealism",
+        "description": "Circle of Cosmos — an ancient wooden ring blooming with planetary spheres, each a world unto itself. Gravity defied, time suspended, as the gateway stands between desert and ocean, offering passage to infinite dimensions.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Dimensional Portal"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Wondrous"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Cosmic Ring"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Earth Tones & Rainbow Spheres"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Wood, Planets, Water, Sky"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Liminal Shore"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 95
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreiataxepwrz3tzdhmiv4paokiqbt76dqw4asfjfdjnn66vsdzfi5um",
         "imageIpfsHash": "bafkreiataxepwrz3tzdhmiv4paokiqbt76dqw4asfjfdjnn66vsdzfi5um",
         "imageUri": "ipfs://bafkreiataxepwrz3tzdhmiv4paokiqbt76dqw4asfjfdjnn66vsdzfi5um",
@@ -189,6 +822,43 @@
       },
       {
         "id": 3,
+        "name": "Cloud Anchor",
+        "collection": "Surrealism",
+        "description": "Cloud Anchor — a pristine platform floating between realms, where a single cumulus cloud is tethered by gossamer chains. Pastel arches frame the impossible, and reality mirrors itself in crystalline waters below.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Ethereal Architecture"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Peaceful"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Floating Sanctuary"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Iridescent Pink & Aqua"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Cloud, Arches, Stones, Reflection"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Infinite Waters"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 70
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreie23hlgf374vrcqyfpvdyqin67j774lxqr7njv2tiaynikqlugf5i",
         "imageIpfsHash": "bafkreie23hlgf374vrcqyfpvdyqin67j774lxqr7njv2tiaynikqlugf5i",
         "imageUri": "ipfs://bafkreie23hlgf374vrcqyfpvdyqin67j774lxqr7njv2tiaynikqlugf5i",
@@ -199,6 +869,43 @@
       },
       {
         "id": 4,
+        "name": "The Clouded Rooms",
+        "collection": "Surrealism",
+        "description": "The Clouded Rooms — step into recursion where walls dissolve into sky. Each doorframe reveals another layer of reality melting away, as clouds drift through wooden halls that refuse to obey the laws of space.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Interior Paradox"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Disorienting"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Nested Realities"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Sky Blue & Warm Beige"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Clouds, Frames, Light, Wood"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Impossible Interior"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Rare"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 72
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreie24mblvfmzbfipasdmoyp7au55p5caun2t7bsbjbjc3dkwmi6taa",
         "imageIpfsHash": "bafkreie24mblvfmzbfipasdmoyp7au55p5caun2t7bsbjbjc3dkwmi6taa",
         "imageUri": "ipfs://bafkreie24mblvfmzbfipasdmoyp7au55p5caun2t7bsbjbjc3dkwmi6taa",
@@ -209,6 +916,43 @@
       },
       {
         "id": 5,
+        "name": "Root & Frame",
+        "collection": "Surrealism",
+        "description": "Root & Frame — civilization surrenders as nature reclaims its throne. A towering tree bursts through infinite doorways, bringing forest floor and ferns into sterile rooms, dissolving the boundary between shelter and wilderness.",
+        "attributes": [
+          {
+            "trait_type": "Theme",
+            "value": "Nature Reclaimed"
+          },
+          {
+            "trait_type": "Mood",
+            "value": "Harmonious"
+          },
+          {
+            "trait_type": "Structure",
+            "value": "Merged Spaces"
+          },
+          {
+            "trait_type": "Color Palette",
+            "value": "Forest Green & Ivory"
+          },
+          {
+            "trait_type": "Elements",
+            "value": "Tree, Ferns, Frames, Sky"
+          },
+          {
+            "trait_type": "Environment",
+            "value": "Hybrid Realm"
+          },
+          {
+            "trait_type": "Rarity",
+            "value": "Epic"
+          },
+          {
+            "trait_type": "Rarity Score",
+            "value": 88
+          }
+        ],
         "image": "https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreifqs37w4xo235m7adwpeycljst6p4iggifz3dykv3jnrd234hndke",
         "imageIpfsHash": "bafkreifqs37w4xo235m7adwpeycljst6p4iggifz3dykv3jnrd234hndke",
         "imageUri": "ipfs://bafkreifqs37w4xo235m7adwpeycljst6p4iggifz3dykv3jnrd234hndke",

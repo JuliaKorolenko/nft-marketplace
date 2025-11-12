@@ -5,6 +5,7 @@ import { filters, sortByOptions} from '@/data/UIElements';
 
 const filter = defineModel<string>('selectedFilters');
 const sort = defineModel<string>('selectedSortBy');
+const searchQuery = defineModel<string>('searchQuery');
 
 
 const sortValue = computed(() => {
@@ -19,7 +20,12 @@ const sortValue = computed(() => {
     <div class="filters-container">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Search NFTs, collections, or creators...">
+        <input
+          placeholder="Search NFTs by name"
+          type="text"
+          v-model="searchQuery"
+        >
+        <span class="clear-icon" @click="searchQuery=''">x</span>
       </div>
       <div class="filter-group">
         <button
@@ -84,12 +90,27 @@ const sortValue = computed(() => {
     background: rgba(255, 255, 255, 0.1);
   }
 
-  .search-icon {
+  .search-icon, .clear-icon {
     position: absolute;
-    left: 16px;
     top: 50%;
     transform: translateY(-50%);
+  }
+  
+  .search-icon {
+    left: 16px;
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  .clear-icon  {
+    right: 16px;
+    font-size: large;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .clear-icon:hover {
+    opacity: 0.7;
   }
 
   .filter-group {

@@ -1,15 +1,12 @@
 
-import { ref, onMounted, computed, onUpdated, watchEffect } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import type { Ref } from 'vue';
 
 export const useGetNftData = (params:{ 
   filter: Ref<string>, 
-  sort: Ref<string>
+  sort: Ref<string>,
+  searchQuery?: Ref<string>
  }) => {
-
-  onUpdated(() => {
-    // console.log(">>> updated composable", params.filter.value, params.sort.value);
-  })
 
   onMounted(async () => {    
     await loadCollections();
@@ -26,7 +23,9 @@ export const useGetNftData = (params:{
     isLoading.value = true;    
     
     try {
-      const response = await fetch('/data/collections.json');
+      // const response = await fetch('/data/collections.json');
+      const response = await fetch('/data/flat_nft_list.json');
+
 
       if (!response.ok) {
         throw new Error('Failed to fetch collections');
@@ -45,21 +44,17 @@ export const useGetNftData = (params:{
     if (!collections.value) {
       return null;
     }
-    let filtered: any[] = [];
-
     // Apply filter
-    if (params.filter.value && params.filter.value !== 'all') {      
-      filtered = [...collections.value[params.filter.value].items];      
-    }
-    else {
-      // No filter applied, include all items from all categories
-      Object.values(collections.value).forEach((collection: any) => {
-        filtered = filtered.concat(collection.items);
+    if (params.filter.value && params.filter.value !== 'all') {
+      let res = collections.value.filter((item: any) => {
+        // console.log(">>--", item.collection.toLowerCase(), params.filter.value.toLowerCase());
+        return item.collection.toLowerCase().includes(params.filter.value.toLowerCase());
       });
-    }
+      // console.log(">>> res", res);
+      return res;
+   }
+   return collections.value;
 
-    console.log(">>> res", filtered);
-    return filtered;
   });
 
   const sortedFilteredCollection = computed(() => {
@@ -70,24 +65,30 @@ export const useGetNftData = (params:{
 
     // Apply sorting
     if (params.sort.value === 'up') {
-      sorted.sort((a, b) => a.price - b.price);
+      sorted.sort((a, b) => a.preview_price - b.preview_price);
     } else if (params.sort.value === 'down') {
-      sorted.sort((a, b) => b.price - a.price);
+      sorted.sort((a, b) => b.preview_price - a.preview_price);
     }
     return sorted;
   })
 
+  const resultCollections = computed(() => {
+    const search = (params.searchQuery?.value)?.toLowerCase()
+    let res = sortedFilteredCollection.value?.filter((item: any) => {
+      // console.log(">>> res", item.name.toLowerCase().includes(search), item.collection.toLowerCase().includes(search));
+      // return item.name.toLowerCase().includes(search) || item.collection.toLowerCase().includes(search);
+      return item.name.toLowerCase().includes(search);
+    });
 
-  // watchEffect(() => {
-  //   // console.log(">>> watchEffect composable", params.filter.value, params.sort.value);
-  //   console.log(">>> watchEffect composable", filteredCollections.value);
-  // })
+    // console.log(">>> res", res);
+    return res
+    
+  });
 
 
 
   return {
-    collections,
     isLoading,
-    sortedFilteredCollection
+    resultCollections
   };
 };
