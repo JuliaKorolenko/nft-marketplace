@@ -13,6 +13,7 @@ dotenv.config();
 // console.log("📍 Looking for collections at:", process.env.PINATA_GATEWAY, process.env.PINATA_JWT);
 // console.log("Exists?", fs.existsSync(PATHS.collections));
 
+const BASE_PRICE = 0.01
 
 const pinata = new PinataSDK({
   pinataJwt: process.env.PINATA_JWT || '',
@@ -48,7 +49,10 @@ const groupCache = new Map();
 //   }
 // }
 
-
+function getPrevPrice(rarity) {
+  const res = BASE_PRICE * (1 + rarity / 10)**2
+  return res.toFixed(4)
+}
 
 async function uploadImage(imagePath, collectionName, imageId) {
   // console.log(">> Uploading image:", imagePath, collectionName, imageId);
@@ -266,9 +270,34 @@ async function uploadCollections() {
   }
 
   // Сохраняем общий файл со всеми коллекциями
-  const allCollectionsPath = path.join(collectionsDir, 'all_collections.json');
-  fs.writeFileSync(allCollectionsPath, JSON.stringify(results, null, 2));
-  console.log(`✓ All collections data saved at ${allCollectionsPath}`);
+  // const allCollectionsPath = path.join(collectionsDir, 'all_collections.json');
+  // fs.writeFileSync(allCollectionsPath, JSON.stringify(results, null, 2));
+  // console.log(`✓ All collections data saved at ${allCollectionsPath}`);
+
+   // Создаем плоский массив всех NFT с уникальными tokenId
+  const flatNftList = [];
+  let globalTokenId = 0;
+
+  Object.entries(results).forEach(([collectionName, collectionData]) => {
+    collectionData.items.forEach((item) => {
+      const curRarity = item.attributes.find(el => el.trait_type==='Rarity Score').value;
+      const curPrice = getPrevPrice(curRarity);
+      globalTokenId++;
+
+      flatNftList.push({
+        tokenId: globalTokenId,
+        // collectionId: item.id,
+        collection: collectionName,
+        preview_price: curPrice,
+        ...item,
+      });
+      
+    });
+  });
+
+  const flatNftListPath = path.join(collectionsDir, 'flat_nft_list.json');
+  fs.writeFileSync(flatNftListPath, JSON.stringify(flatNftList, null, 2));
+  console.log(`✓ Flat NFT list saved at ${flatNftListPath}`);
 }
 
 async function testUpload() {
