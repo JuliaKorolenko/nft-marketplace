@@ -6,7 +6,7 @@ import HeroStats from '@/components/HeroStats.vue';
 import FiltersSection from '@/components/FiltersSection.vue';
 import CollectionList from '@/components/collections/CollectionList.vue';
 import Footer from '@/components/Footer.vue';
-import { type FilterValue, type SortByValue  } from '@/data/UIElements';
+import { type FilterValue, type SortByValue  } from '@/types/UIElements';
 
 const selectedFilters = ref<FilterValue>('all');
 const selectedSortBy = ref<SortByValue>('up');

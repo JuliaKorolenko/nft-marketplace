@@ -1,9 +1,24 @@
 <script setup lang="ts">
-// import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 // import { connectMetaMask, getBalance, subscribeToAccountChanges } from '@/wallet';
-import { useConnectMetamask } from '@/composables/useConnectMetamask';
+import { useWallet } from '@/composables/useWallet';
+import { useContract} from '@/composables/useContract';
 
-const { connect, account, balance, provider, chainId, isConnected } = useConnectMetamask();
+const { isConnected, account, connect } = useWallet();
+const { isContractReady, initContract, test } = useContract();
+// const contractApi = useContract();
+
+// const { 
+//     getCurItemPrice, 
+//     initContract 
+// } = contractApi;
+
+// const boundGetCurItemPrice = getCurItemPrice.bind(contractApi);
+// const boundInitContract = initContract.bind(contractApi);
+
+const realPrice = ref<number | null>(null)
+
+// getCurItemPrice()
 
 // const handleConnect = async () => {
 //   try {
@@ -12,19 +27,38 @@ const { connect, account, balance, provider, chainId, isConnected } = useConnect
 //     console.error('Error connecting wallet:', error);
 //   }
 // };
+const handleConnect = async () => {
+  try {
+    await connect()
+    await initContract()
+    await test()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// const handleGetPrice = async () => {
+//   try {
+//     await getCurItemPrice(78)
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 </script>
 <template>
   <nav class="navbar">
-    <div class="logo">NFT·MARKET</div>
+    <div class="logo">NFT·MARKET     
+      <!-- <button @click="handleGetPrice">Click</button> -->
+    </div>
+     {{ isContractReady }}
     <ul class="nav-links">
         <li><a href="#explore">Explore</a></li>
         <li><a href="#collections">Collections</a></li>
         <li><a href="#create">Create</a></li>
         <li><a href="#profile">Profile</a></li>
-        <li>{{ account, balance, provider, chainId, isConnected }}</li>
     </ul>
-    <button class="wallet-btn" @click="connect">Connect Wallet</button>
+    <button class="wallet-btn" @click="handleConnect">Connect Wallet</button>
   </nav>
 </template>
 <style scoped>
