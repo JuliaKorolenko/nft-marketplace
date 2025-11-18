@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { filters, sortByOptions} from '@/data/UIElements';
+import { filters, sortByOptions} from '@/types/UIElements';
 
 
 const filter = defineModel<string>('selectedFilters');
