@@ -1,4 +1,4 @@
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, computed } from 'vue'
 import { BrowserProvider } from 'ethers';
 import type { Signer } from 'ethers'
 
@@ -12,6 +12,10 @@ const signer = shallowRef<Signer | null>(null);
 // const address = ref<string | null>(null);
 
 export const useWallet = () => {
+
+  const getCurAddress = computed(() => {
+    return account.value ? account.value.slice(0, 6) + '...' + account.value.slice(-4) : null;
+  });
 
   const connect = async () => {
     
@@ -74,6 +78,7 @@ export const useWallet = () => {
     chainId,
     provider,
     signer,
+    getCurAddress,
     connect,
     disconnect
   }

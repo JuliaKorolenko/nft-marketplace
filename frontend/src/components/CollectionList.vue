@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import CollectionItem from './CollectionItem.vue';
+import {ref} from 'vue';
+import CollectionItem from '@/components/collectionItem/CollectionItem.vue';
 import { useGetNftData } from '@/composables/useGetNftData';
+import { useContract } from '@/composables/useContract';
 
 const filter = defineModel<string>('selectedFilters', { default: 'all'});
 const sort = defineModel<string>('selectedSortBy', { default: 'up' });
 const searchQuery = defineModel<string>('searchQuery', { default: ''});
 
 const { isLoading, resultCollections } = useGetNftData({ filter, sort, searchQuery });
+const { getCurItemPrice } = useContract();
+
 
 // console.log(">>> collections", collections.value);
 // const collectionsData = collections.value?.nfts || []
@@ -93,6 +97,14 @@ const { isLoading, resultCollections } = useGetNftData({ filter, sort, searchQue
 //     status: "On Sale",
 //   },
 // ];
+
+// const getCurItemPriceHandler = async (item: any) => {
+//   console.log(">>> click item", item);
+//   const tokenId = item.tokenId;
+//   const dataHash = item.metadataIpfsHash;
+//   const rarityScore = item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value;
+//   price.value = await getCurItemPrice({ tokenId, dataHash, rarityScore });
+// }
 </script>
 <template>
   <div class="nft-grid" id="nftGrid" v-if="resultCollections?.length">

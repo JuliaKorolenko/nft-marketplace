@@ -4,7 +4,7 @@ import NavBar from '@/components/NavBar.vue';
 import SideBar from '@/components/SideBar.vue';
 import HeroStats from '@/components/HeroStats.vue';
 import FiltersSection from '@/components/FiltersSection.vue';
-import CollectionList from '@/components/collections/CollectionList.vue';
+import CollectionList from '@/components/CollectionList.vue';
 import Footer from '@/components/Footer.vue';
 import { type FilterValue, type SortByValue  } from '@/types/UIElements';
 

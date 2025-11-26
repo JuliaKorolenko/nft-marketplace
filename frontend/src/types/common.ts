@@ -17,5 +17,9 @@ export interface NFTCard {
   preview_price?: number,
   likes: number,
   image: string,
+  metadataIpfsHash: string,
+  attributes: Array<{ trait_type: string, value: any }>,
+  tokenId: number,
+  description: string,
   status: 'Hot' | 'New' | 'Trending'
 }

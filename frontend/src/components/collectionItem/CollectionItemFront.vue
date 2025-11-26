@@ -1,61 +1,56 @@
 <script setup lang="ts">
+import { inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
-defineProps<{
-  item: NFTCard
-}>();
+
+// const props = defineProps<{
+//   item: NFTCard,
+//   isConnected: boolean,
+// }>();
+
+const item = inject<NFTCard>('nftItem')!;
+const isConnected = inject<Ref<boolean>>('isConnected')!;
 </script>
 <template>
-  <div class="nft-card">
-    <div class="nft-image-container">
-      <img
-        :src="item.image"
-        class="nft-image"
-        :alt="item.name"
-      >
-      <div class="nft-badge">On Sale</div>
-    </div>
-    <div class="nft-content">
-      <div class="nft-header">
-        <div>
-            <div class="nft-title">{{ item.name }}</div>
-            <div class="nft-collection">{{ item.collection }}</div>
-        </div>
-        <div class="nft-likes">❤️ {{ item.likes }}</div>
+<div class="front">
+  <div class="nft-image-container">
+    <img
+      :src="item.image"
+      class="nft-image"
+      :alt="item.name"
+    >
+    <div class="nft-badge">On Sale</div>
+  </div>
+  <div class="nft-content">
+    <div class="nft-header">
+      <div>
+          <div class="nft-title">{{ item.name }}</div>
+          <div class="nft-collection">{{ item.collection }}</div>
       </div>
-      <div class="nft-price-section">
-          <div>
-              <div class="price-label">
-                {{ item?.price ? 'Current Price' : 'Preview Price' }}
-              </div>
-              <div class="price-value">
-                  <svg class="eth-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"></path>
-                  </svg>
-                  {{ item.preview_price  }} ETH
-              </div>
+    </div>
+    <div class="nft-price-section">
+      <div>
+          <div class="price-label">
+              Preview Price
+          </div>
+          <div class="price-value">
+              <svg class="eth-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"></path>
+              </svg>
+              {{ item.preview_price  }} ETH 
           </div>
       </div>
-      <button class="buy-btn" onclick="buyNFT(1)">Buy Now</button>
-    </div>
   </div>
+  <button class="buy-btn" v-if="isConnected">
+    View details
+  </button>
+  <div class="info-text" v-else>To view details, please connect your wallet</div>
+  </div>
+</div>
 </template>
 <style scoped>
-  .nft-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
+  .front {
+    z-index: 2;
   }
-
-  .nft-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(102, 126, 234, 0.5);
-    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
-  }
-
   .nft-image-container {
     position: relative;
     width: 100%;
@@ -93,6 +88,7 @@ defineProps<{
 
   .nft-content {
     padding: 20px;
+    width: 100%;
   }
 
   .nft-header {
@@ -165,5 +161,11 @@ defineProps<{
   .buy-btn:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .info-text {
+    color: #989797;
+    font-size: 13px;
+    padding-top: 20px;
   }
 </style>
