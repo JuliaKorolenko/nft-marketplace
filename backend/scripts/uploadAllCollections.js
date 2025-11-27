@@ -13,7 +13,7 @@ dotenv.config();
 // console.log("📍 Looking for collections at:", process.env.PINATA_GATEWAY, process.env.PINATA_JWT);
 // console.log("Exists?", fs.existsSync(PATHS.collections));
 
-const BASE_PRICE = 0.01
+const BASE_PRICE = 0.001
 
 const pinata = new PinataSDK({
   pinataJwt: process.env.PINATA_JWT || '',
@@ -51,7 +51,7 @@ const groupCache = new Map();
 
 function getPrevPrice(rarity) {
   const res = BASE_PRICE * (1 + rarity / 10)**2
-  return res.toFixed(4)
+  return res.toFixed(2)
 }
 
 async function uploadImage(imagePath, collectionName, imageId) {
@@ -300,10 +300,10 @@ async function uploadCollections() {
   console.log(`✓ Flat NFT list saved at ${flatNftListPath}`);
 }
 
-async function testUpload() {
-  const groupsList = await pinata.groups.public.list();
-  console.log(">>>> Groups List:", groupsList);
-}
+// async function testUpload() {
+//   const groupsList = await pinata.groups.public.list();
+//   console.log(">>>> Groups List:", groupsList);
+// }
 
 uploadCollections().catch((error) => {
   console.error("Error uploading collections:", error);
@@ -312,4 +312,3 @@ uploadCollections().catch((error) => {
 // testUpload().catch((error) => {
 //   console.error("Error in test upload:", error);
 // });
-

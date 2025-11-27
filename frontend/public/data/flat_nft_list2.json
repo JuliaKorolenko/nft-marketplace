@@ -2,7 +2,7 @@
   {
     "tokenId": 1,
     "collection": "Cyberpunk",
-    "preview_price": "0.12",
+    "preview_price": "1.1664",
     "id": 1,
     "name": "Neon Muse",
     "description": "Neon Muse — born from electric dreams and coded emotions. Half-human, half-signal, she reflects the beauty of the digital age — where light replaces soul, and data whispers like poetry.",
@@ -51,7 +51,7 @@
   {
     "tokenId": 2,
     "collection": "Cyberpunk",
-    "preview_price": "0.08",
+    "preview_price": "0.7744",
     "id": 2,
     "name": "Neon Oracle",
     "description": "Neon Oracle - a sentient AI awakened in the neon depths of the city. Her eyes hold the data of countless lives, her circuits pulse with digital dreams.",
@@ -96,7 +96,7 @@
   {
     "tokenId": 3,
     "collection": "Cyberpunk",
-    "preview_price": "0.03",
+    "preview_price": "0.2809",
     "id": 3,
     "name": "Data Runner",
     "description": "Data Runner - a rebel courier who moves through the city’s digital veins. Fast, silent, and unstoppable, he carries encrypted memories of a vanished future.",
@@ -145,7 +145,7 @@
   {
     "tokenId": 4,
     "collection": "Cyberpunk",
-    "preview_price": "0.09",
+    "preview_price": "0.9025",
     "id": 4,
     "name": "Crimson Seer",
     "description": "Crimson Seer - a figure who walks the crowded neon streets with eyes hidden behind glowing red optics. She sees not the present, but streams of future data reflected in her visor — decoding fate in the pulse of the city.",
@@ -198,7 +198,7 @@
   {
     "tokenId": 5,
     "collection": "Cyberpunk",
-    "preview_price": "0.06",
+    "preview_price": "0.5625",
     "id": 5,
     "name": "Solar Pilot",
     "description": "Solar Pilot — explorer of forgotten star routes and digital horizons. Her visor reflects the glow of dying suns as she navigates through luminous data storms, guided only by instinct and code.",
@@ -251,7 +251,7 @@
   {
     "tokenId": 6,
     "collection": "Mythical Creatures",
-    "preview_price": "0.11",
+    "preview_price": "1.1236",
     "id": 1,
     "name": "Stardust Unicorn",
     "description": "Stardust Unicorn — born from cosmic light and ancient magic, this celestial being gallops through nebulae and stardust. Its spiral horn channels the energy of distant galaxies, leaving trails of purple luminescence across the void.",
@@ -300,7 +300,7 @@
   {
     "tokenId": 7,
     "collection": "Mythical Creatures",
-    "preview_price": "0.10",
+    "preview_price": "0.9801",
     "id": 2,
     "name": "Tidecaller King",
     "description": "Tidecaller King — an ancient ocean sovereign adorned with coral crown and ornate armor forged in the abyss. His glowing amber eyes pierce through deep waters, commanding tides and storms with a mere thought.",
@@ -349,7 +349,7 @@
   {
     "tokenId": 8,
     "collection": "Mythical Creatures",
-    "preview_price": "0.12",
+    "preview_price": "1.1664",
     "id": 3,
     "name": "Eternal Phoenix",
     "description": "Eternal Phoenix — reborn from flames countless times, this immortal bird spreads wings of living fire across mountain peaks. Each feather burns with the intensity of a thousand sunsets, embodying cycles of death and rebirth.",
@@ -398,7 +398,7 @@
   {
     "tokenId": 9,
     "collection": "Mythical Creatures",
-    "preview_price": "0.11",
+    "preview_price": "1.0816",
     "id": 4,
     "name": "Leviathan's Awakening",
     "description": "Leviathan's Awakening — from the darkest trenches rises a dragon of the deep, scales like ancient jade and eyes burning with primordial fury. When it stirs, the ocean trembles and legends come alive.",
@@ -447,7 +447,7 @@
   {
     "tokenId": 10,
     "collection": "Mythical Creatures",
-    "preview_price": "0.09",
+    "preview_price": "0.9409",
     "id": 5,
     "name": "Emerald Sprite",
     "description": "Emerald Sprite — guardian of forgotten forests, she weaves starlight into her hair and wraps herself in living vines. Her luminous wings shimmer with bioluminescent magic as she protects the sacred groves from mortal eyes.",
@@ -496,7 +496,7 @@
   {
     "tokenId": 11,
     "collection": "Nebula",
-    "preview_price": "0.07",
+    "preview_price": "0.7225",
     "id": 1,
     "name": "Lunar Reverie",
     "description": "Lunar Reverie — a dreamscape where the moon kisses the ocean and clouds of blue smoke drift like whispers. A solitary chair awaits beneath the stars, inviting you to sit and contemplate the infinite mysteries of the night.",
@@ -545,7 +545,7 @@
   {
     "tokenId": 12,
     "collection": "Nebula",
-    "preview_price": "0.10",
+    "preview_price": "1.0000",
     "id": 2,
     "name": "Portal of Wonders",
     "description": "Portal of Wonders — an impossible structure woven from ancient wood and cosmic spheres. Each colorful orb holds a universe of its own, floating freely through the gateway that bridges earth and sky.",
@@ -594,7 +594,7 @@
   {
     "tokenId": 13,
     "collection": "Nebula",
-    "preview_price": "0.11",
+    "preview_price": "1.1025",
     "id": 3,
     "name": "Sanctuary Drift",
     "description": "Sanctuary Drift — a floating platform suspended between water and sky, adorned with graceful arches and a single cloud tethered by invisible threads. A meditation on stillness, where reality reflects its own perfection.",
@@ -643,7 +643,7 @@
   {
     "tokenId": 14,
     "collection": "Nebula",
-    "preview_price": "0.10",
+    "preview_price": "0.9604",
     "id": 4,
     "name": "Threshold of Dreams",
     "description": "Threshold of Dreams — step through endless doorways where clouds replace walls and sky becomes floor. Each frame reveals another layer of reality, dissolving the boundaries between inside and infinite.",
@@ -692,7 +692,7 @@
   {
     "tokenId": 15,
     "collection": "Nebula",
-    "preview_price": "0.06",
+    "preview_price": "0.6400",
     "id": 5,
     "name": "Nature's Gateway",
     "description": "Nature's Gateway — where architecture surrenders to the wild. A tree grows through portals of light, bridging dimensions as ferns carpet the floors and reality blurs between room and forest, between human and earth.",
@@ -741,7 +741,7 @@
   {
     "tokenId": 16,
     "collection": "Surrealism",
-    "preview_price": "0.09",
+    "preview_price": "0.9025",
     "id": 1,
     "name": "Midnight Vigil",
     "description": "Midnight Vigil — where azure smoke dances with moonlight over endless waters. A lone chair stands witness to the celestial theater, as shooting stars trace invisible paths through the cosmic tapestry above.",
@@ -790,7 +790,7 @@
   {
     "tokenId": 17,
     "collection": "Surrealism",
-    "preview_price": "0.11",
+    "preview_price": "1.1025",
     "id": 2,
     "name": "Circle of Cosmos",
     "description": "Circle of Cosmos — an ancient wooden ring blooming with planetary spheres, each a world unto itself. Gravity defied, time suspended, as the gateway stands between desert and ocean, offering passage to infinite dimensions.",
@@ -839,7 +839,7 @@
   {
     "tokenId": 18,
     "collection": "Surrealism",
-    "preview_price": "0.06",
+    "preview_price": "0.6400",
     "id": 3,
     "name": "Cloud Anchor",
     "description": "Cloud Anchor — a pristine platform floating between realms, where a single cumulus cloud is tethered by gossamer chains. Pastel arches frame the impossible, and reality mirrors itself in crystalline waters below.",
@@ -888,7 +888,7 @@
   {
     "tokenId": 19,
     "collection": "Surrealism",
-    "preview_price": "0.07",
+    "preview_price": "0.6724",
     "id": 4,
     "name": "The Clouded Rooms",
     "description": "The Clouded Rooms — step into recursion where walls dissolve into sky. Each doorframe reveals another layer of reality melting away, as clouds drift through wooden halls that refuse to obey the laws of space.",
@@ -937,7 +937,7 @@
   {
     "tokenId": 20,
     "collection": "Surrealism",
-    "preview_price": "0.10",
+    "preview_price": "0.9604",
     "id": 5,
     "name": "Root & Frame",
     "description": "Root & Frame — civilization surrenders as nature reclaims its throne. A towering tree bursts through infinite doorways, bringing forest floor and ferns into sterile rooms, dissolving the boundary between shelter and wilderness.",

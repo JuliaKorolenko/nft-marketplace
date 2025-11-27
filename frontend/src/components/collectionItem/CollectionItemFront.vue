@@ -2,6 +2,8 @@
 import { inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
 
+const emit = defineEmits();
+
 // const props = defineProps<{
 //   item: NFTCard,
 //   isConnected: boolean,
@@ -18,7 +20,23 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
       class="nft-image"
       :alt="item.name"
     >
-    <div class="nft-badge">On Sale</div>
+    <div class="nft-badge">
+      <!-- <div>On Sale</div> -->
+      <!-- <div v-if="isConnected">Click to view details</div> -->
+      <div
+        class="info-text"
+        :class="{isActive: isConnected}"
+      >
+        <span
+          v-if="isConnected"
+          @click="emit('openCard')"
+        >
+          Click to view details
+        </span>
+        <span v-else>To view details, please connect your wallet</span>
+        <!-- {{ isConnected ? 'Click to view details' : 'To view details, please connect your wallet' }} -->
+      </div>
+    </div>
   </div>
   <div class="nft-content">
     <div class="nft-header">
@@ -40,10 +58,13 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
           </div>
       </div>
   </div>
-  <button class="buy-btn" v-if="isConnected">
-    View details
+  <button
+    class="buy-btn"
+    :class="{disabled: !isConnected}"
+    :disabled="!isConnected"
+  >
+    Buy Now
   </button>
-  <div class="info-text" v-else>To view details, please connect your wallet</div>
   </div>
 </div>
 </template>
@@ -83,7 +104,6 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
-    color: #4ade80;
   }
 
   .nft-content {
@@ -158,14 +178,22 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
     transition: all 0.3s;
   }
 
-  .buy-btn:hover {
+  .buy-btn.disabled {
+    background: rgba(102, 126, 234, 0.3);
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .buy-btn:not(.disabled):hover {
     transform: scale(1.02);
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
   }
 
   .info-text {
-    color: #989797;
-    font-size: 13px;
-    padding-top: 20px;
+    color: #cdcdcd;
+  }
+
+  .info-text.isActive {
+    color: #4ade80;
   }
 </style>

@@ -20,6 +20,4 @@
 /coverage
 
 # Environment variables
-backend/.env
-backend/.env.local
-backend/.env.*.local
+.env

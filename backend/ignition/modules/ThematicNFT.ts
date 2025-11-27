@@ -2,10 +2,11 @@ import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 import { fileURLToPath } from "url";
 import fs from 'fs';
 import path from "path";
+import { parseEther } from 'ethers'
 
 export default buildModule("ThematicNFTModule", (m) => {
   const initialAccount = m.getAccount(0);
-  const basePrice = "10000000000000000"
+  const basePrice = parseEther("0.001");
   const tokenIds = Array.from({ length: 20 }, (_, i) => i + 1);
   const rarities = [98, 78, 43, 85, 65, 96, 89, 98, 94, 87, 75, 90, 95, 88, 70, 85, 95, 70, 72, 88];
 

@@ -49,12 +49,12 @@ const flipCard = async () => {
 <template>
   <div
     class="nft-card-container"
-    :class="{ flipped: isFlipped }"    
+    :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"    
   >
     <div class="nft-card">
       <CollectionItemFront
         class="nft-card__side"
-        @click="flipCard"
+        @openCard="flipCard"
       />
       <CollectionItemBack
         class="nft-card__side"
@@ -78,7 +78,7 @@ const flipCard = async () => {
     height: 520px;
   }
 
-  .nft-card-container:hover {
+  .nft-card-container:not(.nft-card_disabled):hover {
     transform: translateY(-10px);
     border-color: rgba(102, 126, 234, 0.5);
     box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
