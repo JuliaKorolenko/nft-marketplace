@@ -13,17 +13,18 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
   // Базовый URI для метаданных
   string private _baseTokenURI;
 
-  // Счетчик токенов
+  // Счетчик заминченных токенов
   uint256 public totalSupply;
-  uint256 public maxSupply;
 
+  // Массив всех доступных tokenIds
+  uint256[] public _allTokenIds;
 
   // Маппинг tokenId → уже заминчен или нет
   mapping(uint256 => bool) public minted;
-
   mapping(uint256 => uint256) public rarityMap; // tokenId → rarity
   mapping(uint256 => string) private _tokenURIsMap; // tokenId → URI
 
+  event NFTMinted(address indexed buyer, uint256 indexed tokenId, uint256 price);
 
   constructor(
     address initialAccount,
@@ -31,13 +32,10 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     uint256[] memory tokenIds,
     string[] memory uris,
     uint256[] memory rarities
-    // string memory name,
-    // string memory symbol,
-    // uint256 _maxSupply
 
   ) ERC721URIStorage() ERC721('ThematicNFT', 'TNFT') Ownable(initialAccount) {
-    // maxSupply = _maxSupply;
-    basePrice = _basePrice;
+      basePrice = _basePrice;
+      _allTokenIds = tokenIds;
 
     // initialize token data (caller is owner at this point)
     _setTokensData(tokenIds, uris, rarities);
@@ -76,4 +74,96 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     return (_tokenURIsMap[tokenId], rarityMap[tokenId]);
   }
 
+  function mintNFT(uint256 tokenId) public payable returns (uint256) {
+    require(!minted[tokenId], "Token already minted");
+    require(bytes(_tokenURIsMap[tokenId]).length > 0, "Token ID does not exist");
+    require(totalSupply < _allTokenIds.length, "All tokens have been minted");
+
+    uint256 tokenRarity = rarityMap[tokenId];
+    uint256 price = getPrice(tokenRarity);
+
+    require(msg.value >= price, "Insufficient payment");
+
+    // Минтим токен покупателю
+    _safeMint(msg.sender, tokenId);
+    _setTokenURI(tokenId, _tokenURIsMap[tokenId]);
+
+    minted[tokenId] = true;
+    totalSupply++;
+
+    // Refund excess payment
+    if (msg.value > price) {
+      payable(msg.sender).transfer(msg.value - price);
+    }
+
+    emit NFTMinted(msg.sender, tokenId, price);
+
+    return tokenId;
+  }
+
+  /**
+  * @dev Get all tokens available for Minting
+  */
+
+  function getAvialablesTokens() public view returns (uint256[] memory) {
+    uint256 availableCount = _allTokenIds.length - totalSupply;
+    uint256[] memory available = new uint256[](availableCount);
+    uint256 index = 0;
+
+    for (uint256 i = 0; i < _allTokenIds.length && i < availableCount; i++) {
+      uint256 tokenId = _allTokenIds[i];
+
+      if (!minted[tokenId]) {
+        available[index] = tokenId;
+        index++;
+      }    }
+
+    return available;
+  }
+
+  /**
+  * @dev Get the total number of tokens in the collection
+  */
+  function maxSupply() public view returns (uint256) {
+    return _allTokenIds.length;
+  }
+
+  /**
+  * @dev Owner can withdraw funds
+  */
+  function withdraw() public onlyOwner {
+    uint256 balance = address(this).balance;
+    require(balance > 0, "No funds to withdraw");
+    payable(owner()).transfer(balance);
+  }
+
+  /**
+  * @dev Owner can update the base price
+  */
+  function setBasePrice(uint256 newBasePrice) public onlyOwner {
+    basePrice = newBasePrice;
+  }
+
+  /**
+  * @dev Get token information: URI, rarity, price, minted status
+  */
+  function getTokenInfo(uint256 tokenId) public view returns (
+    string memory uri,
+    uint256 rarity,
+    uint256 price,
+    bool isMinted
+  ) {
+    uri = _tokenURIsMap[tokenId];
+    rarity = rarityMap[tokenId];
+    price = getPrice(rarity);
+    isMinted = minted[tokenId];
+  }
+
+  receive() external payable {
+    revert("Use mintNFT(tokenId) function");
+  }
+
+  fallback() external payable {
+    revert("Use mintNFT(tokenId) function");
+  }
 }

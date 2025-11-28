@@ -8,7 +8,8 @@ import CollectionItemDescription from './CollectionItemDescription.vue';
 const emit = defineEmits();
 
 const item = inject<NFTCard>('nftItem')!;
-const price = inject<Ref<string>>('itemPrice')!;
+// const price = inject<Ref<string>>('itemPrice')!;
+const price = 0.0;
 
 const curTab = ref<string>('description');
 

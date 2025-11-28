@@ -77,24 +77,32 @@ export const useContract = () => {
     
   }
 
-  async function getCurItemPrice(obj: {tokenId: number, dataHash: string, rarityScore: number}): Promise<string> {
+  async function getCurItemInfo(tokenId: number): Promise<{ rarity: string; price: string; isMinted: boolean }> {
     if(!contract.value) {
       contract.value = await initContract()
     }
-
-    const { tokenId, dataHash, rarityScore } = obj;
-    let price = null;
-
-    const [hashFromContract, rarityFromContract] = await contract.value.getTokenData!(tokenId)
-
-    if(Number(rarityFromContract) == rarityScore && dataHash===hashFromContract) {
-      price = await contract.value.getPrice!(rarityScore);
-      // console.log(">>> price", ethers.formatEther(price));
-    }
     
-    return price ? ethers.formatEther(price) : "0";
-  }
+    // let price = null;
 
+    // const [hashFromContract, rarityFromContract] = await contract.value.getTokenData!(tokenId)
+    const tokenInfo = await contract.value.getTokenInfo!(tokenId);
+    
+    const rarity = tokenInfo[1];
+    const price = tokenInfo[2];
+    const isMinted = tokenInfo[3];
+    
+
+    // if(Number(rarityFromContract) == rarityScore && dataHash===hashFromContract) {
+    //   price = await contract.value.getPrice!(rarityScore);
+    //   console.log(">>> price", ethers.formatEther(price));
+    // }
+
+    return {
+      rarity: rarity.toString(),
+      price: price ? ethers.formatEther(price) : "0",
+      isMinted: isMinted
+    };
+  }
 
 
   // Пересоздание контракта (полезно после смены аккаунта)
@@ -109,7 +117,7 @@ export const useContract = () => {
     isContractReady,
     initContract,
     reinitContract,
-    getCurItemPrice,
+    getCurItemInfo,
     test
   }
 }

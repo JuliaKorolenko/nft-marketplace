@@ -1,16 +1,30 @@
 <script setup lang="ts">
-import { inject, type Ref } from 'vue';
+import { onMounted, computed, inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
+import { useContract } from '@/composables/useContract';
+
+const { getCurItemInfo } = useContract();
+
 
 const emit = defineEmits();
 
-// const props = defineProps<{
-//   item: NFTCard,
-//   isConnected: boolean,
-// }>();
+onMounted(async () => {
+
+});
 
 const item = inject<NFTCard>('nftItem')!;
 const isConnected = inject<Ref<boolean>>('isConnected')!;
+const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
+
+const curRarityName = computed(() => {
+  return item.attributes.find((attr: any) => attr.trait_type === 'Rarity')?.value || 'N/A';
+})
+
+const curRarityScore = computed(() => {
+  return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
+})
+
+// console.log(">>> iten", item.tokenId);
 </script>
 <template>
 <div class="front">
@@ -20,10 +34,16 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
       class="nft-image"
       :alt="item.name"
     >
-    <div class="nft-badge">
-      <!-- <div>On Sale</div> -->
+    <div class="nft-rarity-badge">{{ curRarityName }}</div>
+    <div
+      v-if="isConnected"
+      class="nft-bage nft-badge__status"
+      :class="[isItemMinted ? 'sold' : 'available']"
+    >
+      {{ isItemMinted ? 'Sold' : 'Available' }}
+      <!-- <div>Available</div> -->
       <!-- <div v-if="isConnected">Click to view details</div> -->
-      <div
+      <!-- <div
         class="info-text"
         :class="{isActive: isConnected}"
       >
@@ -34,37 +54,54 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
           Click to view details
         </span>
         <span v-else>To view details, please connect your wallet</span>
-        <!-- {{ isConnected ? 'Click to view details' : 'To view details, please connect your wallet' }} -->
-      </div>
+      </div> -->
+    </div>
+    <div
+      class="nft-bage nft-badge__flip"
+      :class="{ active: isConnected}"
+    >
+     <div class=""@click="emit('openCard')" v-if="isConnected">
+       <span>👆</span> Click for details
+     </div>
+     <div v-else>
+       To view details, please connect your wallet
+     </div>
     </div>
   </div>
   <div class="nft-content">
     <div class="nft-header">
-      <div>
+      <div class="nft-info">
           <div class="nft-title">{{ item.name }}</div>
           <div class="nft-collection">{{ item.collection }}</div>
       </div>
     </div>
-    <div class="nft-price-section">
-      <div>
-          <div class="price-label">
-              Preview Price
-          </div>
-          <div class="price-value">
-              <svg class="eth-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"></path>
-              </svg>
-              {{ item.preview_price  }} ETH 
-          </div>
+    <div class="nft-content-info">
+      <div class="nft-price-section">
+        <div class="price-label">
+            Preview Price
+        </div>
+        <div class="price-value">{{ item.preview_price  }} ETH </div>
       </div>
-  </div>
-  <button
-    class="buy-btn"
-    :class="{disabled: !isConnected}"
-    :disabled="!isConnected"
-  >
-    Buy Now
-  </button>
+      <div class="nft-price-section">
+        <div class="price-label">
+            Rarity Score
+        </div>
+        <div class="price-value">{{ curRarityScore }}</div>
+      </div>
+      <div class="nft-price-section">
+        <div class="price-label">
+            Rank
+        </div>
+        <div class="price-value">#3 of 500</div>
+      </div>
+    </div>
+    <button
+      class="buy-btn"
+      :class="{disabled: !isConnected}"
+      :disabled="!isConnected"
+    >
+      Buy Now
+    </button>
   </div>
 </div>
 </template>
@@ -94,16 +131,51 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
     transform: scale(1.1);
   }
 
-  .nft-badge {
+  .nft-bage {
     position: absolute;
-    top: 12px;
     right: 12px;
     padding: 6px 12px;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 8px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 600;    
+  }
+  
+  .nft-badge__status {
+    top: 12px;
+  }
+
+  .nft-badge__status.available {
+    color: #4ade80;
+  }
+
+  .nft-badge__status.sold {
+    color: #ff6b6b;
+  }
+
+  .nft-rarity-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .nft-badge__flip {
+    bottom: 12px;
+  }
+  .nft-badge__flip.active {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
   }
 
   .nft-content {
@@ -115,14 +187,26 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
     display: flex;
     justify-content: space-between;
     align-items: start;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .nft-content-info {
+    margin-bottom: 16px;
+  }
+
+  .nft-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 2px; */
+    margin-bottom: 4px;
+    width: 100%;
   }
 
   .nft-title {
     font-size: 18px;
     font-weight: 700;
     color: white;
-    margin-bottom: 4px;
   }
 
   .nft-collection {
@@ -130,19 +214,11 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
     color: rgba(255, 255, 255, 0.5);
   }
 
-  .nft-likes {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 13px;
-  }
-
   .nft-price-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
   }
 
   .price-label {
@@ -152,9 +228,11 @@ const isConnected = inject<Ref<boolean>>('isConnected')!;
   }
 
   .price-value {
-    font-size: 20px;
+    /* font-size: 20px; */
+    font-size: 14px;
     font-weight: 700;
-    color: white;
+    /* color: white; */
+    color: #60a5fa; 
     display: flex;
     align-items: center;
     gap: 6px;
