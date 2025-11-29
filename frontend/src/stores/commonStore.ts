@@ -2,20 +2,20 @@ import { defineStore} from 'pinia';
 
 export const useCommonStore = defineStore('commonStore', {
   state: () => ({
-    loadData: false,
     activeFilter : 'all',
+    searchQuery: '',
   }),
   getters: {
-    isLoadData: (state) => state.loadData,
     getActiveFilter: (state) => state.activeFilter,
+    getSearchQuery: (state) => state.searchQuery,
   },
   actions: {
-    setIsLoadData(val: boolean) {
-      this.loadData = val;
-    },
-
     setActiveFilter(filter: string ) {
       this.activeFilter = filter;
     },
+
+    setSearchQuery(query: string) {
+      this.searchQuery = query;
+    }
   },
 });

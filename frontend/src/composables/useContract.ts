@@ -90,6 +90,9 @@ export const useContract = () => {
     const rarity = tokenInfo[1];
     const price = tokenInfo[2];
     const isMinted = tokenInfo[3];
+
+    // console.log(">>> foo", tokenInfo);
+    
     
 
     // if(Number(rarityFromContract) == rarityScore && dataHash===hashFromContract) {

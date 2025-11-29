@@ -4,6 +4,7 @@ import { type NFTCard } from '@/types/common';
 import { useContract } from '@/composables/useContract';
 
 const { getCurItemInfo } = useContract();
+const totalQuantity = inject<Ref<number>>('totalQuantity')!;
 
 
 const emit = defineEmits();
@@ -24,7 +25,7 @@ const curRarityScore = computed(() => {
   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
 })
 
-// console.log(">>> iten", item.tokenId);
+// console.log(">>> iten", item);
 </script>
 <template>
 <div class="front">
@@ -58,7 +59,7 @@ const curRarityScore = computed(() => {
     </div>
     <div
       class="nft-bage nft-badge__flip"
-      :class="{ active: isConnected}"
+      :class="[ isConnected ? 'active' : 'not-active' ]"
     >
      <div class=""@click="emit('openCard')" v-if="isConnected">
        <span>👆</span> Click for details
@@ -92,7 +93,7 @@ const curRarityScore = computed(() => {
         <div class="price-label">
             Rank
         </div>
-        <div class="price-value">#3 of 500</div>
+        <div class="price-value">#{{ item.rank }} of {{ totalQuantity }}</div>
       </div>
     </div>
     <button
@@ -173,13 +174,23 @@ const curRarityScore = computed(() => {
     animation: pulse 2s infinite;
   }
 
+  .nft-badge__flip.not-active {
+    right: 0;
+    left: 50%;
+    width: 96%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
   @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
   }
 
   .nft-content {
-    padding: 20px;
+    padding: 8px 12px;
     width: 100%;
   }
 
@@ -187,18 +198,17 @@ const curRarityScore = computed(() => {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .nft-content-info {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .nft-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* gap: 2px; */
     margin-bottom: 4px;
     width: 100%;
   }
@@ -224,18 +234,12 @@ const curRarityScore = computed(() => {
   .price-label {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 4px;
   }
 
   .price-value {
-    /* font-size: 20px; */
     font-size: 14px;
     font-weight: 700;
-    /* color: white; */
     color: #60a5fa; 
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
 
   .eth-icon {
@@ -259,7 +263,7 @@ const curRarityScore = computed(() => {
   .buy-btn.disabled {
     background: rgba(102, 126, 234, 0.3);
     cursor: not-allowed;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .buy-btn:not(.disabled):hover {

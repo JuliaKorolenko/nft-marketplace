@@ -30,6 +30,9 @@ watch(isConnected, (newValue) => {
   }
 })
 
+// console.log(">>> item, ");
+
+
 // const getPrice = async () => {
 //   // console.log(">>> clicked item:", props.item);
 //   const tokenId = props.item.tokenId;
@@ -46,11 +49,12 @@ const flipCard = async () => {
   isFlipped.value = !isFlipped.value;
   const { isMinted } = await getCurItemInfo(props.item.tokenId);
   isItemMinted.value = isMinted;
-  console.log(">>> itemInfo", isMinted);
+  console.log(">>> isMinted", isMinted);
   // price.value = await getPrice(); 
 }
 </script>
 <template>
+  <!-- {{ item }} -->
   <div
     class="nft-card-container"
     :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"    
@@ -79,7 +83,7 @@ const flipCard = async () => {
     perspective: 1000px;
     position: relative;
     width: 100%;
-    height: 520px;
+    height: 550px;
   }
 
   .nft-card-container:not(.nft-card_disabled):hover {

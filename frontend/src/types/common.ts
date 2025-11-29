@@ -18,8 +18,9 @@ export interface NFTCard {
   likes: number,
   image: string,
   metadataIpfsHash: string,
-  attributes: Array<{ trait_type: string, value: any }>,
+  attributes: Array<{ trait_type: string, value: string | number }>,
   tokenId: number,
   description: string,
+  rank?: number,
   status: 'Hot' | 'New' | 'Trending'
 }

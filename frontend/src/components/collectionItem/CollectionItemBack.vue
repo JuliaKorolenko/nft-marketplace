@@ -42,15 +42,7 @@ provide('nftDescription', item.description);
         <button class="close-button" @click="emit('closeCard')">
             ✕
         </button>
-    </div>
-
-    <!-- Rarity Score -->
-     <!-- {{ item.attributes }} -->
-    <!-- <div class="rarity-score-card">
-        <div class="rarity-number">{{ curRank }}</div>
-        <div class="rarity-label">Rarity Score</div>
-        <div class="rarity-rank">Rank #3 of 500</div>
-    </div> -->
+    </div> 
     <div class="rarity-price-card">
       <div class="price-label">Real-time Price</div>
         <div class="price-number">{{ price }} ETH</div>
@@ -82,7 +74,7 @@ provide('nftDescription', item.description);
         </button>
     </div>
     <!-- Tab Contents -->
-    <component :is="curTabComponent" />
+    <!-- <component :is="curTabComponent" /> -->
 
     <!-- <div class="tab-content " id="traits-3">
         <div class="traits-grid">
@@ -158,7 +150,7 @@ provide('nftDescription', item.description);
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   transform: rotateY(180deg); /* Изначально повернута на 180° */
-  padding: 20px;
+  padding: 20px;  
 }
 
 .card-back {
@@ -167,8 +159,6 @@ provide('nftDescription', item.description);
   border: 1px solid rgba(255, 255, 255, 0.15);
   transform: rotateY(180deg);
   padding: 20px;
-  /* overflow-y: auto; */
-  transform: rotateY(180deg); 
 }
 
 .back-header {
