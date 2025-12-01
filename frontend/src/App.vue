@@ -9,7 +9,7 @@ import Footer from '@/components/Footer.vue';
 import { type FilterValue, type SortByValue  } from '@/types/UIElements';
 
 // const selectedFilters = ref<FilterValue>('all');
-const selectedSortBy = ref<SortByValue>('up');
+// const selectedSortBy = ref<SortByValue>('up');
 // const searchQuery = ref<string>('');
 
 </script>
@@ -19,12 +19,8 @@ const selectedSortBy = ref<SortByValue>('up');
     <NavBar />
     <SideBar />
     <HeroStats />
-    <FiltersSection
-      v-model:selectedSortBy="selectedSortBy"
-    />
-    <CollectionList
-      :selectedSortBy="selectedSortBy"
-    />
+    <FiltersSection />
+    <CollectionList />
     <Footer />
   </div>
 </template>

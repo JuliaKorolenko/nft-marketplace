@@ -8,11 +8,12 @@ const commonStore = useCommonStore();
 // import { useContract } from '@/composables/useContract';
 
 // const filter = defineModel<string>('selectedFilters', { default: 'all'});
-const sort = defineModel<string>('selectedSortBy', { default: 'up' });
+// const sort = defineModel<string>('selectedSortBy', { default: 'up' });
 // const searchQuery = defineModel<string>('searchQuery', { default: ''});
 
 const filter = computed(() => commonStore.getActiveFilter);
 const searchQuery = computed(() => commonStore.getSearchQuery);
+const sort = computed(() => commonStore.getSortBy);
 
 
 const { isLoading, getCollection, totalQuantity } = useGetNftData({ filter, sort, searchQuery });

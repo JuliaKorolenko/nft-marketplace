@@ -1,17 +1,13 @@
 
 import { ref, onMounted, computed } from 'vue';
 import type { Ref } from 'vue';
+import { type SortBy } from '@/types/UIElements';
 
 export const useGetNftData = (params:{ 
   filter?: Ref<string>, 
-  sort?: Ref<string>,
+  sort?: Ref<SortBy>,
   searchQuery?: Ref<string>
  }) => {
-// export const useGetNftData = (params:{ 
-//   filter: string, 
-//   sort?: Ref<string>,
-//   searchQuery?: Ref<string>
-//  }) => {
 
   onMounted(async () => {    
     await loadCollections();
@@ -19,9 +15,7 @@ export const useGetNftData = (params:{
 
   type CollectionMap = Record<string, any>;
   const collections = ref<CollectionMap | null>(null);
-  const isLoading = ref(false);
-
-  console.log(">>> params", params.filter);
+  const isLoading = ref(false);  
   
 
   const loadCollections = async() => {
@@ -48,7 +42,7 @@ export const useGetNftData = (params:{
     }
   };
 
-  const filteredCollections = computed(() => {
+  const filteredCollections = computed(() => {    
     if (!collections.value) {
       return null;
     }
@@ -70,12 +64,16 @@ export const useGetNftData = (params:{
       return null;
     }
     let sorted = [...filteredCollections.value];
+    
+    const sortValue = params?.sort?.value.value;
 
-    // Apply sorting
-    if (params?.sort?.value === 'up') {
+    if (sortValue === 'asc') {      
       sorted.sort((a, b) => a.preview_price - b.preview_price);
-    } else if (params?.sort?.value === 'down') {
+    } else if (sortValue === 'desc') {
       sorted.sort((a, b) => b.preview_price - a.preview_price);
+    }
+    else {
+      return filteredCollections.value
     }
     return sorted;
   })
@@ -135,8 +133,8 @@ export const useGetNftData = (params:{
     }
 
     return scores
-      .sort((a, b) => a.originalIndex - b.originalIndex)
-      .map(item => item.nft);
+      .sort((a: { originalIndex: number }, b: { originalIndex: number }) => a.originalIndex - b.originalIndex)
+      .map((item: { nft: any; score: number; originalIndex: number }) => item.nft);
   });
 
   return {
