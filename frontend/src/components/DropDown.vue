@@ -2,9 +2,8 @@
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { filters } from '@/types/UIElements';
-import { useCommonStore } from '@/stores/commonStore';
 
-const commonStore = useCommonStore();
+const curFilter = defineModel<string>();
 
 const isShown = ref<boolean>(false);
 const dropdownRef = ref(null)
@@ -14,10 +13,8 @@ onClickOutside(dropdownRef, () => {
 });
 
 const setCurrentFilter = (filterValue: string) => {
-  commonStore.setActiveFilter(filterValue);
+  curFilter.value = filterValue
 };
-
-
 </script>
 <template>
   <div class="filter-dropdown">
@@ -29,7 +26,7 @@ const setCurrentFilter = (filterValue: string) => {
         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
       </svg>
       <span class="filter-label">
-        {{ commonStore.getActiveFilter }}
+        {{ curFilter }}
       </span>
       <svg
         class="icon chevron"
@@ -46,7 +43,7 @@ const setCurrentFilter = (filterValue: string) => {
     >
       <button
         class="dropdown-item"
-        :class="{ active: commonStore.getActiveFilter === value.value }"
+        :class="{ active: curFilter === value.value }"
         @click="setCurrentFilter(value.value)"
         v-for="value in filters"
       >

@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useCommonStore } from '@/stores/commonStore';
+const searchQuery = defineModel<string>();
 
-const commonStore = useCommonStore();
-
-const searchQuery = computed<string>({
-  get() {
-    return commonStore.getSearchQuery;
-  },
-  set(value: string) {
-    commonStore.setSearchQuery(value);
-  }
-});
+// const searchQuery = computed<string>({
+//   get() {
+//     return commonStore.getSearchQuery;
+//   },
+//   set(value: string) {
+//     commonStore.setSearchQuery(value);
+//   }
+// });
 </script>
 <template>
   <div class="search-box">

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-// import { filters, sortByOptions} from '@/types/UIElements';
 import { useCommonStore } from '@/stores/commonStore';
 import DropDown from '@/components/DropDown.vue';
 import Search from '@/components/Search.vue';
@@ -8,10 +7,14 @@ import SortButton from '@/components/sort/SortButton.vue';
 
 const store = useCommonStore()
 
-
-// const selectedFilters = defineModel<string>('selectedFilters');
-// const sort = defineModel<string>('selectedSortBy');
-// const searchQuery = defineModel<string>('searchQuery');
+const searchQuery = computed({
+  get() {
+    return store.getSearchQuery;
+  },
+  set(val) {
+    store.setSearchQuery(val);
+  }
+})
 
 const sortByOptions = computed({
   get(){
@@ -22,33 +25,24 @@ const sortByOptions = computed({
   }
 })
 
-
-
-
-
-// const sortValue = computed(() => {
-//   return sortByOptions.find(option => option.value === sort.value)?.label || '';
-// });
-
-// const sortByPrice = computed(() => {
-//   return sort.value === 'price_asc' ? 'asc' : sort.value === 'price_desc' ? 'desc' : null;
-// });
-
-// const sortByRating = computed(() => {
-//   return sort.value === 'rating_asc' ? 'asc' : sort.value === 'rating_desc' ? 'desc' : null;
-// });
-
-
-// sort 'desc' / 'asc'
-
-
+const filterOption = computed({
+  get() {
+    return store.getActiveFilter;
+  },
+  set(val) {
+    store.setActiveFilter(val);
+  }
+})
 </script>
-
 <template>
   <div class="filters-section">
     <div class="filters-container">
-      <Search />
-      <DropDown />
+      <Search
+        v-model="searchQuery"
+      />
+      <DropDown
+        v-model="filterOption"
+      />
       <SortButton
         type="price"
         v-model="sortByOptions"
@@ -57,48 +51,6 @@ const sortByOptions = computed({
         type="rating"
         v-model="sortByOptions"
       />
-
-      
-
-
-
-
-      <!-- Sort by Price -->
-
-
-      <!-- Sort by Rating -->
-      <!-- <button class="sort-btn" id="sortRatingBtn" title="Sort by Rating">
-        <svg class="icon" viewBox="0 0 24 24">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
-        <span class="sort-arrow" id="ratingSortArrow">
-          
-        </span>
-      </button> -->
-
-
-
-
-
-      <!-- <div class="filter-group">
-        <button
-          class="filter-btn"
-          :class="{'active': filter===value.value}"
-          v-for="value in filters"
-          :key="value.label"
-          @click="filter = value.value"
-        >
-        {{ value.label }}
-        </button>
-      </div> -->
-      <!-- <div class="filter-group">
-        <button
-          class="filter-btn"
-          @click="sort === 'up' ? sort = 'down' : sort = 'up'"
-        >
-          {{ sortValue }}
-        </button>
-      </div> -->
     </div>
   </div>
 </template>

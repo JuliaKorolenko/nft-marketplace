@@ -17,31 +17,6 @@ export const useGetNftData = (params:{
   const collections = ref<CollectionMap | null>(null);
   const isLoading = ref(false);  
   
-
-  const loadCollections = async() => {
-    if(collections.value) {
-      return collections.value;
-    };
-    isLoading.value = true;    
-    
-    try {
-      // const response = await fetch('/data/collections.json');
-      const response = await fetch('/data/flat_nft_list.json');
-
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch collections');
-      }
-      collections.value = await response.json();
-
-    } catch (err) {
-      console.error('Error loading collections:', err);
-
-    } finally {
-      isLoading.value = false;
-    }
-  };
-
   const filteredCollections = computed(() => {    
     if (!collections.value) {
       return null;
@@ -67,14 +42,24 @@ export const useGetNftData = (params:{
     
     const sortValue = params?.sort?.value.value;
 
-    if (sortValue === 'asc') {      
-      sorted.sort((a, b) => a.preview_price - b.preview_price);
+    let sorted_key = '';
+
+    if(sortValue) {
+      sorted_key = params?.sort?.value.type==='price' ? 'preview_price' : 'score';
+    }
+
+
+    if (sortValue === 'asc') {
+      sorted.sort((a, b) => a[sorted_key] - b[sorted_key]);
+
     } else if (sortValue === 'desc') {
-      sorted.sort((a, b) => b.preview_price - a.preview_price);
+      sorted.sort((a, b) => b[sorted_key] - a[sorted_key]);
     }
     else {
       return filteredCollections.value
     }
+
+    // console.log(">>> sort", sorted);
     return sorted;
   })
 
@@ -86,60 +71,81 @@ export const useGetNftData = (params:{
     }
     else {
       res = sortedFilteredCollection.value?.filter((item: any) => {
-        // console.log(">>> res", item.name.toLowerCase().includes(search), item.collection.toLowerCase().includes(search));
-        // return item.name.toLowerCase().includes(search) || item.collection.toLowerCase().includes(search);
         return item.name.toLowerCase().includes(search);
       });
     }
 
-    // console.log(">>> res", res);
+    // console.log(">>> searchedSortedFilteredCollection", res);
     return res;
     
   });
 
   const totalQuantity = computed(() => 
-    searchedSortedFilteredCollection.value?.length ?? 0
+    collections.value?.length ?? 0
   );
 
-  const getCollection = computed(() => {
-    if(!searchedSortedFilteredCollection.value) {
+  const loadCollections = async() => {
+    if(collections.value) {
+      
+      return collections.value;
+    };
+    isLoading.value = true;    
+    
+    try {
+      // const response = await fetch('/data/collections.json');
+      const response = await fetch('/data/flat_nft_list.json');
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch collections');
+      }
+      // collections.value = await response.json();
+
+      let res = await response.json();
+
+
+      const scored = res?.map((item: any, index: number) => {
+        const rarityScoreAttr = item.attributes.find((attr: any) => attr.trait_type === "Rarity Score");        
+        return {
+          score: rarityScoreAttr ? Number(rarityScoreAttr.value) : 0,
+          originalIndex: index,
+          ...item
+        };
+      });
+
+      collections.value = setRank(scored)
+
+    } catch (err) {
+      console.error('Error loading collections:', err);
+
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const setRank = (arr: any[]) => {
+    if(!arr) {
       return null;
     }
-
-    const scores = searchedSortedFilteredCollection.value
-      .map((nft: any, index: number) => {
-      const rarityScoreAttr = nft.attributes.find((attr: any) => attr.trait_type === "Rarity Score");
-      return {
-        nft: nft,
-        score: rarityScoreAttr ? Number(rarityScoreAttr.value) : 0,
-        originalIndex: index
-      };
-    });
-
-    const sorted = [...scores].sort((a, b) => b.score - a.score);
+    const curArr = [...arr];
+    const sorted = [...curArr].sort((a, b) => b.score - a.score);
 
     let currentRank = 1;
-    for (let i = 0; i < sorted.length; i++) {
-      // console.log(">>> if", scores[i]?.score);
-      const currentItem = sorted[i];
-      const prevItem = sorted[i - 1];
-      
-      if (i > 0 && currentItem && prevItem && currentItem.score < prevItem.score) {
-        currentRank = i + 1;
-      }
-      if (currentItem) {
-        currentItem.nft.rank = currentRank;
-      }
-    }
+    let lastScore = sorted[0]?.score;
 
-    return scores
-      .sort((a: { originalIndex: number }, b: { originalIndex: number }) => a.originalIndex - b.originalIndex)
-      .map((item: { nft: any; score: number; originalIndex: number }) => item.nft);
-  });
+    sorted.forEach((item) => {
+      if (item.score !== lastScore) {
+        currentRank++;    // новый уникальный score → следующий ранг
+        lastScore = item.score;
+      }
+      item.rank = currentRank;
+    });
+
+    return curArr;
+  }
 
   return {
     isLoading,
     totalQuantity,
-    getCollection,
+    getCollection: searchedSortedFilteredCollection,
   };
 };
