@@ -3,7 +3,7 @@ import { onMounted, computed, inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
 import { useContract } from '@/composables/useContract';
 
-const { getCurItemInfo } = useContract();
+const { BuyToken } = useContract();
 const totalQuantity = inject<Ref<number>>('totalQuantity')!;
 
 
@@ -16,6 +16,7 @@ onMounted(async () => {
 const item = inject<NFTCard>('nftItem')!;
 const isConnected = inject<Ref<boolean>>('isConnected')!;
 const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
+const itemPrice = inject<string>('itemPrice')!;
 
 const curRarityName = computed(() => {
   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity')?.value || 'N/A';
@@ -24,6 +25,19 @@ const curRarityName = computed(() => {
 const curRarityScore = computed(() => {
   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
 })
+
+const BuyTokenHandler = async () => {
+  try {
+    await BuyToken(item.tokenId, itemPrice)
+
+    // console.log(">>> t", itemPrice.value);
+    
+
+  } catch(e) {
+    console.log(">>> BuyToken Error", e);
+    
+  }
+}
 
 // console.log(">>> iten", item);
 </script>
@@ -42,20 +56,6 @@ const curRarityScore = computed(() => {
       :class="[isItemMinted ? 'sold' : 'available']"
     >
       {{ isItemMinted ? 'Sold' : 'Available' }}
-      <!-- <div>Available</div> -->
-      <!-- <div v-if="isConnected">Click to view details</div> -->
-      <!-- <div
-        class="info-text"
-        :class="{isActive: isConnected}"
-      >
-        <span
-          v-if="isConnected"
-          @click="emit('openCard')"
-        >
-          Click to view details
-        </span>
-        <span v-else>To view details, please connect your wallet</span>
-      </div> -->
     </div>
     <div
       class="nft-bage nft-badge__flip"
@@ -100,6 +100,7 @@ const curRarityScore = computed(() => {
       class="buy-btn"
       :class="{disabled: !isConnected}"
       :disabled="!isConnected"
+      @click="BuyTokenHandler"
     >
       Buy Now
     </button>

@@ -5,11 +5,35 @@ import type { Signer } from 'ethers'
 const isConnected = ref(false)
 const account = ref<string | null>(null)
 const balance = ref<string | null>(null)
-const chainId = ref<number | null>(null)
+// const chainId = ref<number | string | null>(null)
 
 const provider = shallowRef<BrowserProvider | null>(null)
 const signer = shallowRef<Signer | null>(null);
-// const address = ref<string | null>(null);
+const curNetwork = ref<string | null>(null);
+
+const NETWORKS: Record<number, string> = {
+  1:      "Ethereum Mainnet",
+  5:      "Goerli Testnet",
+  11155111: "Sepolia Testnet",
+
+  137:    "Polygon Mainnet",
+  80001:  "Polygon Mumbai",
+
+  56:     "BNB Smart Chain Mainnet",
+  97:     "BNB Testnet",
+
+  10:     "Optimism",
+  420:    "Optimism Goerli",
+
+  42161:  "Arbitrum One",
+  421613: "Arbitrum Goerli",
+
+  8453:   "Base Mainnet",
+  84531:  "Base Goerli",
+
+  43114:  "Avalanche C-Chain",
+  43113:  "Avalanche Fuji Testnet"
+}
 
 export const useWallet = () => {
 
@@ -34,18 +58,15 @@ export const useWallet = () => {
       const _address = await _signer.getAddress();
 
       const _network = await _provider.getNetwork();
-      chainId.value = Number(_network.chainId);
+      const _chainId = Number(_network.chainId);
 
       provider.value = _provider;
       signer.value = _signer;
       account.value = _address;
-      // chainId.value = Number(_network.chainId);
       // balance.value = formatEther(_balance);
       isConnected.value = true;
 
-      // isConnected.value = true;
-
-      // console.log("✅ Wallet connected:", account.value)
+      curNetwork.value = _chainId === 31337 ? "Hardhat Local" : NETWORKS[_chainId] ?? null;
 
       // const bal = await provider.value.getBalance(account.value!)
       // let balance = formatEther(bal);
@@ -75,7 +96,7 @@ export const useWallet = () => {
     isConnected,
     account,
     balance,
-    chainId,
+    curNetwork,
     provider,
     signer,
     getCurAddress,

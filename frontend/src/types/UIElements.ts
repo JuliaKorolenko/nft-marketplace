@@ -22,3 +22,10 @@ export interface SortBy {
   type: SortByType;
   value: SortByValue;
 }
+
+export const nftDetail = [
+  { label: 'Contract Address', value: 'contract_address' },
+  { label: 'Token ID', value: 'token_id' },
+  { label: 'Token Standart', value: 'token_standart' },
+  { label: 'Blockchain', value: 'blockchain' },
+]

@@ -15,16 +15,7 @@ const filter = computed(() => commonStore.getActiveFilter);
 const searchQuery = computed(() => commonStore.getSearchQuery);
 const sort = computed(() => commonStore.getSortBy);
 
-
 const { isLoading, getCollection, totalQuantity } = useGetNftData({ filter, sort, searchQuery });
-
-// const totalQuantity = computed(() => {
-//   console.log(">>> cmp", resultCollections.value?.length);
-  
-//   return resultCollections.value?.length;
-// });
-
-// const { getCurItemPrice } = useContract();
 
 provide('totalQuantity', totalQuantity);
 </script>

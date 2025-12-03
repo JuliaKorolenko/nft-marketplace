@@ -104,7 +104,7 @@ export const useGetNftData = (params:{
 
 
       const scored = res?.map((item: any, index: number) => {
-        const rarityScoreAttr = item.attributes.find((attr: any) => attr.trait_type === "Rarity Score");        
+        const rarityScoreAttr = item.attributes.find((attr: any) => attr.trait_type === "Rarity Score");
         return {
           score: rarityScoreAttr ? Number(rarityScoreAttr.value) : 0,
           originalIndex: index,

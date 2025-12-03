@@ -8,8 +8,7 @@ import CollectionItemDescription from './CollectionItemDescription.vue';
 const emit = defineEmits();
 
 const item = inject<NFTCard>('nftItem')!;
-// const price = inject<Ref<string>>('itemPrice')!;
-const price = 0.0;
+const price = inject<Ref<string>>('itemPrice')!;
 
 const curTab = ref<string>('description');
 
@@ -26,10 +25,6 @@ const curTabComponent = computed(() => {
       return null;
     }   
   });
-
-// const curRank = computed(() => {
-//   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
-// })
 
 provide('nftTraits', item.attributes);
 provide('nftDescription', item.description);
@@ -74,7 +69,7 @@ provide('nftDescription', item.description);
         </button>
     </div>
     <!-- Tab Contents -->
-    <!-- <component :is="curTabComponent" /> -->
+    <component :is="curTabComponent" />
 
     <!-- <div class="tab-content " id="traits-3">
         <div class="traits-grid">

@@ -18,9 +18,9 @@ const traits = inject<any[]>('nftTraits')!;
 .details-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   width: 100%;
-  padding-right: 5px;
+  padding-right: 7px;
   overflow-y: auto;
   /* scrollbar-width: thin;          /* Firefox */
   /* scrollbar-color: #888 #eee;  */

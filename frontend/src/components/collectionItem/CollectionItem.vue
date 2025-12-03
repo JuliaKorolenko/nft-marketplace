@@ -1,64 +1,59 @@
 <script setup lang="ts">
-import { ref, computed, watch, provide  } from 'vue';
+import { ref, watch, provide  } from 'vue';
 import { useContract } from '@/composables/useContract';
 import { useWallet } from '@/composables/useWallet';
 import { type NFTCard } from '@/types/common';
+
 import CollectionItemFront from '@/components/collectionItem/CollectionItemFront.vue';
 import CollectionItemBack from '@/components/collectionItem/CollectionItemBack.vue';
 
-const { isConnected, getCurAddress, chainId, connect, disconnect } = useWallet();
+const { isConnected } = useWallet();
 
-const { getCurItemInfo } = useContract();
+const { getCurItemInfo, getItemDetail } = useContract();
 
-const price = ref<string>("");
+const itemPprice = ref<string>("");
 const isFlipped = ref<boolean>(false);
 const isItemMinted = ref<boolean>(false); 
+const itemDetail = ref<object | null>(null);
+// const bigPrice = ref<number | null>(null)
 
 const props = defineProps<{
   item: NFTCard,
 }>();
 
 provide('nftItem', props.item);
-// provide('itemPrice', price);
+provide('itemPrice', itemPprice);
 provide('isConnected', isConnected);
 provide('isItemMinted', isItemMinted);
+provide('itemDetail', itemDetail);
 
-watch(isConnected, (newValue) => {  
+watch(isConnected, async (newValue) => {  
   if(!newValue) {
     isFlipped.value = false;
-    price.value = "";
+    itemPprice.value = "";
+    isItemMinted.value = false;
   }
+  else {
+    const { price, isMinted } = await getCurItemInfo(props.item.tokenId);
+    itemDetail.value = await getItemDetail(props.item.tokenId)
+    isItemMinted.value = isMinted;
+    itemPprice.value = price;
+  }
+  
 })
 
-// console.log(">>> item, ");
-
-
-// const getPrice = async () => {
-//   // console.log(">>> clicked item:", props.item);
-//   const tokenId = props.item.tokenId;
-//   const dataHash = props.item.metadataIpfsHash;
-//   const rarityScore = props.item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value;
-//   // console.log(">>> test", tokenId, dataHash, rarityScore);
-  
-//   return await getCurItemInfo(props.item.tokenId);
-// }
 
 const flipCard = async () => {
   if (!isConnected.value) return isFlipped.value = false;
-  console.log(">>> flipCard", isConnected.value);
   isFlipped.value = !isFlipped.value;
-  const { isMinted } = await getCurItemInfo(props.item.tokenId);
-  isItemMinted.value = isMinted;
-  console.log(">>> isMinted", isMinted);
-  // price.value = await getPrice(); 
 }
 </script>
 <template>
-  <!-- {{ item }} -->
   <div
-    class="nft-card-container"
-    :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"    
+  class="nft-card-container"
+  :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"
   >
+  {{ isItemMinted }}
     <div class="nft-card">
       <CollectionItemFront
         class="nft-card__side"
