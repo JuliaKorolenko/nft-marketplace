@@ -1,15 +1,34 @@
 <script setup lang="ts">
-import { computed, provide } from 'vue';
+import { onMounted, watch, computed, provide } from 'vue';
 import CollectionItem from '@/components/collectionItem/CollectionItem.vue';
 import { useGetNftData } from '@/composables/useGetNftData';
-import { useCommonStore } from '@/stores/commonStore';
+import { useCommonStore } from '@/stores/useCommonStore';
+import { useNftStore } from '@/stores/useNftStore';
+import { useContract } from '@/composables/useContract';
+import { useWallet } from '@/composables/useWallet';
 
 const commonStore = useCommonStore();
-// import { useContract } from '@/composables/useContract';
+const nftStore = useNftStore()
+
+const { isConnected } = useWallet();
+const { fetchAvailableTokens, fetchAllTokenIds } = useContract()
 
 // const filter = defineModel<string>('selectedFilters', { default: 'all'});
 // const sort = defineModel<string>('selectedSortBy', { default: 'up' });
 // const searchQuery = defineModel<string>('searchQuery', { default: ''});
+
+// onMounted(() => {
+//   if(!isConnected) {
+//     listenToMintEvents()
+//   }
+// })
+
+
+watch(isConnected, async (newValue) => {
+  if(newValue) {
+    await initNftStatuses()
+  }
+})
 
 const filter = computed(() => commonStore.getActiveFilter);
 const searchQuery = computed(() => commonStore.getSearchQuery);
@@ -18,6 +37,38 @@ const sort = computed(() => commonStore.getSortBy);
 const { isLoading, getCollection, totalQuantity } = useGetNftData({ filter, sort, searchQuery });
 
 provide('totalQuantity', totalQuantity);
+
+async function initNftStatuses() {
+  const availableTokens: bigint[] = await fetchAvailableTokens();
+  const allTokens: bigint[] = await fetchAllTokenIds();
+
+  console.log(">>> tokens", availableTokens);
+  console.log(">>> allTokens", allTokens);
+
+  allTokens.forEach((tokenId) => {
+    const isMinted = !availableTokens.some(t => t === tokenId);
+    nftStore.setNftStatus(Number(tokenId), {
+      status: isMinted,
+      owner: null,
+      price: null,
+    });
+  });
+  
+
+  // for(let i=0; i<totalQuantity.value; i++) {
+  //   nftStore.setNftStatus(i, {
+  //     status: !tokens.map(t => Number(t)).includes(i),
+  //     owner: null,
+  //     price: null
+  //   });
+
+  // }
+  
+
+
+  console.log(">>>> nftStatuses", nftStore.nftStatuses);
+  
+}
 </script>
 <template>
   <div class="nft-grid" id="nftGrid" v-if="getCollection?.length">

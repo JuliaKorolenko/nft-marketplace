@@ -1,6 +1,7 @@
-import { ref, computed, onMounted } from 'vue'
-import { ethers, Contract, TransactionReceipt, Log, parseEther } from 'ethers'
+import { ref, computed } from 'vue'
+import { ethers, Contract, TransactionReceipt, type Log } from 'ethers'
 import { useWallet } from './useWallet'
+import { useNftStore } from "@/stores/useNftStore";
 import ThematicNFT from '@/contractData/ThematicNFT.json'
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
@@ -9,17 +10,13 @@ const contract = ref<Contract | null>(null)
 
 export const useContract = () => {
   const { signer, provider, curNetwork, isConnected } = useWallet()
+  const nftStore = useNftStore()  
 
   const wallet = useWallet()
 
   const isContractReady = computed(() => {
     return isConnected.value && contract.value !== null && signer.value !== null
   })
-
-  // const contractAddress = computed(() => {
-  //   const hidden_address = CONTRACT_ADDRESS.slice(0, 6) + '...' + CONTRACT_ADDRESS.slice(-4);
-  //   return isContractReady.value ? hidden_address : null;
-  // }) 
 
   const initContract = async (): Promise<Contract> => {
     // Проверяем наличие signer
@@ -58,26 +55,6 @@ export const useContract = () => {
 //   // return contract.value;
 // }
 
-  async function test() {
-    // console.log("=== DETAILED DEBUG ===")
-    // console.log("wallet.signer:", wallet.signer)
-    // console.log("wallet.signer.value:", wallet.signer.value)
-    // console.log("typeof wallet.signer.value:", typeof wallet.signer.value)
-    // console.log("wallet.signer.value constructor:", wallet.signer.value?.constructor.name)
-    // let contract = await initContract()
-    if(!contract.value) {
-      contract.value = await initContract()
-    }
-    console.log(">>> test", contract.value);
-
-    let data = await contract.value.getTokenData!(2)
-    let res =  await contract.value.getPrice!(78)
-
-    console.log(">>> test data", data[0], data[1]);
-    console.log(">>> test price", ethers.formatEther(res));
-    
-  }
-
   async function getCurItemInfo(tokenId: number): Promise<{ rarity: string; price: string; realPrice: bigint; isMinted: boolean }> {
     if(!contract.value) {
       contract.value = await initContract()
@@ -111,7 +88,23 @@ export const useContract = () => {
     };
   }
 
-  async function BuyToken(tokenId: number, curPrice: string) {
+  async function fetchAvailableTokens() {
+    if(!contract.value) {
+      contract.value = await initContract()
+    }
+    return await contract.value.getAvailableTokens!()
+    // console.log(">>> fetchAvailableTokens", contract.value);
+    
+  }
+
+  async function fetchAllTokenIds() {
+    if(!contract.value) {
+      contract.value = await initContract()
+    }
+    return await contract.value.getAllTokenIds!()
+  }
+
+  async function BuyToken(tokenId: number) {
     if(!contract.value) {
       contract.value = await initContract()
     }
@@ -126,30 +119,72 @@ export const useContract = () => {
     const receipt: TransactionReceipt = await tx.wait()  // ждём 1 блок подтверждения
 
     console.log(">>>> tx confirmed", receipt);
-
-    receipt.logs.forEach((log: Log) => {
+    
+    const iface = new ethers.Interface(ThematicNFT.abi)
+    
+    receipt.logs.forEach((log) => {
+      // console.log(">>>> logs", log);
       try {
-        const parsed = contract.value?.interface.parseLog(log)
+        const parsed = iface.parseLog(log)
+        // console.log(">>>> log name", parsed?.name);
         if (parsed?.name === "NFTMinted") {
-          const { to, tokenId, price } = parsed.args
-          console.log({
+          const [ to, tokenId, price ] = parsed.args;
+
+          console.log(">>> Minted!", to, tokenId, price); 
+          nftStore.handleMintEvent(
             to,
-            tokenId: tokenId.toString(),
-            price: price.toString()
-          })
+            Number(tokenId),
+            price.toString()
+          )
         }
-      } catch (e) {
-        // игнорируем логи, которые не удалось распарсить
-      }
+
+      } catch(e) {}
+
+      
+      // try {
+      //   const parsed = contract.value?.interface.parseLog(log)
+        
+
+      //   if (parsed?.name === "NFTMinted") {
+      //     const { to, tokenId, price } = parsed.args
+      //     console.log("Minted!", {
+      //       to,
+      //       tokenId: tokenId.toString(),
+      //       price: price.toString()
+      //     })
+      //   }
+      // } catch (e) {
+      //   // игнорируем логи, которые не удалось распарсить
+      // }
     })
 
-    // contract.value.on('NFTMinted', (to, tokenId, price) => {
-    //   console.log(">>>> Token minted!", { to, tokenId, price});
-      
-    // })
+    return receipt
+  }
 
-    
-    
+  async function listenToMintEvents() {
+    if(!contract.value) {
+      contract.value = await initContract()
+    }
+    // const filter = contract.value?.filters.NFTMinted!();
+    const iface = new ethers.Interface(ThematicNFT.abi)
+
+    provider.value?.on({ address: contract.value.getAddress()}, (log) => {
+      try {
+        const parsed = iface.parseLog(log)
+
+        if (parsed?.name === "NFTMinted") {
+          const { to, tokenId, price} = parsed.args;
+
+          console.log(">>> Minted!"); 
+          nftStore.handleMintEvent(
+            to,
+            Number(tokenId),
+            price.toString()
+          )
+        }
+
+      } catch(e) {}
+    })
   }
 
   // Пересоздание контракта (полезно после смены аккаунта)
@@ -166,7 +201,9 @@ export const useContract = () => {
     initContract,
     reinitContract,
     getCurItemInfo,
+    fetchAvailableTokens,
     BuyToken,
-    test
+    listenToMintEvents,
+    fetchAllTokenIds
   }
 }

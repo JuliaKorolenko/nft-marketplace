@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useWallet } from '@/composables/useWallet';
 
-const { isConnected, getCurAddress, chainId, connect, disconnect } = useWallet();
+const { isConnected, getCurAddress, curNetwork, connect, disconnect } = useWallet();
 
 const handleConnect = async () => {
   try {
@@ -46,7 +46,7 @@ const handleConnect = async () => {
           </div>
           <div class="wallet-item">
             <span class="wallet-label">Network:</span>
-            <span class="wallet-value wallet-network">{{ chainId }}</span>
+            <span class="wallet-value wallet-network">{{ curNetwork }}</span>
           </div>
           <div class="status-dot status-connected"></div>
         </template>

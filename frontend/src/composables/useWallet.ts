@@ -5,7 +5,7 @@ import type { Signer } from 'ethers'
 const isConnected = ref(false)
 const account = ref<string | null>(null)
 const balance = ref<string | null>(null)
-// const chainId = ref<number | string | null>(null)
+const chainId = ref<number | string | null>(null)
 
 const provider = shallowRef<BrowserProvider | null>(null)
 const signer = shallowRef<Signer | null>(null);
@@ -85,9 +85,9 @@ export const useWallet = () => {
     isConnected.value = false
     account.value = null
     balance.value = null
-    chainId.value = null
     provider.value = null
     signer.value = null
+    chainId.value = null
   }
 
 

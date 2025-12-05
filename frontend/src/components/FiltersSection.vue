@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useCommonStore } from '@/stores/commonStore';
+import { useCommonStore } from '@/stores/useCommonStore';
 import DropDown from '@/components/DropDown.vue';
 import Search from '@/components/Search.vue';
 import SortButton from '@/components/sort/SortButton.vue';

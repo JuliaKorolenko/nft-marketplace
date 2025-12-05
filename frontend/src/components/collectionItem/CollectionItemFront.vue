@@ -2,8 +2,11 @@
 import { onMounted, computed, inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
 import { useContract } from '@/composables/useContract';
+import { useNftStore } from '@/stores/useNftStore';
 
 const { BuyToken } = useContract();
+const nftStore = useNftStore();
+
 const totalQuantity = inject<Ref<number>>('totalQuantity')!;
 
 
@@ -15,8 +18,12 @@ onMounted(async () => {
 
 const item = inject<NFTCard>('nftItem')!;
 const isConnected = inject<Ref<boolean>>('isConnected')!;
-const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
-const itemPrice = inject<string>('itemPrice')!;
+// const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
+// const itemPrice = inject<string>('itemPrice')!;
+
+const isItemMinted = computed(() => {
+  return nftStore.isNftMinted(item.tokenId)
+})
 
 const curRarityName = computed(() => {
   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity')?.value || 'N/A';
@@ -28,7 +35,7 @@ const curRarityScore = computed(() => {
 
 const BuyTokenHandler = async () => {
   try {
-    await BuyToken(item.tokenId, itemPrice)
+    await BuyToken(item.tokenId)
 
     // console.log(">>> t", itemPrice.value);
     
@@ -39,7 +46,7 @@ const BuyTokenHandler = async () => {
   }
 }
 
-// console.log(">>> iten", item);
+console.log(">>> iten", isItemMinted.value);
 </script>
 <template>
 <div class="front">

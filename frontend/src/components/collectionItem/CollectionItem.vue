@@ -3,45 +3,36 @@ import { ref, watch, provide  } from 'vue';
 import { useContract } from '@/composables/useContract';
 import { useWallet } from '@/composables/useWallet';
 import { type NFTCard } from '@/types/common';
-
 import CollectionItemFront from '@/components/collectionItem/CollectionItemFront.vue';
 import CollectionItemBack from '@/components/collectionItem/CollectionItemBack.vue';
 
 const { isConnected } = useWallet();
-
 const { getCurItemInfo, getItemDetail } = useContract();
-
-const itemPprice = ref<string>("");
-const isFlipped = ref<boolean>(false);
-const isItemMinted = ref<boolean>(false); 
-const itemDetail = ref<object | null>(null);
-// const bigPrice = ref<number | null>(null)
 
 const props = defineProps<{
   item: NFTCard,
 }>();
 
+const itemPprice = ref<string>("");
+const isFlipped = ref<boolean>(false);
+const itemDetail = ref<object | null>(null);
+
 provide('nftItem', props.item);
 provide('itemPrice', itemPprice);
 provide('isConnected', isConnected);
-provide('isItemMinted', isItemMinted);
 provide('itemDetail', itemDetail);
 
 watch(isConnected, async (newValue) => {  
   if(!newValue) {
     isFlipped.value = false;
     itemPprice.value = "";
-    isItemMinted.value = false;
   }
   else {
-    const { price, isMinted } = await getCurItemInfo(props.item.tokenId);
-    itemDetail.value = await getItemDetail(props.item.tokenId)
-    isItemMinted.value = isMinted;
+    const { price } = await getCurItemInfo(props.item.tokenId);
+    itemDetail.value = await getItemDetail(props.item.tokenId);
     itemPprice.value = price;
-  }
-  
+  }  
 })
-
 
 const flipCard = async () => {
   if (!isConnected.value) return isFlipped.value = false;
@@ -53,7 +44,6 @@ const flipCard = async () => {
   class="nft-card-container"
   :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"
   >
-  {{ isItemMinted }}
     <div class="nft-card">
       <CollectionItemFront
         class="nft-card__side"

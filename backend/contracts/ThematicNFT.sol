@@ -25,6 +25,7 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
   mapping(uint256 => string) private _tokenURIsMap; // tokenId → URI
 
   event NFTMinted(address indexed buyer, uint256 indexed tokenId, uint256 price);
+  event BasePriceUpdated(uint256 oldPrice, uint256 newPrice);
 
   constructor(
     address initialAccount,
@@ -105,20 +106,94 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
   * @dev Get all tokens available for Minting
   */
 
-  function getAvialablesTokens() public view returns (uint256[] memory) {
-    uint256 availableCount = _allTokenIds.length - totalSupply;
+  // function getAvialablesTokens() public view returns (uint256[] memory) {
+  //   uint256 availableCount = _allTokenIds.length - totalSupply;
+  //   uint256[] memory available = new uint256[](availableCount);
+  //   uint256 index = 0;
+
+  //   for (uint256 i = 0; i < _allTokenIds.length && i < availableCount; i++) {
+  //     uint256 tokenId = _allTokenIds[i];
+
+  //     if (!minted[tokenId]) {
+  //       available[index] = tokenId;
+  //       index++;
+  //     }    }
+
+  //   return available;
+  // }
+
+  function getAvailableTokens() public view returns (uint256[] memory) {
+    uint256 availableCount = 0;
+
+    // Считаем, сколько доступных токенов
+    for (uint256 i = 0; i < _allTokenIds.length; i++) {
+        if (!minted[_allTokenIds[i]]) {
+            availableCount++;
+        }
+    }
+
     uint256[] memory available = new uint256[](availableCount);
     uint256 index = 0;
 
-    for (uint256 i = 0; i < _allTokenIds.length && i < availableCount; i++) {
-      uint256 tokenId = _allTokenIds[i];
-
-      if (!minted[tokenId]) {
-        available[index] = tokenId;
-        index++;
-      }    }
+    // Заполняем массив только доступными токенами
+    for (uint256 i = 0; i < _allTokenIds.length; i++) {
+        uint256 tokenId = _allTokenIds[i];
+        if (!minted[tokenId]) {
+            available[index] = tokenId;
+            index++;
+        }
+    }
 
     return available;
+  }
+
+  function getAllTokenIds() public view returns (uint256[] memory) {
+    return _allTokenIds;
+ }
+
+ function getAllTokensInfo() 
+    public 
+    view 
+    returns (
+        uint256[] memory tokenIds,
+        string[] memory uris,
+        uint256[] memory rarities,
+        uint256[] memory prices,
+        bool[] memory mintedStatuses
+    ) 
+  {
+      uint256 length = _allTokenIds.length;
+
+      tokenIds = new uint256[](length);
+      uris = new string[](length);
+      rarities = new uint256[](length);
+      prices = new uint256[](length);
+      mintedStatuses = new bool[](length);
+
+      for (uint256 i = 0; i < length; i++) {
+          uint256 id = _allTokenIds[i];
+
+          tokenIds[i] = id;
+          uris[i] = _tokenURIsMap[id];
+          rarities[i] = rarityMap[id];
+          prices[i] = getPrice(rarityMap[id]);
+          mintedStatuses[i] = minted[id];
+      }
+  }
+
+  function getMintedTokens() public view returns (uint256[] memory) {
+    uint256 count = totalSupply;
+    uint256[] memory result = new uint256[](count);
+    uint256 index = 0;
+
+    for (uint256 i = 0; i < _allTokenIds.length; i++) {
+        uint256 id = _allTokenIds[i];
+        if (minted[id]) {
+            result[index] = id;
+            index++;
+        }
+    }
+    return result;
   }
 
   /**
@@ -141,7 +216,9 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
   * @dev Owner can update the base price
   */
   function setBasePrice(uint256 newBasePrice) public onlyOwner {
+    uint256 old = basePrice;
     basePrice = newBasePrice;
+    emit BasePriceUpdated(old, newBasePrice);
   }
 
   /**
@@ -158,6 +235,11 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     price = getPrice(rarity);
     isMinted = minted[tokenId];
   }
+
+  function isTokenMinted(uint256 tokenId) public view returns (bool) {
+    return minted[tokenId];
+  }
+
 
   receive() external payable {
     revert("Use mintNFT(tokenId) function");
