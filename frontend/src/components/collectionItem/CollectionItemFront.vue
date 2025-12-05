@@ -26,12 +26,12 @@ const isItemMinted = computed(() => {
 })
 
 const curRarityName = computed(() => {
-  return item.attributes.find((attr: any) => attr.trait_type === 'Rarity')?.value || 'N/A';
+  return item.attributes.find((attr: any) => attr.name === 'Rarity')?.value || 'N/A';
 })
 
-const curRarityScore = computed(() => {
-  return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
-})
+// const curRarityScore = computed(() => {
+//   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
+// })
 
 const BuyTokenHandler = async () => {
   try {
@@ -46,34 +46,33 @@ const BuyTokenHandler = async () => {
   }
 }
 
-console.log(">>> iten", isItemMinted.value);
+// console.log(">>> iten", isItemMinted.value);
 </script>
 <template>
 <div class="front">
   <div class="nft-image-container">
     <img
-      :src="item.image"
+      :src="item.imgUrl"
       class="nft-image"
       :alt="item.name"
     >
     <div class="nft-rarity-badge">{{ curRarityName }}</div>
     <div
-      v-if="isConnected"
       class="nft-bage nft-badge__status"
-      :class="[isItemMinted ? 'sold' : 'available']"
+      :class="[item.isMinted ? 'sold' : 'available']"
     >
-      {{ isItemMinted ? 'Sold' : 'Available' }}
+      {{ item.isMinted ? 'Sold' : 'Available' }}
     </div>
     <div
-      class="nft-bage nft-badge__flip"
-      :class="[ isConnected ? 'active' : 'not-active' ]"
-    >
-     <div class=""@click="emit('openCard')" v-if="isConnected">
+      class="nft-bage nft-badge__flip active"
+      >
+      <!-- :class="[ isConnected ? 'active' : 'not-active' ]" -->
+     <div class=""@click="emit('openCard')">
        <span>👆</span> Click for details
      </div>
-     <div v-else>
+     <!-- <div v-else>
        To view details, please connect your wallet
-     </div>
+     </div> -->
     </div>
   </div>
   <div class="nft-content">
@@ -94,13 +93,14 @@ console.log(">>> iten", isItemMinted.value);
         <div class="price-label">
             Rarity Score
         </div>
-        <div class="price-value">{{ curRarityScore }}</div>
+        <div class="price-value">{{ item.rarity }}</div>
       </div>
       <div class="nft-price-section">
         <div class="price-label">
             Rank
         </div>
-        <div class="price-value">#{{ item.rank }} of {{ totalQuantity }}</div>
+        <!-- <div class="price-value">#{{ item?.rank ? item?.rank : 56 }} of {{ totalQuantity }}</div> -->
+        <div class="price-value">#4 of {{ totalQuantity }}</div>
       </div>
     </div>
     <button

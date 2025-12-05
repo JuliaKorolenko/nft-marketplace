@@ -35,15 +35,16 @@ watch(isConnected, async (newValue) => {
 })
 
 const flipCard = async () => {
-  if (!isConnected.value) return isFlipped.value = false;
+  // if (!isConnected.value) return isFlipped.value = false;
   isFlipped.value = !isFlipped.value;
 }
 </script>
 <template>
   <div
   class="nft-card-container"
-  :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }"
+  :class="{ flipped: isFlipped }"
   >
+  <!-- :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }" -->
     <div class="nft-card">
       <CollectionItemFront
         class="nft-card__side"

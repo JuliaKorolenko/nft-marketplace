@@ -14,13 +14,26 @@ export interface NFTCard {
   name: string,
   collection: string,
   price: number,
-  preview_price?: number,
-  likes: number,
-  image: string,
-  metadataIpfsHash: string,
-  attributes: Array<{ trait_type: string, value: string | number }>,
+  // preview_price?: number,
+  // likes: number,
+  imgUrl: string,
+  // metadataIpfsHash: string,
+  attributes: Array<{ name: string, value: string | number }>,
   tokenId: number,
   description: string,
-  rank?: number,
-  status: 'Hot' | 'New' | 'Trending'
+  rarity: number,
+  isMinted: boolean,
+  // rank?: number,
+  // status: 'Hot' | 'New' | 'Trending'
+}
+
+export interface Collection {
+  tokenId: number,
+  uri: string,
+  rarity: number,
+  price: number,
+  attributes?: object[],
+  isMinted: boolean,
+  name: string,
+  description: string
 }

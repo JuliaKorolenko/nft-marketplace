@@ -1,34 +1,45 @@
 <script setup lang="ts">
-import { onMounted, watch, computed, provide } from 'vue';
+import { ref, onMounted, watch, computed, provide } from 'vue';
 import CollectionItem from '@/components/collectionItem/CollectionItem.vue';
 import { useGetNftData } from '@/composables/useGetNftData';
 import { useCommonStore } from '@/stores/useCommonStore';
 import { useNftStore } from '@/stores/useNftStore';
 import { useContract } from '@/composables/useContract';
 import { useWallet } from '@/composables/useWallet';
+import { useThematicNFT } from '@/composables/useThematicNFT'
+import { type NFTCard } from '@/types/common'
 
 const commonStore = useCommonStore();
 const nftStore = useNftStore()
 
 const { isConnected } = useWallet();
-const { fetchAvailableTokens, fetchAllTokenIds } = useContract()
+// const { fetchAvailableTokens, fetchAllTokenIds } = useContract()
+const { fetchAllTokens, fetchAllTokenIds, fetchAvailableTokens, getCollectionsData } = useThematicNFT()
 
 // const filter = defineModel<string>('selectedFilters', { default: 'all'});
 // const sort = defineModel<string>('selectedSortBy', { default: 'up' });
 // const searchQuery = defineModel<string>('searchQuery', { default: ''});
+const collectionData = ref<NFTCard[] | null>(null)
 
-// onMounted(() => {
-//   if(!isConnected) {
-//     listenToMintEvents()
+onMounted(async () => {
+  // let res1 = await fetchAllTokens()
+  // let res2 = await fetchAllTokenIds()
+  // let res3 = await fetchAvailableTokens()
+  collectionData.value = await getCollectionsData()
+  // console.log(">>>> ress 1", res1);
+  // console.log(">>>> ress 2", res2);
+  console.log(">>>> ress 4", collectionData.value);
+
+  // https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreictgdjrvs4m5xbdohymdath6a6zl4roekj7rxu6726noo65mgq7ge/image
+  
+})
+
+
+// watch(isConnected, async (newValue) => {
+//   if(newValue) {
+//     await initNftStatuses()
 //   }
 // })
-
-
-watch(isConnected, async (newValue) => {
-  if(newValue) {
-    await initNftStatuses()
-  }
-})
 
 const filter = computed(() => commonStore.getActiveFilter);
 const searchQuery = computed(() => commonStore.getSearchQuery);
@@ -38,42 +49,42 @@ const { isLoading, getCollection, totalQuantity } = useGetNftData({ filter, sort
 
 provide('totalQuantity', totalQuantity);
 
-async function initNftStatuses() {
-  const availableTokens: bigint[] = await fetchAvailableTokens();
-  const allTokens: bigint[] = await fetchAllTokenIds();
+// async function initNftStatuses() {
+//   const availableTokens: bigint[] = await fetchAvailableTokens();
+//   const allTokens: bigint[] = await fetchAllTokenIds();
 
-  console.log(">>> tokens", availableTokens);
-  console.log(">>> allTokens", allTokens);
+//   console.log(">>> tokens", availableTokens);
+//   console.log(">>> allTokens", allTokens);
 
-  allTokens.forEach((tokenId) => {
-    const isMinted = !availableTokens.some(t => t === tokenId);
-    nftStore.setNftStatus(Number(tokenId), {
-      status: isMinted,
-      owner: null,
-      price: null,
-    });
-  });
+//   allTokens.forEach((tokenId) => {
+//     const isMinted = !availableTokens.some(t => t === tokenId);
+//     nftStore.setNftStatus(Number(tokenId), {
+//       status: isMinted,
+//       owner: null,
+//       price: null,
+//     });
+//   });
   
 
-  // for(let i=0; i<totalQuantity.value; i++) {
-  //   nftStore.setNftStatus(i, {
-  //     status: !tokens.map(t => Number(t)).includes(i),
-  //     owner: null,
-  //     price: null
-  //   });
+//   // for(let i=0; i<totalQuantity.value; i++) {
+//   //   nftStore.setNftStatus(i, {
+//   //     status: !tokens.map(t => Number(t)).includes(i),
+//   //     owner: null,
+//   //     price: null
+//   //   });
 
-  // }
+//   // }
   
 
 
-  console.log(">>>> nftStatuses", nftStore.nftStatuses);
+//   console.log(">>>> nftStatuses", nftStore.nftStatuses);
   
-}
+// }
 </script>
 <template>
-  <div class="nft-grid" id="nftGrid" v-if="getCollection?.length">
+  <div class="nft-grid" v-if="collectionData?.length">
     <CollectionItem
-      v-for="item in getCollection"
+      v-for="item in collectionData"
       :key="item.name"
       :item="item"
     />
