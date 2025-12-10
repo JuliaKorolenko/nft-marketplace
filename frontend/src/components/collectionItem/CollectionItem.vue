@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, watch, provide  } from 'vue';
-import { useContract } from '@/composables/useContract';
+import { ref, watch, provide, onMounted, computed  } from 'vue';
+
 import { useWallet } from '@/composables/useWallet';
 import { type NFTCard } from '@/types/common';
 import CollectionItemFront from '@/components/collectionItem/CollectionItemFront.vue';
 import CollectionItemBack from '@/components/collectionItem/CollectionItemBack.vue';
 
 const { isConnected } = useWallet();
-const { getCurItemInfo, getItemDetail } = useContract();
+
 
 const props = defineProps<{
   item: NFTCard,
@@ -15,24 +15,39 @@ const props = defineProps<{
 
 const itemPprice = ref<string>("");
 const isFlipped = ref<boolean>(false);
-const itemDetail = ref<object | null>(null);
+// const itemDetail = ref<object | null>(null);
 
-provide('nftItem', props.item);
-provide('itemPrice', itemPprice);
+// provide('nftItem', props.item);
+// provide('itemPrice', props.item.price);
 provide('isConnected', isConnected);
-provide('itemDetail', itemDetail);
 
-watch(isConnected, async (newValue) => {  
-  if(!newValue) {
-    isFlipped.value = false;
-    itemPprice.value = "";
-  }
-  else {
-    const { price } = await getCurItemInfo(props.item.tokenId);
-    itemDetail.value = await getItemDetail(props.item.tokenId);
-    itemPprice.value = price;
-  }  
-})
+
+// watch(isConnected, async (newValue) => {  
+//   if(!newValue) {
+//     isFlipped.value = false;
+//     itemPprice.value = "";
+//   }
+//   else {
+//     const { price } = await getCurItemInfo(props.item.tokenId);
+//     itemDetail.value = await getItemDetail(props.item.tokenId);
+//     itemPprice.value = price;
+    
+//   }  
+// })
+
+// onMounted( async () => {
+//   let test = await getCurItemInfo(props.item.tokenId)
+//   console.log(">>> test", test);
+
+// })
+
+// const itemDetail = computed(async () => {
+//   return await getItemDetail(props.item.tokenId)
+// })
+
+// provide('itemDetail', itemDetail);
+
+
 
 const flipCard = async () => {
   // if (!isConnected.value) return isFlipped.value = false;
@@ -45,13 +60,16 @@ const flipCard = async () => {
   :class="{ flipped: isFlipped }"
   >
   <!-- :class="{ flipped: isFlipped, 'nft-card_disabled': !isConnected }" -->
+   <!-- {{  item.price }} -->
     <div class="nft-card">
       <CollectionItemFront
         class="nft-card__side"
+        :item="item"
         @openCard="flipCard"
       />
       <CollectionItemBack
         class="nft-card__side"
+        :item="item"
         @closeCard="flipCard"
       />
     </div>

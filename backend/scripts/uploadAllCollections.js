@@ -186,6 +186,7 @@ async function processCollection(collectionPath) {
       // Добавляем данные об изображении в метаданные
       const nftMetadata = {
         name: item.name,
+        collection: collectionName,
         description: item.description,
         image: `ipfs://${imageData.ipfsHash}`,
         external_url: imageData.imageUrl,

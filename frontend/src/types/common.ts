@@ -23,7 +23,7 @@ export interface NFTCard {
   description: string,
   rarity: number,
   isMinted: boolean,
-  // rank?: number,
+  rank: number,
   // status: 'Hot' | 'New' | 'Trending'
 }
 

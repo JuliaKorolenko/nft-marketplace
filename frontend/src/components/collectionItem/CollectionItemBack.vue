@@ -1,143 +1,98 @@
 <script setup lang="ts">
-import { ref, provide, inject, type Ref, computed } from 'vue';
+  import { ethers } from 'ethers';
+import { ref, watch, provide, inject, type Ref, computed } from 'vue';
+import type { Component } from 'vue';
 import { type NFTCard } from '@/types/common';
+import { useThematicNFT } from '@/composables/useThematicNFT';
 import CollectionItemTraits from './CollectionItemTraits.vue';
 import CollectionItemDetails from './CollectionItemDetails.vue';
 import CollectionItemDescription from './CollectionItemDescription.vue';
 
 const emit = defineEmits();
 
-const item = inject<NFTCard>('nftItem')!;
-const price = inject<Ref<string>>('itemPrice')!;
+const props = defineProps<{
+  item: NFTCard,
+}>();
 
-const curTab = ref<string>('description');
+const { getItemDetail } = useThematicNFT();
 
-const curTabComponent = computed(() => {
-  // return curTab.value === 'traits' ? CollectionItemTraits : CollectionItemDetails;
-  switch (curTab.value) {
-    case 'description':
-      return CollectionItemDescription;
-    case 'traits':
-      return CollectionItemTraits;
-    case 'details':
-      return CollectionItemDetails;
-    default:
-      return null;
-    }   
-  });
+type Tab = 'description' | 'traits' | 'details'
+const TABS: { key: Tab; label: string }[] = [
+  { key: 'description', label: 'Description' },
+  { key: 'traits', label: 'Traits' },
+  { key: 'details', label: 'Details' }
+]
 
-provide('nftTraits', item.attributes);
-provide('nftDescription', item.description);
+const tabComponentMap: Record<Tab, Component> = {
+  description: CollectionItemDescription,
+  traits: CollectionItemTraits,
+  details: CollectionItemDetails,
+}
+const curTab = ref<Tab>('description');
+const details = ref<object | null>(null)
+const loadingDetails = ref<boolean>(false)
+
+watch(curTab, async (tab) => {
+  if(tab === 'details') {
+    await loadDetailsOnce(props.item.tokenId)    
+  }
+})
+
+const curTabComponent = computed(() => tabComponentMap[curTab.value])
+
+const curPrice = computed(() => {
+  return Number(ethers.formatEther(props.item.price));
+})
+
+async function loadDetailsOnce(tokenId: number) {
+  if (details.value || loadingDetails.value) return
+
+  loadingDetails.value = true
+  try {
+    details.value = await getItemDetail(tokenId)
+    
+  } finally {
+    loadingDetails.value = false
+  }  
+}
+
+provide('nftTraits', props.item.attributes);
+provide('nftDescription', props.item.description);
+
+provide('nftDetails', details)
+provide('nftDetailsIsLoad', loadingDetails)
 
 </script>
 <template>
 <div class="card-back">
-    <div class="back-header">
-        <div class="back-title">{{ item.name }}</div>
-        <button class="close-button" @click="emit('closeCard')">
-            ✕
-        </button>
+  <div class="back-header">
+    <div class="back-title">{{ item.name }}</div>
+    <button class="close-button" @click="emit('closeCard')">
+        ✕
+    </button>
     </div> 
     <div class="rarity-price-card">
       <div class="price-label">Real-time Price</div>
-        <div class="price-number">{{ price }} ETH</div>
+        <div class="price-number">{{ curPrice }} ETH</div>
         <div class="price-info">Calculated via smart contract</div>
     </div>
 
     <!-- Tabs -->
     <div class="tabs">
-        <button
-          @click="curTab = 'description'"
-          class="tab"
-          :class="{ active: curTab === 'description' }"
-        >
-          Description
-        </button>
-        <button
-          @click="curTab = 'traits'"
-          class="tab"
-          :class="{ active: curTab === 'traits' }"
-        >
-          Traits
-        </button>
-        <button
-          @click="curTab = 'details'"
-          class="tab"
-          :class="{ active: curTab === 'details' }"
-        >
-          Details
-        </button>
+      <button
+        v-for="tab in TABS"
+        :key="tab.key"
+        @click="curTab = tab.key"
+        class="tab"
+        :class="{ active: curTab === tab.key }"
+      >
+        {{ tab.label }}
+      </button>
     </div>
     <!-- Tab Contents -->
-    <component :is="curTabComponent" />
-
-    <!-- <div class="tab-content " id="traits-3">
-        <div class="traits-grid">
-            <div class="trait-card">
-                <div class="trait-type">Flower Type</div>
-                <div class="trait-value">Orchid</div>
-                <div class="trait-rarity">
-                    <span class="rarity-percent">4%</span>
-                    <div class="rarity-bar">
-                        <div class="rarity-fill" style="width: 40%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="trait-card">
-                <div class="trait-type">Color</div>
-                <div class="trait-value">Rainbow</div>
-                <div class="trait-rarity">
-                    <span class="rarity-percent">1%</span>
-                    <div class="rarity-bar">
-                        <div class="rarity-fill" style="width: 10%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="trait-card">
-                <div class="trait-type">Effect</div>
-                <div class="trait-value">Magic Aura</div>
-                <div class="trait-rarity">
-                    <span class="rarity-percent">0.9%</span>
-                    <div class="rarity-bar">
-                        <div class="rarity-fill" style="width: 9%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="trait-card">
-                <div class="trait-type">Art Style</div>
-                <div class="trait-value">3D Render</div>
-                <div class="trait-rarity">
-                    <span class="rarity-percent">10%</span>
-                    <div class="rarity-bar">
-                        <div class="rarity-fill" style="width: 10%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="tab-content active" id="details-3">
-        <div class="details-list">
-            <div class="detail-row">
-                <span class="detail-label">Token ID</span>
-                <span class="detail-value">567</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Owner</span>
-                <span class="detail-value">0x8a3c...9f21</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Contract</span>
-                <a href="#" class="detail-link" onclick="event.stopPropagation()">
-                    0x742d...5e38 ↗
-                </a>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Blockchain</span>
-                <span class="detail-value">Sepolia</span>
-            </div>
-        </div>
-    </div> -->
+     <keep-alive>
+       <component :is="curTabComponent" />
+     </keep-alive>
 </div>
 </template>
 <style scoped>

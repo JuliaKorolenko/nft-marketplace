@@ -67,6 +67,9 @@ export const useContract = () => {
     const price = tokenInfo[2];
     const isMinted = tokenInfo[3];
 
+    // console.log(">>> rrr", price);
+    
+
     return {
       rarity: rarity.toString(),
       price: price ? ethers.formatEther(price) : "0",

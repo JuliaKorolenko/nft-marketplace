@@ -14,7 +14,7 @@ const nftStore = useNftStore()
 
 const { isConnected } = useWallet();
 // const { fetchAvailableTokens, fetchAllTokenIds } = useContract()
-const { fetchAllTokens, fetchAllTokenIds, fetchAvailableTokens, getCollectionsData } = useThematicNFT()
+// const { fetchAllTokens, fetchAllTokenIds, fetchAvailableTokens, getCollectionsData } = useThematicNFT()
 
 // const filter = defineModel<string>('selectedFilters', { default: 'all'});
 // const sort = defineModel<string>('selectedSortBy', { default: 'up' });
@@ -25,14 +25,17 @@ onMounted(async () => {
   // let res1 = await fetchAllTokens()
   // let res2 = await fetchAllTokenIds()
   // let res3 = await fetchAvailableTokens()
-  collectionData.value = await getCollectionsData()
+  // collectionData.value = await getCollectionsData()
   // console.log(">>>> ress 1", res1);
   // console.log(">>>> ress 2", res2);
-  console.log(">>>> ress 4", collectionData.value);
+  // console.log(">>>> ress 4", collectionData.value);
 
   // https://emerald-elegant-scorpion-153.mypinata.cloud/ipfs/bafkreictgdjrvs4m5xbdohymdath6a6zl4roekj7rxu6726noo65mgq7ge/image
   
 })
+
+
+
 
 
 // watch(isConnected, async (newValue) => {
@@ -48,6 +51,8 @@ const sort = computed(() => commonStore.getSortBy);
 const { isLoading, getCollection, totalQuantity } = useGetNftData({ filter, sort, searchQuery });
 
 provide('totalQuantity', totalQuantity);
+
+console.log(">>> ress", getCollection);
 
 // async function initNftStatuses() {
 //   const availableTokens: bigint[] = await fetchAvailableTokens();
@@ -82,9 +87,9 @@ provide('totalQuantity', totalQuantity);
 // }
 </script>
 <template>
-  <div class="nft-grid" v-if="collectionData?.length">
+  <div class="nft-grid" v-if="getCollection?.length">
     <CollectionItem
-      v-for="item in collectionData"
+      v-for="item in getCollection"
       :key="item.name"
       :item="item"
     />

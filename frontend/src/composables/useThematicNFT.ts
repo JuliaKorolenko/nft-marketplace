@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { Contract, JsonRpcProvider, BrowserProvider, Log, ethers } from "ethers";
 import { type Collection } from '@/types/common'
 import ThematicNFT from '@/contractData/ThematicNFT.json'
+import { useWallet } from './useWallet'
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 const RPC_ADDRESS = import.meta.env.VITE_RPC_ADDRESS;
@@ -16,7 +17,35 @@ const publicContract = new Contract(CONTRACT_ADDRESS, ThematicNFT.abi, publicPro
 const walletProvider = ref<BrowserProvider | null>(null);
 const signerContract = ref<Contract | null>(null);
 
+const curNetwork = ref<string | null>(null);
+const isConnected = ref<boolean>(false)
+
+const NETWORKS: Record<number, string> = {
+  1:      "Ethereum Mainnet",
+  5:      "Goerli Testnet",
+  11155111: "Sepolia Testnet",
+
+  137:    "Polygon Mainnet",
+  80001:  "Polygon Mumbai",
+
+  56:     "BNB Smart Chain Mainnet",
+  97:     "BNB Testnet",
+
+  10:     "Optimism",
+  420:    "Optimism Goerli",
+
+  42161:  "Arbitrum One",
+  421613: "Arbitrum Goerli",
+
+  8453:   "Base Mainnet",
+  84531:  "Base Goerli",
+
+  43114:  "Avalanche C-Chain",
+  43113:  "Avalanche Fuji Testnet"
+}
+
 export function useThematicNFT() {
+    // const { signer, provider, curNetwork, isConnected, connect } = useWallet()
 
   const walletAddress = ref<string | null>(null);
   const loading = ref(false);
@@ -36,6 +65,12 @@ export function useThematicNFT() {
     walletAddress.value = signer.address;
 
     signerContract.value = new Contract(CONTRACT_ADDRESS, ThematicNFT.abi, signer);
+    const _network = await walletProvider.value.getNetwork();
+    const _chainId = Number(_network.chainId);
+
+    isConnected.value = true;
+
+    curNetwork.value = _chainId === 31337 ? "Hardhat Local" : NETWORKS[_chainId] ?? null;
   }
 
   async function getCollectionsData() {
@@ -49,7 +84,6 @@ export function useThematicNFT() {
         // const imgUrl = await fetchImageUrl(url)
         const response = await fetch(metadataUrl);
         const metadata = await response.json();
-        // console.log(">>> metadata", metadata);
 
         const imgUrl = metadata.image?.replace("ipfs://", BASE_URL) || "";
 
@@ -61,7 +95,7 @@ export function useThematicNFT() {
         const name = metadata.name || ''
         const description = metadata.description || ''
 
-        // console.log(">>> imgUrl", el.tokenId);
+        // console.log(">>> imgUrl", el);
         return {
           id,
           tokenId: el.tokenId,
@@ -92,11 +126,28 @@ export function useThematicNFT() {
       tokenId: Number(id),
       uri: uris[index],
       rarity: Number(rarities[index]),
-      price: Number(prices[index]),
+      price: prices[index],
       isMinted: mintedStatuses[index],
     }));
 
     return tokens
+  }
+
+  async function getItemDetail(tokenId: number) {
+
+    // const _network = await publicProvider.getNetwork();
+    // const _chainId = Number(_network.chainId);
+    const { chainId } = await publicProvider.getNetwork()
+    const curNetwork = Number(chainId) === 31337 ? "Hardhat Local" : NETWORKS[Number(chainId)] ?? `Unknown (${chainId})`;
+
+    const hidden_address = CONTRACT_ADDRESS.slice(0, 6) + '...' + CONTRACT_ADDRESS.slice(-4);
+    return {
+      contract_address: hidden_address,
+      token_id: `#${tokenId}`,
+      token_standart: 'ERC-721',
+      blockchain: curNetwork
+
+    };
   }
 
   // ------------------------------------------
@@ -137,6 +188,7 @@ export function useThematicNFT() {
     buyToken,
     fetchAllTokenIds,
     fetchAvailableTokens,
-    getCollectionsData
+    getCollectionsData,
+    getItemDetail
   };
 }

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ethers } from 'ethers';
 import { onMounted, computed, inject, type Ref } from 'vue';
 import { type NFTCard } from '@/types/common';
 import { useContract } from '@/composables/useContract';
@@ -9,6 +10,10 @@ const nftStore = useNftStore();
 
 const totalQuantity = inject<Ref<number>>('totalQuantity')!;
 
+const props = defineProps<{
+  item: NFTCard,
+}>();
+
 
 const emit = defineEmits();
 
@@ -16,18 +21,23 @@ onMounted(async () => {
 
 });
 
-const item = inject<NFTCard>('nftItem')!;
+const prevPrice = computed(() => {
+  let res = Number(ethers.formatEther(props.item.price));
+  return res.toFixed(2);
+})
+
+// const item = inject<NFTCard>('nftItem')!;
 const isConnected = inject<Ref<boolean>>('isConnected')!;
 // const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
 // const itemPrice = inject<string>('itemPrice')!;
 
-const isItemMinted = computed(() => {
-  return nftStore.isNftMinted(item.tokenId)
-})
+// const isItemMinted = computed(() => {
+//   return nftStore.isNftMinted(props.item.tokenId)
+// })
 
-const curRarityName = computed(() => {
-  return item.attributes.find((attr: any) => attr.name === 'Rarity')?.value || 'N/A';
-})
+// const curRarityName = computed(() => {
+//   return item.attributes.find((attr: any) => attr.name === 'Rarity')?.value || 'N/A';
+// })
 
 // const curRarityScore = computed(() => {
 //   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
@@ -35,7 +45,7 @@ const curRarityName = computed(() => {
 
 const BuyTokenHandler = async () => {
   try {
-    await BuyToken(item.tokenId)
+    await BuyToken(props.item.tokenId)
 
     // console.log(">>> t", itemPrice.value);
     
@@ -56,7 +66,7 @@ const BuyTokenHandler = async () => {
       class="nft-image"
       :alt="item.name"
     >
-    <div class="nft-rarity-badge">{{ curRarityName }}</div>
+    <div class="nft-rarity-badge">{{ item.name }}</div>
     <div
       class="nft-bage nft-badge__status"
       :class="[item.isMinted ? 'sold' : 'available']"
@@ -87,7 +97,7 @@ const BuyTokenHandler = async () => {
         <div class="price-label">
             Preview Price
         </div>
-        <div class="price-value">{{ item.preview_price  }} ETH </div>
+        <div class="price-value">{{ prevPrice }} ETH </div>
       </div>
       <div class="nft-price-section">
         <div class="price-label">
@@ -100,7 +110,7 @@ const BuyTokenHandler = async () => {
             Rank
         </div>
         <!-- <div class="price-value">#{{ item?.rank ? item?.rank : 56 }} of {{ totalQuantity }}</div> -->
-        <div class="price-value">#4 of {{ totalQuantity }}</div>
+        <div class="price-value">#{{ item.rank }} of {{ totalQuantity }}</div>
       </div>
     </div>
     <button

@@ -6,11 +6,11 @@ const traits = inject<any[]>('nftTraits')!;
   <div class="details-list">
     <div
       class="detail-row"
-      v-for="(trait, index) in traits"
-      :key="trait.trait_type"
+      v-for="trait in traits"
+      :key="trait.name"
     >
-        <span class="detail-label">{{ trait.trait_type }}</span>
-        <span class="detail-value">{{ trait.value }}</span>
+      <span class="detail-label">{{ trait.name }}</span>
+      <span class="detail-value">{{ trait.value }}</span>
     </div>
   </div>
 </template>

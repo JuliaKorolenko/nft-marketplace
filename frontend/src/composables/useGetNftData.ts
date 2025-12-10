@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue';
 import type { Ref } from 'vue';
 import { type SortBy } from '@/types/UIElements';
+import { useThematicNFT } from './useThematicNFT'
 
 export const useGetNftData = (params:{ 
   filter?: Ref<string>, 
@@ -9,8 +10,13 @@ export const useGetNftData = (params:{
   searchQuery?: Ref<string>
  }) => {
 
+  const { getCollectionsData } = useThematicNFT()
+
   onMounted(async () => {    
-    await loadCollections();
+    // await loadCollections();
+    let res = await getCollectionsData()
+    collections.value = setRank(res)
+    // collections.value = await getCollectionsData()
   });
 
   type CollectionMap = Record<string, any>;
@@ -45,15 +51,14 @@ export const useGetNftData = (params:{
     let sorted_key = '';
 
     if(sortValue) {
-      sorted_key = params?.sort?.value.type==='price' ? 'preview_price' : 'score';
+      sorted_key = params?.sort?.value.type==='price' ? 'price' : 'rank';
     }
 
-
     if (sortValue === 'asc') {
-      sorted.sort((a, b) => a[sorted_key] - b[sorted_key]);
+      sorted.sort((a, b) => Number(a[sorted_key]) - Number(b[sorted_key]));
 
     } else if (sortValue === 'desc') {
-      sorted.sort((a, b) => b[sorted_key] - a[sorted_key]);
+      sorted.sort((a, b) => Number(b[sorted_key]) - Number(a[sorted_key]));
     }
     else {
       return filteredCollections.value
@@ -127,15 +132,15 @@ export const useGetNftData = (params:{
       return null;
     }
     const curArr = [...arr];
-    const sorted = [...curArr].sort((a, b) => b.score - a.score);
+    const sorted = [...curArr].sort((a, b) => b.rarity - a.rarity);
 
     let currentRank = 1;
-    let lastScore = sorted[0]?.score;
+    let lastScore = sorted[0]?.rarity;
 
     sorted.forEach((item) => {
-      if (item.score !== lastScore) {
+      if (item.rarity !== lastScore) {
         currentRank++;    // новый уникальный score → следующий ранг
-        lastScore = item.score;
+        lastScore = item.rarity;
       }
       item.rank = currentRank;
     });
