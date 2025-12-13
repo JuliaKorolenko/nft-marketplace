@@ -5,7 +5,7 @@ import SvgPrice from './SvgPrice.vue';
 import SvgRating from './SvgRating.vue';
 
 const props = defineProps<{
-  type: 'price' | 'rating'
+  type: 'price' | 'rank'
 }>()
 
 const sortBy = defineModel<SortBy>();
@@ -26,7 +26,7 @@ const curIcon = computed(() => {
   switch(props.type) {
     case 'price':
       return SvgPrice;
-    case 'rating':
+    case 'rank':
       return SvgRating;
     default:
       return null    

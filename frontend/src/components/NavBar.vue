@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { useWallet } from '@/composables/useWallet';
+import { computed } from 'vue';
+import { useData } from '@/composables/useData';
+import { useConnectStore } from "@/stores/useConnectStore";
+import { useThematicNFT } from '@/composables/useThematicNFT';
 
-const { isConnected, getCurAddress, curNetwork, connect, disconnect } = useWallet();
+const { connectWalletHandler, disconnecttWalletHandler } = useData();
+// const { connectWallet, isConnected } = useThematicNFT()
+const connectStore = useConnectStore()
+
+const isWalletCottected = computed (() => connectStore.isWalletConnected)
+
+// 9,999,686 GO
 
 const handleConnect = async () => {
+  // await connectWallet()
   try {
-    if (isConnected.value) {
-      disconnect()
+    if (isWalletCottected.value) {
+      disconnecttWalletHandler()
       return
     }
-    await connect()
+    await connectWalletHandler()
   } catch (err) {
     console.error(err)
   }
@@ -31,9 +41,9 @@ const handleConnect = async () => {
       </div>
 
       <div class="wallet-info">
-        <div class="wallet-item" v-if="!isConnected">
+        <div class="wallet-item" v-if="!isWalletCottected">
           <div
-            :class="['status-dot', isConnected ? 'status-connected' : 'status-disconnected']"
+            :class="['status-dot', isWalletCottected ? 'status-connected' : 'status-disconnected']"
           >
         </div>
           <span class="not-connected-text">Not connected</span>
@@ -41,12 +51,12 @@ const handleConnect = async () => {
         <template v-else>
           <div class="wallet-item">
             <span class="wallet-label">Wallet</span>
-            <span class="wallet-value wallet-address">{{ getCurAddress }}</span>
+            <span class="wallet-value wallet-address">{{ connectStore.getCurWalletAddress }}</span>
             <div class="divider"></div>
           </div>
           <div class="wallet-item">
             <span class="wallet-label">Network:</span>
-            <span class="wallet-value wallet-network">{{ curNetwork }}</span>
+            <span class="wallet-value wallet-network">{{ connectStore.getCurNetwork }}</span>
           </div>
           <div class="status-dot status-connected"></div>
         </template>
@@ -58,7 +68,7 @@ const handleConnect = async () => {
         class="connect-btn disconnected"
          @click="handleConnect"
       >
-        {{ isConnected ? 'Disconnect Wallet' : 'Connect Wallet' }}
+        {{ isWalletCottected ? 'Disconnect Wallet' : 'Connect Wallet' }}
       </button>
     </div>
   </header>

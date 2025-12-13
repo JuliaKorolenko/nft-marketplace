@@ -17,7 +17,7 @@ export const sortByOptions = [
 // export type SortByValue = typeof sortByOptions[number]['value']
 
 export type SortByValue = 'asc' | 'desc' | null;
-export type SortByType = 'price' | 'rating' | '';
+export type SortByType = 'price' | 'rank' | '';
 export interface SortBy {
   type: SortByType;
   value: SortByValue;

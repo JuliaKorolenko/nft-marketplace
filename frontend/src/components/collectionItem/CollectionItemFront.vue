@@ -1,62 +1,31 @@
 <script setup lang="ts">
 import { ethers } from 'ethers';
-import { onMounted, computed, inject, type Ref } from 'vue';
+import { computed,} from 'vue';
 import { type NFTCard } from '@/types/common';
-import { useContract } from '@/composables/useContract';
-import { useNftStore } from '@/stores/useNftStore';
+import { useData } from '@/composables/useData';
+import { useConnectStore } from "@/stores/useConnectStore";
+import { useCommonStore } from '@/stores/useCommonStore';
 
-const { BuyToken } = useContract();
-const nftStore = useNftStore();
+const { buyTokenHandler } = useData();
+const connectStore = useConnectStore()
+const commontStore = useCommonStore()
 
-const totalQuantity = inject<Ref<number>>('totalQuantity')!;
+const emit = defineEmits();
 
 const props = defineProps<{
   item: NFTCard,
 }>();
 
 
-const emit = defineEmits();
-
-onMounted(async () => {
-
-});
+const isWalletCottected = computed (() => connectStore.isWalletConnected)
 
 const prevPrice = computed(() => {
   let res = Number(ethers.formatEther(props.item.price));
   return res.toFixed(2);
 })
 
-// const item = inject<NFTCard>('nftItem')!;
-const isConnected = inject<Ref<boolean>>('isConnected')!;
-// const isItemMinted = inject<Ref<boolean>>('isItemMinted')!;
-// const itemPrice = inject<string>('itemPrice')!;
+const rarityName = computed(() => props.item.attributes.find(el => el.name==='Rarity')?.value)
 
-// const isItemMinted = computed(() => {
-//   return nftStore.isNftMinted(props.item.tokenId)
-// })
-
-// const curRarityName = computed(() => {
-//   return item.attributes.find((attr: any) => attr.name === 'Rarity')?.value || 'N/A';
-// })
-
-// const curRarityScore = computed(() => {
-//   return item.attributes.find((attr: any) => attr.trait_type === 'Rarity Score')?.value || 'N/A';
-// })
-
-const BuyTokenHandler = async () => {
-  try {
-    await BuyToken(props.item.tokenId)
-
-    // console.log(">>> t", itemPrice.value);
-    
-
-  } catch(e) {
-    console.log(">>> BuyToken Error", e);
-    
-  }
-}
-
-// console.log(">>> iten", isItemMinted.value);
 </script>
 <template>
 <div class="front">
@@ -66,7 +35,7 @@ const BuyTokenHandler = async () => {
       class="nft-image"
       :alt="item.name"
     >
-    <div class="nft-rarity-badge">{{ item.name }}</div>
+    <div class="nft-rarity-badge">{{ rarityName }}</div>
     <div
       class="nft-bage nft-badge__status"
       :class="[item.isMinted ? 'sold' : 'available']"
@@ -75,14 +44,10 @@ const BuyTokenHandler = async () => {
     </div>
     <div
       class="nft-bage nft-badge__flip active"
-      >
-      <!-- :class="[ isConnected ? 'active' : 'not-active' ]" -->
+    >
      <div class=""@click="emit('openCard')">
        <span>👆</span> Click for details
      </div>
-     <!-- <div v-else>
-       To view details, please connect your wallet
-     </div> -->
     </div>
   </div>
   <div class="nft-content">
@@ -110,14 +75,14 @@ const BuyTokenHandler = async () => {
             Rank
         </div>
         <!-- <div class="price-value">#{{ item?.rank ? item?.rank : 56 }} of {{ totalQuantity }}</div> -->
-        <div class="price-value">#{{ item.rank }} of {{ totalQuantity }}</div>
+        <div class="price-value">#{{ item.rank }} of {{ commontStore.getTotalQuantity }}</div>
       </div>
     </div>
     <button
       class="buy-btn"
-      :class="{disabled: !isConnected}"
-      :disabled="!isConnected"
-      @click="BuyTokenHandler"
+      :class="{ disabled: !isWalletCottected || item.isMinted }"
+      :disabled="!isWalletCottected || item.isMinted"
+      @click="buyTokenHandler(item.tokenId)"
     >
       Buy Now
     </button>
@@ -240,6 +205,9 @@ const BuyTokenHandler = async () => {
   .nft-collection {
     font-size: 13px;
     color: rgba(255, 255, 255, 0.5);
+    color: #706fdc;
+    color: #b475e7;
+    text-transform: capitalize;
   }
 
   .nft-price-section {

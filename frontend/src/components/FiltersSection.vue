@@ -48,7 +48,7 @@ const filterOption = computed({
         v-model="sortByOptions"
       />
       <SortButton
-        type="rating"
+        type="rank"
         v-model="sortByOptions"
       />
     </div>

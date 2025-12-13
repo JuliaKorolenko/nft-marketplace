@@ -13,7 +13,7 @@ export default buildModule("ThematicNFTModule", (m) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const uriFilePath = path.join(__dirname, "../../assets/collections/metadata.json");
+  const uriFilePath = path.join(__dirname, "../../assets/collections/metadata_cids.json");
   const uris: string[] = JSON.parse(fs.readFileSync(uriFilePath, "utf8"));
 
   if(uris.length !== rarities.length) {

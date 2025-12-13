@@ -1,8 +1,9 @@
-import { ref } from "vue";
+import { ref, shallowRef } from "vue";
 import { Contract, JsonRpcProvider, BrowserProvider, Log, ethers } from "ethers";
 import { type Collection } from '@/types/common'
 import ThematicNFT from '@/contractData/ThematicNFT.json'
 import { useWallet } from './useWallet'
+import { useConnect } from './useConnect.ts'
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 const RPC_ADDRESS = import.meta.env.VITE_RPC_ADDRESS;
@@ -14,7 +15,7 @@ const publicProvider = new JsonRpcProvider(RPC_ADDRESS);
 const publicContract = new Contract(CONTRACT_ADDRESS, ThematicNFT.abi, publicProvider);
 
 // --- WALLET PROVIDER (создаётся только после connect)
-const walletProvider = ref<BrowserProvider | null>(null);
+const walletProvider = shallowRef<BrowserProvider | null>(null);
 const signerContract = ref<Contract | null>(null);
 
 const curNetwork = ref<string | null>(null);
@@ -49,6 +50,9 @@ export function useThematicNFT() {
 
   const walletAddress = ref<string | null>(null);
   const loading = ref(false);
+
+  // console.log(">>> curContract", curContract);
+  
 
   // ------------------------------------------
   // 1) Подключение кошелька
@@ -85,6 +89,9 @@ export function useThematicNFT() {
         const response = await fetch(metadataUrl);
         const metadata = await response.json();
 
+        // console.log(">>> metadata", metadata);
+        
+
         const imgUrl = metadata.image?.replace("ipfs://", BASE_URL) || "";
 
         const attributesArray = (metadata.attributes || []).map((attr: any) => ({
@@ -94,12 +101,14 @@ export function useThematicNFT() {
 
         const name = metadata.name || ''
         const description = metadata.description || ''
+        const collection = metadata.collection || ''
 
         // console.log(">>> imgUrl", el);
         return {
           id,
           tokenId: el.tokenId,
           name,
+          collection,
           rarity: el.rarity,
           price: el.price,
           isMinted: el.isMinted,
@@ -181,6 +190,7 @@ export function useThematicNFT() {
     // state
     walletAddress,
     loading,
+    isConnected,
 
     // methods
     connectWallet,

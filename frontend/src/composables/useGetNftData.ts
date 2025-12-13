@@ -2,7 +2,8 @@
 import { ref, onMounted, computed } from 'vue';
 import type { Ref } from 'vue';
 import { type SortBy } from '@/types/UIElements';
-import { useThematicNFT } from './useThematicNFT'
+import { useThematicNFT } from './useThematicNFT';
+import { useData } from '@/composables/useData';
 
 export const useGetNftData = (params:{ 
   filter?: Ref<string>, 
@@ -10,7 +11,8 @@ export const useGetNftData = (params:{
   searchQuery?: Ref<string>
  }) => {
 
-  const { getCollectionsData } = useThematicNFT()
+  // const { getCollectionsData } = useThematicNFT()
+  const { getCollectionsData } = useData()
 
   onMounted(async () => {    
     // await loadCollections();

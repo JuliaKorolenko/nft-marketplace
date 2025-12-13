@@ -1,24 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { ethers } from 'ethers';
+import { useCommonStore} from '@/stores/useCommonStore'
+
+const commonStore = useCommonStore()
+
+const available = computed(() => commonStore.getAvailableTokensQuantity ? commonStore.getAvailableTokensQuantity : 0)
+const maxPrice = computed(() => commonStore.getMaxTokenPrice ? ethers.formatEther(commonStore.getMaxTokenPrice) : 0)
+// const minPrice = computed(() => commonStore.getMinTokenPrice ? ethers.formatEther(commonStore.getMinTokenPrice) : 0)
+const minPrice = computed(() => commonStore.getMinTokenPrice ? ethers.formatEther(commonStore.getMinTokenPrice) : 0)
+const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther(commonStore.getTotalSales) : 0)
 
 </script>
 <template>
   <div class="hero-stats">
     <div class="stat-card">
-      <div class="stat-label">Total Volume</div>
-      <div class="stat-value">124.8K ETH</div>
+      <div class="stat-label">Available Tokens</div>
+      <div class="stat-value">{{ available }}</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Floor Price</div>
-      <div class="stat-value">2.45 ETH</div>
+      <div class="stat-value">{{ minPrice }} ETH</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">24h Sales</div>
-      <div class="stat-value">1,234</div>
+      <div class="stat-label">Ceiling price</div>
+      <div class="stat-value">{{ maxPrice }} ETH</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Total Owners</div>
-      <div class="stat-value">8.9K</div>
+      <div class="stat-label">Total sales</div>
+      <div class="stat-value">{{ totalSales }} ETH</div>
     </div>
   </div>
 </template>

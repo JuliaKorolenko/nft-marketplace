@@ -1,5 +1,6 @@
 import { defineStore} from 'pinia';
 import type { Log } from "ethers";
+import type { Collection } from '@/types/common'
 
 export type NftStatus = true | false;
 
@@ -11,7 +12,8 @@ export interface NftInfo {
 
 export const useNftStore = defineStore('nftStore', {
   state: () => ({
-    nftStatuses: {} as Record<number, NftInfo>
+    nftStatuses: {} as Record<number, NftInfo>,
+    collectionList: null as Collection[] | null,
   }),
 
   getters: {

@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import Notification from '@/components/Notification.vue';
 import NavBar from '@/components/NavBar.vue';
 import SideBar from '@/components/SideBar.vue';
 import HeroStats from '@/components/HeroStats.vue';
 import FiltersSection from '@/components/FiltersSection.vue';
 import CollectionList from '@/components/CollectionList.vue';
 import Footer from '@/components/Footer.vue';
-import { type FilterValue, type SortByValue  } from '@/types/UIElements';
+import { useNotification, type NotificationComponent } from './composables/useNotification';
 
-// const selectedFilters = ref<FilterValue>('all');
-// const selectedSortBy = ref<SortByValue>('up');
-// const searchQuery = ref<string>('');
+const { setNotificationRef } = useNotification();
 
+const notificationRef = ref<NotificationComponent | null>(null);
+
+onMounted(() => {
+  if(notificationRef.value) {
+    setNotificationRef(notificationRef.value);
+  }
+});
 </script>
 
 <template>
+  <Notification ref="notificationRef" />
   <div class="container">
     <NavBar />
     <SideBar />

@@ -1,5 +1,5 @@
 import { ethers, Contract, BrowserProvider } from 'ethers';
-import type { AccountChangeInfo } from "./types/common";
+// import type { AccountChangeInfo } from "./types/common";
 // import contractABI from './contracts/CryptoWarriors.json';
 
 const CONTRACT_ADDRESS = '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9';
@@ -10,7 +10,8 @@ let signer: ethers.Signer;
 let userAddress: string;
 let networkName: string;
 
-export async function subscribeToAccountChanges(callback: (info: AccountChangeInfo) => void)  {
+// export async function subscribeToAccountChanges(callback: (info: AccountChangeInfo) => void)  {
+export async function subscribeToAccountChanges(callback: (info: any) => void)  {
   if (!window.ethereum) return;
   
   window.ethereum.on("accountsChanged", async (accounts) => {

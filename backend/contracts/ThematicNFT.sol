@@ -106,22 +106,6 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
   * @dev Get all tokens available for Minting
   */
 
-  // function getAvialablesTokens() public view returns (uint256[] memory) {
-  //   uint256 availableCount = _allTokenIds.length - totalSupply;
-  //   uint256[] memory available = new uint256[](availableCount);
-  //   uint256 index = 0;
-
-  //   for (uint256 i = 0; i < _allTokenIds.length && i < availableCount; i++) {
-  //     uint256 tokenId = _allTokenIds[i];
-
-  //     if (!minted[tokenId]) {
-  //       available[index] = tokenId;
-  //       index++;
-  //     }    }
-
-  //   return available;
-  // }
-
   function getAvailableTokens() public view returns (uint256[] memory) {
     uint256 availableCount = 0;
 
