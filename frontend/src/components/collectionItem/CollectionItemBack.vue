@@ -1,12 +1,13 @@
 <script setup lang="ts">
   import { ethers } from 'ethers';
-import { ref, watch, provide, inject, type Ref, computed } from 'vue';
+import { ref, provide, computed } from 'vue';
 import type { Component } from 'vue';
 import { type NFTCard } from '@/types/common';
-import { useThematicNFT } from '@/composables/useThematicNFT';
+import { type nftDetails, type TabKey, TABS } from '@/types/UIElements';
 import CollectionItemTraits from './CollectionItemTraits.vue';
 import CollectionItemDetails from './CollectionItemDetails.vue';
 import CollectionItemDescription from './CollectionItemDescription.vue';
+import { useConnectStore } from "@/stores/useConnectStore";
 
 const emit = defineEmits();
 
@@ -14,29 +15,15 @@ const props = defineProps<{
   item: NFTCard,
 }>();
 
-const { getItemDetail } = useThematicNFT();
+const connectStore = useConnectStore() 
 
-type Tab = 'description' | 'traits' | 'details'
-const TABS: { key: Tab; label: string }[] = [
-  { key: 'description', label: 'Description' },
-  { key: 'traits', label: 'Traits' },
-  { key: 'details', label: 'Details' }
-]
-
-const tabComponentMap: Record<Tab, Component> = {
+const tabComponentMap: Record<TabKey, Component> = {
   description: CollectionItemDescription,
   traits: CollectionItemTraits,
   details: CollectionItemDetails,
 }
-const curTab = ref<Tab>('description');
-const details = ref<object | null>(null)
-const loadingDetails = ref<boolean>(false)
 
-watch(curTab, async (tab) => {
-  if(tab === 'details') {
-    await loadDetailsOnce(props.item.tokenId)    
-  }
-})
+const curTab = ref<TabKey>('description');
 
 const curTabComponent = computed(() => tabComponentMap[curTab.value])
 
@@ -44,23 +31,18 @@ const curPrice = computed(() => {
   return Number(ethers.formatEther(props.item.price));
 })
 
-async function loadDetailsOnce(tokenId: number) {
-  if (details.value || loadingDetails.value) return
-
-  loadingDetails.value = true
-  try {
-    details.value = await getItemDetail(tokenId)
-    
-  } finally {
-    loadingDetails.value = false
-  }  
-}
+const curDetails = computed<nftDetails>(() => {
+  return {
+    contract_address: connectStore.getCurContractAddress || '-',
+    token_id: `#${props.item.tokenId}`,
+    token_standart: 'ERC-721',
+    blockchain: connectStore.curNetwork || '-',
+  } 
+})
 
 provide('nftTraits', props.item.attributes);
 provide('nftDescription', props.item.description);
-
-provide('nftDetails', details)
-provide('nftDetailsIsLoad', loadingDetails)
+provide('nftDetails', curDetails)
 
 </script>
 <template>
@@ -99,7 +81,7 @@ provide('nftDetailsIsLoad', loadingDetails)
 .back {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
-  transform: rotateY(180deg); /* Изначально повернута на 180° */
+  transform: rotateY(180deg);
   padding: 20px;  
 }
 
@@ -179,7 +161,6 @@ provide('nftDetailsIsLoad', loadingDetails)
   display: block;
 }
 
-/* Traits Grid */
 .traits-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -233,10 +214,6 @@ provide('nftDetailsIsLoad', loadingDetails)
   transition: width 0.6s ease;
 }
 
-/* Details List */
-
-
-/* Rarity Score */
 .rarity-price-card {
   background: rgba(102, 126, 234, 0.1);
   border: 1px solid rgba(102, 126, 234, 0.3);
@@ -250,9 +227,9 @@ provide('nftDetailsIsLoad', loadingDetails)
 .price-number {
   font-size: 36px;
   font-weight: 700;
-  color: transparent;       /* text-transparent */
-  background: linear-gradient(to right, #60a5fa, #c084fc); /* blue-400 → purple-400 */
-  -webkit-background-clip: text; /* bg-clip-text */
+  color: transparent;
+  background: linear-gradient(to right, #60a5fa, #c084fc);
+  -webkit-background-clip: text; 
   background-clip: text
 }
 
@@ -261,13 +238,12 @@ provide('nftDetailsIsLoad', loadingDetails)
   color: #94a3b8;
   margin-bottom: 6px;
 }
+
 .price-info {
   font-size: 12px;
   color: #64748b;
   margin-top: 8px;  
 }
-
-
 
 .rarity-number {
   font-size: 42px;

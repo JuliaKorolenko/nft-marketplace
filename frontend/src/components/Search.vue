@@ -1,14 +1,5 @@
 <script setup lang="ts">
 const searchQuery = defineModel<string>();
-
-// const searchQuery = computed<string>({
-//   get() {
-//     return commonStore.getSearchQuery;
-//   },
-//   set(value: string) {
-//     commonStore.setSearchQuery(value);
-//   }
-// });
 </script>
 <template>
   <div class="search-box">

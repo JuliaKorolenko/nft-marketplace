@@ -2,18 +2,14 @@
 import { computed } from 'vue';
 import { useData } from '@/composables/useData';
 import { useConnectStore } from "@/stores/useConnectStore";
-import { useThematicNFT } from '@/composables/useThematicNFT';
 
 const { connectWalletHandler, disconnecttWalletHandler } = useData();
-// const { connectWallet, isConnected } = useThematicNFT()
+
 const connectStore = useConnectStore()
 
 const isWalletCottected = computed (() => connectStore.isWalletConnected)
 
-// 9,999,686 GO
-
 const handleConnect = async () => {
-  // await connectWallet()
   try {
     if (isWalletCottected.value) {
       disconnecttWalletHandler()

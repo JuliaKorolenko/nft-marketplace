@@ -1,3 +1,4 @@
+//  Filter and sort options
 export const filters = [
   { label: 'All', value: 'all' },
   { label: 'Cyberpunk', value: 'cyberpunk' },
@@ -14,8 +15,6 @@ export const sortByOptions = [
   { label: '', value: null },
 ] as const
 
-// export type SortByValue = typeof sortByOptions[number]['value']
-
 export type SortByValue = 'asc' | 'desc' | null;
 export type SortByType = 'price' | 'rank' | '';
 export interface SortBy {
@@ -23,9 +22,49 @@ export interface SortBy {
   value: SortByValue;
 }
 
+
+// Tabs for NFT details view
+export const TABS = [
+  { key: 'description', label: 'Description' },
+  { key: 'traits', label: 'Traits' },
+  { key: 'details', label: 'Details' }
+] as const;
+
+export type TabKey = typeof TABS[number]['key'];
+
+// NFT detail fields
 export const nftDetail = [
   { label: 'Contract Address', value: 'contract_address' },
   { label: 'Token ID', value: 'token_id' },
   { label: 'Token Standart', value: 'token_standart' },
   { label: 'Blockchain', value: 'blockchain' },
-]
+] as const
+
+export type nftDetailKey = typeof nftDetail[number]['value']
+export  type nftDetails = Record<nftDetailKey, string>;
+
+
+// Notification types and interfaces
+export type NotificationType = 'success' | 'error' | 'warning' | 'info';
+export interface NotificationOptions {
+  type?: NotificationType;
+  title?: string;
+  message: string;
+  duration?: number;
+}
+export interface Notification {
+  id: number;
+  type: NotificationType;
+  title?: string;
+  message: string;
+  duration: number;
+}
+
+export interface NotificationComponent {
+  addNotification: (options: NotificationOptions) => number;
+  removeNotification: (id: number) => void;
+  success: (message: string, title?: string, duration?: number) => number;
+  error: (message: string, title?: string, duration?: number) => number;
+  warning: (message: string, title?: string, duration?: number) => number;
+  info: (message: string, title?: string, duration?: number) => number;
+}

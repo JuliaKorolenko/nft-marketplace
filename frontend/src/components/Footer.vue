@@ -1,4 +1,3 @@
-<script setup lang="ts"></script>
 <template>
   <footer class="footer">
     <p>© 2025 NFT Marketplace. Built with ❤️ for Web3</p>

@@ -14,40 +14,17 @@ const cardCount = ref(4);
           <div class="skeleton-spinner"></div>
           <div class="skeleton-shimmer"></div>
         </div>
-        
-        <!-- Card Content -->
-        <!-- <div class="skeleton-content">
-          <div class="skeleton-line skeleton-line-title"></div>
-          
-          <div class="skeleton-description">
-            <div class="skeleton-line skeleton-line-medium"></div>
-            <div class="skeleton-line skeleton-line-short"></div>
-          </div>
-          
-          <div class="skeleton-footer">
-            <div class="skeleton-price">
-              <div class="skeleton-line skeleton-line-label"></div>
-              <div class="skeleton-line skeleton-line-price"></div>
-            </div>
-            <div class="skeleton-button"></div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
 </template>
 <style scoped>
 .skeleton-container {
-  /* min-height: 100vh; */
-  /* background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); */
   padding: 2rem;
 }
 
 .skeleton-grid {
-  /* display: grid; */
-  /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
   gap: 1.5rem;
-  /* max-width: 1400px; */
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -102,71 +79,6 @@ const cardCount = ref(4);
   );
   animation: shimmer 2s infinite;
 }
-
-/* .skeleton-content {
-  padding: 1.25rem;
-} */
-
-/* .skeleton-line {
-  background: linear-gradient(90deg, #475569 0%, #334155 100%);
-  border-radius: 0.5rem;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.skeleton-line-title {
-  height: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.skeleton-description {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.skeleton-line-medium {
-  height: 1rem;
-  width: 75%;
-}
-
-.skeleton-line-short {
-  height: 1rem;
-  width: 50%;
-}
-
-.skeleton-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0.75rem;
-  border-top: 1px solid #334155;
-}
-
-.skeleton-price {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.skeleton-line-label {
-  height: 0.75rem;
-  width: 3rem;
-}
-
-.skeleton-line-price {
-  height: 1.25rem;
-  width: 5rem;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.5) 0%, rgba(59, 130, 246, 0.5) 100%);
-}
-
-.skeleton-button {
-  height: 2.5rem;
-  width: 6rem;
-  background: linear-gradient(90deg, #475569 0%, #334155 100%);
-  border-radius: 0.5rem;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-} */
 
 @keyframes pulse {
   0%, 100% {

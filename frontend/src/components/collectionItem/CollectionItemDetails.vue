@@ -1,33 +1,26 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-// import { nftDetail } from '@/types/UIElements'
+import { type nftDetails, nftDetail } from '@/types/UIElements';
 
-// const curItemDetail = inject<Record<string, any>>('itemDetail', {})
-// defineProps<{
-//   details: object | null
-//   loading: boolean
-// }>()
-const details = inject<object>('nftDetails')!;
-const isLoad = inject<boolean>('nftDetailsIsLoad')!;
+const details = inject<nftDetails>('nftDetails')!; 
 </script>
 <template>
-<div v-if="isLoad">Loading details...</div>
-<div class="details-list" v-else>
+<div class="details-list">
   <div
     class="detail-row"
-    v-for="(item, key) in details"
-    :key="key"
+    v-for="item in nftDetail"
+    :key="item.value"
   >
       <span
         class="detail-label"
       >
-        {{ key }}
+        {{ item.label }}
       </span>
       <span
         class="detail-value"
-        :class="{'detail-value__address': key === 'contract_address'}"
+        :class="{'detail-value__address': item.value === 'contract_address'}"
       >
-        {{ item }}
+        {{ details[item.value] }}
       </span>
   </div>
 </div>
@@ -40,8 +33,6 @@ const isLoad = inject<boolean>('nftDetailsIsLoad')!;
   width: 100%;
   padding-right: 7px;
   overflow-y: auto;
-  /* scrollbar-width: thin;          /* Firefox */
-  /* scrollbar-color: #888 #eee;  */
 }
 .detail-row {
   display: flex;

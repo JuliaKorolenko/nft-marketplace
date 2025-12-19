@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+// import { useCommonStore } from "@/stores/useCommonStore";
+
+// const commonStore = useCommonStore()
 
 const isVisible = ref(false);
 </script>

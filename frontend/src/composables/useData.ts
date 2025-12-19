@@ -2,8 +2,6 @@ import { ref } from "vue";
 import { type Collection } from '@/types/common'
 import { useConnect } from './useConnect'
 import { useCommonStore } from "@/stores/useCommonStore";
-import { notify } from '@/composables/useNotification';
-import type { NFTCard } from '@/types/common';
 
 const BASE_URL = import.meta.env.VITE_IPFS_BASE_URL;
 
@@ -102,18 +100,11 @@ export function useData() {
 
   async function buyTokenHandler(tokenId: number) {
     try {
-      notify.info('Minting NFT...', 'Please wait');
       await buyToken(tokenId)
       await getCollectionsData()
-      notify.success('NFT minted successfully!', 'Success');
 
     } catch(e) {
       console.log("buyTokenHandler Error", e);
-      notify.error(
-        e instanceof Error ? e.message : 'Unknown error',
-        'Minting Failed'
-      );
-      
     }
   }
   

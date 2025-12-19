@@ -1,12 +1,25 @@
-<script setup>
+<script setup  lang="ts">
 import { ref } from 'vue';
+import type {
+  Notification,
+  NotificationOptions,
+  NotificationComponent
+} from '@/types/UIElements'
 
 // Состояние уведомлений
-const notifications = ref([]);
+const notifications = ref<Notification[]>([]);
 let notificationId = 0;
 
 // Добавить уведомление
-const addNotification = ({ type = 'info', title = '', message, duration = 5000 }) => {
+const addNotification = (options: NotificationOptions): number => {
+
+  const {
+    type = 'info',
+    title = '',
+    message,
+    duration = 5000
+  } = options
+
   const id = ++notificationId;
   
   notifications.value.push({
@@ -17,7 +30,6 @@ const addNotification = ({ type = 'info', title = '', message, duration = 5000 }
     duration
   });
   
-  // Автоматически удалить через duration
   setTimeout(() => {
     removeNotification(id);
   }, duration);
@@ -25,24 +37,33 @@ const addNotification = ({ type = 'info', title = '', message, duration = 5000 }
   return id;
 };
 
-// Удалить уведомление
-const removeNotification = (id) => {
+const removeNotification = (id: number): void => {
   const index = notifications.value.findIndex(n => n.id === id);
   if (index !== -1) {
     notifications.value.splice(index, 1);
   }
 };
 
-// Экспортируем методы для использования
-defineExpose({
+const success = (message: string, title?: string, duration?: number) =>
+  addNotification({ type: 'success', message, title, duration })
+
+const error = (message: string, title?: string, duration?: number) =>
+  addNotification({ type: 'error', message, title, duration })
+
+const warning = (message: string, title?: string, duration?: number) =>
+  addNotification({ type: 'warning', message, title, duration })
+
+const info = (message: string, title?: string, duration?: number) =>
+  addNotification({ type: 'info', message, title, duration })
+
+defineExpose<NotificationComponent>({
   addNotification,
   removeNotification,
-  // Вспомогательные методы
-  success: (message, title, duration) => addNotification({ type: 'success', message, title, duration }),
-  error: (message, title, duration) => addNotification({ type: 'error', message, title, duration }),
-  warning: (message, title, duration) => addNotification({ type: 'warning', message, title, duration }),
-  info: (message, title, duration) => addNotification({ type: 'info', message, title, duration })
-});
+  success,
+  error,
+  warning,
+  info
+})
 </script>
 <template>
   <Teleport to="body">

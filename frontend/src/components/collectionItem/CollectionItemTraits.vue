@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-const traits = inject<any[]>('nftTraits')!;
+const traits = inject<{ name: string; value: string }[]>('nftTraits')!;
 </script>
 <template>
   <div class="details-list">
@@ -22,8 +22,6 @@ const traits = inject<any[]>('nftTraits')!;
   width: 100%;
   padding-right: 7px;
   overflow-y: auto;
-  /* scrollbar-width: thin;          /* Firefox */
-  /* scrollbar-color: #888 #eee;  */
 }
 
 .detail-row {

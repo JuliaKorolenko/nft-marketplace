@@ -7,6 +7,7 @@ import { useConnectStore } from "@/stores/useConnectStore";
 import { useCommonStore } from '@/stores/useCommonStore';
 
 const { buyTokenHandler } = useData();
+
 const connectStore = useConnectStore()
 const commontStore = useCommonStore()
 
@@ -15,7 +16,6 @@ const emit = defineEmits();
 const props = defineProps<{
   item: NFTCard,
 }>();
-
 
 const isWalletCottected = computed (() => connectStore.isWalletConnected)
 
@@ -74,7 +74,6 @@ const rarityName = computed(() => props.item.attributes.find(el => el.name==='Ra
         <div class="price-label">
             Rank
         </div>
-        <!-- <div class="price-value">#{{ item?.rank ? item?.rank : 56 }} of {{ totalQuantity }}</div> -->
         <div class="price-value">#{{ item.rank }} of {{ commontStore.getTotalQuantity }}</div>
       </div>
     </div>

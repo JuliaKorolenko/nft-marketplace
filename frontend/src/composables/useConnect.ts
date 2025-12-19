@@ -1,9 +1,10 @@
 import { ref, shallowRef, onMounted, onUnmounted } from 'vue'
-import { Contract, JsonRpcProvider, BrowserProvider, ethers  } from 'ethers';
+import { Contract, JsonRpcProvider, BrowserProvider, ethers, TransactionReceipt  } from 'ethers';
 import type { Signer } from 'ethers'
 import { useConnectStore } from "@/stores/useConnectStore";
 import ThematicNFT from '@/contractData/ThematicNFT.json'
 import { NETWORKS } from '@/types/common'
+import { notify } from '@/composables/useNotification';
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 const RPC_ADDRESS = import.meta.env.VITE_RPC_ADDRESS;
@@ -93,13 +94,38 @@ export function useConnect() {
     
     const price = tokenInfo.price;
 
+    notify.info('Minting NFT...', 'Please wait');
+
     const tx = await curContract.value?.mintNFT!(tokenId, {
       value: price,
     });
 
     console.log(">>> account", balanceBefor, ethers.formatEther(price));
+    
+    const receipt: TransactionReceipt = await tx.wait()
 
-    return await tx.wait();
+    const iface = new ethers.Interface(ThematicNFT.abi)
+
+    receipt.logs.forEach((log) => {
+      // console.log(">>>> logs", log);
+      try {
+        const parsed = iface.parseLog(log)
+        // console.log(">>>> log name", parsed?.name);
+        if (parsed?.name === "NFTMinted") {
+          const [ to, tokenId, price ] = parsed.args;
+
+          console.log(">>> Minted!", to, tokenId, price); 
+          notify.success(`NFT #${Number(tokenId)} minted successfully!`, 'Success');
+        }
+
+      } catch(e) {
+        notify.error(e instanceof Error ? e.message : 'Unknown error', 'Minting Failed');
+      }
+
+    })
+
+    return receipt
+    // return await tx.wait();
   }
 
   const _initContract = async (): Promise<Contract> => {
@@ -139,6 +165,8 @@ export function useConnect() {
 
     connectStore.setWalletConnected(false)
     connectStore.setCurNetwork('')
+    connectStore.setCurWalletAddress('')
+    connectStore.setCurContractAddress('')
   }
 
   const _setConnectionData = async () => {
@@ -147,10 +175,15 @@ export function useConnect() {
 
     const curNetwork = _chainId === 31337 ? "Hardhat Local" : NETWORKS[_chainId] ?? _network?.name;
     const walletAddress = account.value ? account.value.slice(0, 6) + '...' + account.value.slice(-4) : '';
+    const contractAddress = CONTRACT_ADDRESS.slice(0, 6) + '...' + CONTRACT_ADDRESS.slice(-4);
+
+    console.log(">>>> set", contractAddress);
+    
 
     connectStore.setWalletConnected(true)
     connectStore.setCurNetwork(curNetwork!)
-    connectStore.seCurWalletAddress(walletAddress)
+    connectStore.setCurWalletAddress(walletAddress)
+    connectStore.setCurContractAddress(contractAddress)
 
     const bal = await walletProvider.value?.getBalance(account.value!)
     let balance = ethers.formatEther(bal!);

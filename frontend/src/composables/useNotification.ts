@@ -1,35 +1,6 @@
 // composables/useNotification.ts
 import { ref, type Ref } from 'vue';
-
-// Типы уведомлений
-export type NotificationType = 'success' | 'error' | 'warning' | 'info';
-
-// Интерфейс для параметров уведомления
-export interface NotificationOptions {
-  type?: NotificationType;
-  title?: string;
-  message: string;
-  duration?: number;
-}
-
-// Интерфейс для объекта уведомления
-export interface Notification {
-  id: number;
-  type: NotificationType;
-  title?: string;
-  message: string;
-  duration: number;
-}
-
-// Интерфейс для методов компонента Notification
-export interface NotificationComponent {
-  addNotification: (options: NotificationOptions) => number;
-  removeNotification: (id: number) => void;
-  success: (message: string, title?: string, duration?: number) => number;
-  error: (message: string, title?: string, duration?: number) => number;
-  warning: (message: string, title?: string, duration?: number) => number;
-  info: (message: string, title?: string, duration?: number) => number;
-}
+import type { NotificationComponent, NotificationOptions } from '@/types/UIElements'
 
 // Глобальная ссылка на компонент уведомлений
 const notificationRef: Ref<NotificationComponent | null> = ref(null);

@@ -1,6 +1,3 @@
-// import { ethers } from "ethers";
-// import type { Contract } from "ethers";
-
 export const NETWORKS: Record<number, string> = {
   1:      "Ethereum Mainnet",
   5:      "Goerli Testnet",
@@ -25,30 +22,18 @@ export const NETWORKS: Record<number, string> = {
   43113:  "Avalanche Fuji Testnet"
 }
 
-// export interface AccountChangeInfo {
-//   userAddress: string;
-//   provider: any;
-//   networkName: string;
-//   contract?: Contract;
-//   signer?: ethers.Signer;
-// }
-
 export interface NFTCard {
   id: number,
   name: string,
   collection: string,
   price: number,
-  // preview_price?: number,
-  // likes: number,
   imgUrl: string,
-  // metadataIpfsHash: string,
   attributes: Array<{ name: string, value: string | number }>,
   tokenId: number,
   description: string,
   rarity: number,
   isMinted: boolean,
   rank: number,
-  // status: 'Hot' | 'New' | 'Trending'
 }
 
 export interface Collection {

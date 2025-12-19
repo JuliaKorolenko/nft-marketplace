@@ -2,12 +2,12 @@
 import { ref, onMounted } from 'vue';
 import Notification from '@/components/Notification.vue';
 import NavBar from '@/components/NavBar.vue';
-import SideBar from '@/components/SideBar.vue';
 import HeroStats from '@/components/HeroStats.vue';
 import FiltersSection from '@/components/FiltersSection.vue';
 import CollectionList from '@/components/CollectionList.vue';
 import Footer from '@/components/Footer.vue';
-import { useNotification, type NotificationComponent } from './composables/useNotification';
+import { useNotification } from './composables/useNotification';
+import { type NotificationComponent } from '@/types/UIElements'
 
 const { setNotificationRef } = useNotification();
 
@@ -24,7 +24,6 @@ onMounted(() => {
   <Notification ref="notificationRef" />
   <div class="container">
     <NavBar />
-    <SideBar />
     <HeroStats />
     <FiltersSection />
     <CollectionList />

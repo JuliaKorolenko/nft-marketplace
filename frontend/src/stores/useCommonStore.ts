@@ -8,7 +8,7 @@ export const useCommonStore = defineStore('commonStore', () => {
   const activeFilter = ref<string>('all');
   const searchQuery = ref<string>('');
   const sortBy = ref<SortBy>({ type: '', value: null });
-  const collectionList = ref<NFTCard[]>([]); // всегда массив, null нет
+  const collectionList = ref<NFTCard[]>([]);
 
   // --- GETTERS ---
   const getActiveFilter = computed(() => activeFilter.value);
@@ -33,48 +33,6 @@ export const useCommonStore = defineStore('commonStore', () => {
     return firstElPrice && collectionList.value
             .reduce((min, el) => BigInt(el.price) < min ? BigInt(el.price) : min, BigInt(firstElPrice))
   })
-
-  // const getMaxTokenPrice = computed(() => {
-
-  // const getFilteredCollection = computed<NFTCard[]>(() => {
-  //   const arr = [...collectionList.value];
-
-  //   const filtered =
-  //     activeFilter.value !== 'all'
-  //       ? arr.filter((item) =>
-  //           item.collection
-  //             .toLowerCase()
-  //             .includes(activeFilter.value.toLowerCase())
-  //         )
-  //       : arr;
-
-  //   if (!searchQuery.value.trim()) return filtered;
-
-  //   return filtered.filter((item) =>
-  //     item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  //   );
-  // });
-
-  // const getSortedFilteredCollection = computed<NFTCard[]>(() => {
-  //   const sortedKey = sortBy.value.type as keyof NFTCard;
-  //   const base = [...getFilteredCollection.value];
-
-  //   if (!sortBy.value.value) return base;
-
-  //   if (sortBy.value.value === 'asc') {
-  //     return base.sort(
-  //       (a, b) => Number(a[sortedKey]) - Number(b[sortedKey])
-  //     );
-  //   }
-
-  //   if (sortBy.value.value === 'desc') {
-  //     return base.sort(
-  //       (a, b) => Number(b[sortedKey]) - Number(a[sortedKey])
-  //     );
-  //   }
-
-  //   return base;
-  // });
 
   const filteredAndSortedCollection = computed<NFTCard[]>(() => {
     // берем исходный массив
@@ -126,6 +84,7 @@ export const useCommonStore = defineStore('commonStore', () => {
   function setCollection(arr: NFTCard[]) {
     collectionList.value = [...arr];
   }
+
 
   return {
     // state
