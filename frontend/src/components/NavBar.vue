@@ -24,7 +24,7 @@ const handleConnect = async () => {
 </script>
 <template>
   <header class="header">
-    <div class="header-container">
+    <div class="header-container content-container">
       <div class="logo">
         <div class="logo-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -36,7 +36,10 @@ const handleConnect = async () => {
         <span class="logo-text">NFT Marketplace</span>
       </div>
 
-      <div class="wallet-info">
+      <div
+        class="wallet-info"
+        :class="{ 'wallet-info__connected': isWalletCottected }"
+      >
         <div class="wallet-item" v-if="!isWalletCottected">
           <div
             :class="['status-dot', isWalletCottected ? 'status-connected' : 'status-disconnected']"
@@ -47,9 +50,9 @@ const handleConnect = async () => {
         <template v-else>
           <div class="wallet-item">
             <span class="wallet-label">Wallet</span>
-            <span class="wallet-value wallet-address">{{ connectStore.getCurWalletAddress }}</span>
-            <div class="divider"></div>
+            <span class="wallet-value wallet-address">{{ connectStore.getCurWalletAddress }}</span>            
           </div>
+          <div class="divider"></div>
           <div class="wallet-item">
             <span class="wallet-label">Network:</span>
             <span class="wallet-value wallet-network">{{ connectStore.getCurNetwork }}</span>
@@ -78,13 +81,14 @@ const handleConnect = async () => {
   }
 
   .header-container {
-    max-width: 1280px;
+    /* max-width: 1440px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 20px; */
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
+    min-height: 4rem;
   }
 
   .logo {
@@ -118,6 +122,7 @@ const handleConnect = async () => {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid #475569;
+    min-width: none;
   }
 
   .wallet-item {
@@ -205,5 +210,62 @@ const handleConnect = async () => {
 
   .connect-btn.disconnected:hover {
     background: linear-gradient(90deg, #2563eb, #7c3aed);
-  }  
+  }
+
+  @media (max-width: 890px) {
+    .header-container {
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+    .logo {
+      order: 1;
+    }
+    .connect-btn {
+      order: 2;
+    }
+    .wallet-info {
+      order: 3;
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .header-container {
+      padding-top: 12px;
+    }
+
+    .wallet-info {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      position: relative;
+    }
+    .divider {
+      display: none;
+    }
+    .wallet-item {
+      flex: 1 1 90%;
+      text-align: center;
+      justify-content: center;
+    }
+    .wallet-info.wallet-info__connected .status-dot {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .header-container {
+      flex-direction: column;
+    }
+    .wallet-info {
+      margin-top: 15px;
+    }
+    .logo {
+      margin-bottom: 25px;
+    }
+  }
 </style>

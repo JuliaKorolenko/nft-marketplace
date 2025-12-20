@@ -92,4 +92,12 @@ const sortHandler = () => {
   font-size: 0.75rem;
   min-width: 12px;
 }
+
+@media (max-width: 500px) {
+  .sort-btn {
+    width: calc(49% - 5px);
+    order: 2;
+    border-radius: 7px;
+  }
+}
 </style>

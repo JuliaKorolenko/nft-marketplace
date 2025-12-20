@@ -4,7 +4,7 @@ import { type NFTCard } from '@/types/common';
 import CollectionItemFront from '@/components/collectionItem/CollectionItemFront.vue';
 import CollectionItemBack from '@/components/collectionItem/CollectionItemBack.vue';
 
-const props = defineProps<{
+defineProps<{
   item: NFTCard,
 }>();
 
@@ -35,6 +35,7 @@ const flipCard = () => {
 </template>
 <style scoped>
   .nft-card-container {
+    max-width: 280px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);

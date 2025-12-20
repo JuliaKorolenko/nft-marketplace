@@ -140,4 +140,22 @@ const setCurrentFilter = (filterValue: string) => {
   color: white;
   font-weight: 600;
 }
+
+  @media (max-width: 770px) {
+  .filter-dropdown {
+    margin-right: auto;
+  }
+
+  @media (max-width: 500px) {
+    .filter-dropdown{
+      margin: 0;
+      width: 100%;
+      order: 3;
+    }
+    .filter-btn {
+      border-radius: 7px;
+      min-width: 100%;
+    }
+  }
+}
 </style>

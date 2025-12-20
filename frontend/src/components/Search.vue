@@ -23,7 +23,7 @@ const searchQuery = defineModel<string>();
 
   .search-box input {
     width: 100%;
-    padding: 14px 20px 14px 45px;
+    padding: 14px 36px 14px 45px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
@@ -60,4 +60,16 @@ const searchQuery = defineModel<string>();
   .clear-icon:hover {
     opacity: 0.7;
   }
+
+   @media (max-width: 770px) {
+    .search-box {
+      max-width: 100%;
+      min-width: 100%;
+    }
+    .search-box input {
+      border-radius: 7px;
+      /* padding: 10px 15px 10px 40px; */
+    }
+
+   }
 </style>

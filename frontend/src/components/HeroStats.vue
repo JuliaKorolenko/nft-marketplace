@@ -12,7 +12,7 @@ const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther
 
 </script>
 <template>
-  <div class="hero-stats">
+  <div class="hero-stats content-container">
     <div class="stat-card">
       <div class="stat-label">Available Tokens</div>
       <div class="stat-value">{{ available }}</div>
@@ -33,11 +33,12 @@ const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther
 </template>
 <style scoped>
   .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 20px;
-    padding: 40px 60px;
-    margin-bottom: 20px;
+    padding-top: 40px;
+    margin-bottom: 40px;
   }
 
   .stat-card {
@@ -47,6 +48,7 @@ const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther
     border-radius: 16px;
     padding: 24px;
     transition: all 0.3s;
+    flex: 1;
   }
 
   .stat-card:hover {
@@ -58,6 +60,7 @@ const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther
     color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
     margin-bottom: 8px;
+    white-space: nowrap;
   }
 
   .stat-value {
@@ -67,5 +70,43 @@ const totalSales = computed(() => commonStore.getTotalSales ? ethers.formatEther
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    white-space: nowrap;
   }
+
+    @media (max-width: 980px) {
+      .stat-card {
+        flex: 48%;
+      }
+    }
+    @media (max-width: 700px) {
+      .hero-stats  {
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 7px;
+        margin: 10px 20px;
+        width: auto;
+        gap: 0;
+      }
+      .stat-card {
+        flex: 100%;
+        padding: 2px 0px;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        border-radius: 0;
+        background: none;
+        border: none;
+        backdrop-filter: none;
+      }
+      .stat-value {
+        font-size: 18px;
+      }
+    }
+    @media (max-width: 500px) {
+      .hero-stats  {
+        margin: 10px;
+      }
+    }
 </style>

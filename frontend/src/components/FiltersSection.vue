@@ -35,7 +35,7 @@ const filterOption = computed({
 })
 </script>
 <template>
-  <div class="filters-section">
+  <div class="filters-section content-container">
     <div class="filters-container">
       <Search
         v-model="searchQuery"
@@ -56,7 +56,7 @@ const filterOption = computed({
 </template>
 <style scoped>
   .filters-section {
-    padding: 0 60px 30px;
+    padding-bottom: 30px;
     position: relative;
     z-index: 50;
   }
@@ -73,4 +73,17 @@ const filterOption = computed({
     align-items: center;
     flex-wrap: wrap;
   }  
+
+  @media (max-width: 770px) {
+    .filters-container {
+      border-radius: 7px;
+      padding: 12px;
+    }
+  }
+  @media (max-width: 500px) {
+    .filters-container {
+      padding: 12px 10px;
+      gap: 15px;
+    }
+  }
 </style>
