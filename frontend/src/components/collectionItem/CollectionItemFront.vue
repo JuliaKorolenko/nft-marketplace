@@ -95,7 +95,8 @@ const rarityName = computed(() => props.item.attributes.find(el => el.name==='Ra
   .nft-image-container {
     position: relative;
     width: 100%;
-    padding-top: 100%;
+    /* padding-top: 100%; */
+    height: 400px;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
   }

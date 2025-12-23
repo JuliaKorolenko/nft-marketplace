@@ -1,14 +1,28 @@
 <script setup  lang="ts">
-import { ref } from 'vue';
+import { ref, computed, type Component } from 'vue';
 import type {
   Notification,
   NotificationOptions,
-  NotificationComponent
+  NotificationComponent,
+  NotificationType
 } from '@/types/UIElements'
+import SvgError from './SvgError.vue';
+import SvgInfo from './SvgInfo.vue';
+import SvgSuccess from './SvgSuccess.vue';
+import SvgWarning from './SvgWarning.vue';
 
 // Состояние уведомлений
 const notifications = ref<Notification[]>([]);
 let notificationId = 0;
+
+const notificationComponentMap: Record<NotificationType, Component> = {
+  success: SvgSuccess,
+  error: SvgError,
+  warning: SvgWarning,
+  info: SvgInfo
+}
+
+// const curTabComponent = computed(() => notificationComponentMap[curTab.value])
 
 // Добавить уведомление
 const addNotification = (options: NotificationOptions): number => {
@@ -79,18 +93,7 @@ defineExpose<NotificationComponent>({
         @click="removeNotification(notification.id)"
       >
         <div class="notification-icon">
-          <svg v-if="notification.type === 'success'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <svg v-else-if="notification.type === 'error'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          <svg v-else-if="notification.type === 'warning'" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+          <component :is="notificationComponentMap[notification.type]" />
         </div>
         
         <div class="notification-content">

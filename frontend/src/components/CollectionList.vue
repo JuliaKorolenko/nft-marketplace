@@ -32,13 +32,11 @@ const collection = computed(() => commonStore.getCollection);
 </template>
 <style scoped>
   .nft-grid {
-    padding: 20px 60px 60px;
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
-    gap: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 25px;
   }
   .empty-result {
     text-align: center;

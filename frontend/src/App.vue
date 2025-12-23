@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import Notification from '@/components/Notification.vue';
+import Notification from '@/components/notification/Notification.vue';
 import NavBar from '@/components/NavBar.vue';
 import HeroStats from '@/components/HeroStats.vue';
 import FiltersSection from '@/components/FiltersSection.vue';

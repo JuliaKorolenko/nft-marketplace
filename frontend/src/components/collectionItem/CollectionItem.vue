@@ -35,7 +35,7 @@ const flipCard = () => {
 </template>
 <style scoped>
   .nft-card-container {
-    max-width: 280px;
+    /* max-width: 280px; */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -45,8 +45,12 @@ const flipCard = () => {
     cursor: pointer;
     perspective: 1000px;
     position: relative;
-    width: 100%;
+    /* width: 100%; */
     height: 550px;
+    /* flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 23%; */
+    /* width: 23%; */
   }
 
   .nft-card-container:not(.nft-card_disabled):hover {

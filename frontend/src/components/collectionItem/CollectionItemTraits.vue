@@ -33,13 +33,14 @@ const traits = inject<{ name: string; value: string }[]>('nftTraits')!;
 
 .detail-label {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .detail-value {
   color: white;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
+  text-align: right;
 }
 
 .detail-link {

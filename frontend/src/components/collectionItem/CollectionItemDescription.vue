@@ -9,6 +9,7 @@ const description = inject<string>('nftDescription')!;
 </template>
 <style scoped>
 .nft-desc {
-  font-size: 13px;
+  padding: 20px 10px 10px 10px;
+  font-size: 14px;
 }
 </style>
