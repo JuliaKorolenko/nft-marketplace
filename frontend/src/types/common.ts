@@ -26,7 +26,7 @@ export interface NFTCard {
   id: number,
   name: string,
   collection: string,
-  price: number,
+  price: bigint,
   imgUrl: string,
   attributes: Array<{ name: string, value: string | number }>,
   tokenId: number,

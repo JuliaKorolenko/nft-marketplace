@@ -4,21 +4,21 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Base64.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract ThematicNFT  is ERC721URIStorage, Ownable {
+contract ThematicNFT  is ERC721URIStorage, Ownable, ReentrancyGuard  {
   // uint256 public basePrice = 0.01 ether;
   uint256 public basePrice;
   uint256 private constant SCALE = 1000;
-  // Базовый URI для метаданных
-  string private _baseTokenURI;
 
   // Счетчик заминченных токенов
-  uint256 public totalSupply;
+  uint256 public totalMinted;
 
   // Массив всех доступных tokenIds
   uint256[] public _allTokenIds;
 
+  // Маппинг tokenId → существует ли в коллекции
+  mapping(uint256 => bool) public tokenExists;
   // Маппинг tokenId → уже заминчен или нет
   mapping(uint256 => bool) public minted;
   mapping(uint256 => uint256) public rarityMap; // tokenId → rarity
@@ -35,19 +35,21 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     uint256[] memory rarities
 
   ) ERC721URIStorage() ERC721('ThematicNFT', 'TNFT') Ownable(initialAccount) {
+      require(_basePrice > 0, "Base price must be greater than 0");
+      require(tokenIds.length > 0, "Must have at least one token");
+      require(
+        tokenIds.length == uris.length && tokenIds.length == rarities.length,
+        "Arrays must be same length"
+      );
+
       basePrice = _basePrice;
       _allTokenIds = tokenIds;
 
     // initialize token data (caller is owner at this point)
     _setTokensData(tokenIds, uris, rarities);
-
-    // transfer ownership if an initialAccount is provided
-    if (initialAccount != address(0)) {
-      transferOwnership(initialAccount);
-    }
   }
 
-  function getPrice(uint256 rarity) public view returns (uint256) {
+  function _getPrice(uint256 rarity) view internal returns (uint256) {
     uint256 scaled = SCALE + (rarity * SCALE / 10);
     uint256 squared = scaled * scaled;
     uint256 price = basePrice * squared / (SCALE * SCALE);
@@ -59,29 +61,24 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     string[] memory uris,
     uint256[] memory rarities
   ) internal {
-    require(
-      tokenIds.length == rarities.length &&
-      uris.length == rarities.length,
-      "Arrays must be same length"
-    );
-
     for(uint256 i=0; i<tokenIds.length; i++) {
+      require(!tokenExists[tokenIds[i]], "Duplicate token ID");
+      require(bytes(uris[i]).length > 0, "URI cannot be empty");
+      require(rarities[i] <= 100, "Rarity must be between 0 and 10");
+      
+      tokenExists[tokenIds[i]] = true;
       rarityMap[tokenIds[i]] = rarities[i];
       _tokenURIsMap[tokenIds[i]] = uris[i];
     }
   }
 
-  function getTokenData(uint256 tokenId) public view returns (string memory, uint256 tokenRarity) {
-    return (_tokenURIsMap[tokenId], rarityMap[tokenId]);
-  }
-
-  function mintNFT(uint256 tokenId) public payable returns (uint256) {
+  function mintNFT(uint256 tokenId) public payable nonReentrant returns (uint256) {
+    require(tokenExists[tokenId], "Token ID does not exist in collection");
     require(!minted[tokenId], "Token already minted");
-    require(bytes(_tokenURIsMap[tokenId]).length > 0, "Token ID does not exist");
-    require(totalSupply < _allTokenIds.length, "All tokens have been minted");
+    require(totalMinted < _allTokenIds.length, "All tokens have been minted");
 
     uint256 tokenRarity = rarityMap[tokenId];
-    uint256 price = getPrice(tokenRarity);
+    uint256 price = _getPrice(tokenRarity);
 
     require(msg.value >= price, "Insufficient payment");
 
@@ -90,52 +87,21 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     _setTokenURI(tokenId, _tokenURIsMap[tokenId]);
 
     minted[tokenId] = true;
-    totalSupply++;
+    totalMinted++;
 
     // Refund excess payment
-    if (msg.value > price) {
-      payable(msg.sender).transfer(msg.value - price);
+    uint256 excess = msg.value - price;
+    if (excess > 0) {
+      (bool success, ) = payable(msg.sender).call{value: excess}("");
+      require(success, "Refund failed");
     }
-
     emit NFTMinted(msg.sender, tokenId, price);
 
     return tokenId;
   }
 
-  /**
-  * @dev Get all tokens available for Minting
-  */
 
-  function getAvailableTokens() public view returns (uint256[] memory) {
-    uint256 availableCount = 0;
-
-    // Считаем, сколько доступных токенов
-    for (uint256 i = 0; i < _allTokenIds.length; i++) {
-        if (!minted[_allTokenIds[i]]) {
-            availableCount++;
-        }
-    }
-
-    uint256[] memory available = new uint256[](availableCount);
-    uint256 index = 0;
-
-    // Заполняем массив только доступными токенами
-    for (uint256 i = 0; i < _allTokenIds.length; i++) {
-        uint256 tokenId = _allTokenIds[i];
-        if (!minted[tokenId]) {
-            available[index] = tokenId;
-            index++;
-        }
-    }
-
-    return available;
-  }
-
-  function getAllTokenIds() public view returns (uint256[] memory) {
-    return _allTokenIds;
- }
-
- function getAllTokensInfo() 
+  function getAllTokensInfo() 
     public 
     view 
     returns (
@@ -160,40 +126,19 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
           tokenIds[i] = id;
           uris[i] = _tokenURIsMap[id];
           rarities[i] = rarityMap[id];
-          prices[i] = getPrice(rarityMap[id]);
+          prices[i] = _getPrice(rarityMap[id]);
           mintedStatuses[i] = minted[id];
       }
-  }
-
-  function getMintedTokens() public view returns (uint256[] memory) {
-    uint256 count = totalSupply;
-    uint256[] memory result = new uint256[](count);
-    uint256 index = 0;
-
-    for (uint256 i = 0; i < _allTokenIds.length; i++) {
-        uint256 id = _allTokenIds[i];
-        if (minted[id]) {
-            result[index] = id;
-            index++;
-        }
-    }
-    return result;
-  }
-
-  /**
-  * @dev Get the total number of tokens in the collection
-  */
-  function maxSupply() public view returns (uint256) {
-    return _allTokenIds.length;
   }
 
   /**
   * @dev Owner can withdraw funds
   */
-  function withdraw() public onlyOwner {
+  function withdraw() public onlyOwner nonReentrant {
     uint256 balance = address(this).balance;
     require(balance > 0, "No funds to withdraw");
-    payable(owner()).transfer(balance);
+    (bool success, ) = payable(owner()).call{value: balance}("");
+    require(success, "Withdrawal failed");
   }
 
   /**
@@ -204,26 +149,6 @@ contract ThematicNFT  is ERC721URIStorage, Ownable {
     basePrice = newBasePrice;
     emit BasePriceUpdated(old, newBasePrice);
   }
-
-  /**
-  * @dev Get token information: URI, rarity, price, minted status
-  */
-  function getTokenInfo(uint256 tokenId) public view returns (
-    string memory uri,
-    uint256 rarity,
-    uint256 price,
-    bool isMinted
-  ) {
-    uri = _tokenURIsMap[tokenId];
-    rarity = rarityMap[tokenId];
-    price = getPrice(rarity);
-    isMinted = minted[tokenId];
-  }
-
-  function isTokenMinted(uint256 tokenId) public view returns (bool) {
-    return minted[tokenId];
-  }
-
 
   receive() external payable {
     revert("Use mintNFT(tokenId) function");

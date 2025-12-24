@@ -75,13 +75,11 @@ export function useConnect() {
   const disconnectWallet = () => {
     _resetConnectionData()
   }
-  
-  async function buyToken(tokenId: number) {
+
+  async function buyToken(tokenId: number, price: bigint): Promise<TransactionReceipt> {
     if (!connectStore.isWalletConnected) {
       throw new Error("Wallet not connected");
-    }
-
-    const tokenInfo = await publicContract.getTokenInfo!(tokenId);
+    }   
 
     let balanceBefor;
 
@@ -91,8 +89,6 @@ export function useConnect() {
       balanceBefor = res && ethers.formatEther(res);
     }
     
-    
-    const price = tokenInfo.price;
 
     notify.info('Minting NFT...', 'Please wait');
 
@@ -125,7 +121,6 @@ export function useConnect() {
     })
 
     return receipt
-    // return await tx.wait();
   }
 
   const _initContract = async (): Promise<Contract> => {

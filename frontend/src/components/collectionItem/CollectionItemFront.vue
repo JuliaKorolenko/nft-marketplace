@@ -81,7 +81,7 @@ const rarityName = computed(() => props.item.attributes.find(el => el.name==='Ra
       class="buy-btn"
       :class="{ disabled: !isWalletCottected || item.isMinted }"
       :disabled="!isWalletCottected || item.isMinted"
-      @click="buyTokenHandler(item.tokenId)"
+      @click="buyTokenHandler(item.tokenId, item.price)"
     >
       Buy Now
     </button>

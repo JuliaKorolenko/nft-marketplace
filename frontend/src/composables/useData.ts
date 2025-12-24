@@ -98,9 +98,9 @@ export function useData() {
     return curArr;
   }
 
-  async function buyTokenHandler(tokenId: number) {
+  async function buyTokenHandler(tokenId: number, price: bigint) {
     try {
-      await buyToken(tokenId)
+      await buyToken(tokenId, price)
       await getCollectionsData()
 
     } catch(e) {
