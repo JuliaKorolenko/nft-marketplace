@@ -3,7 +3,7 @@ import { ref } from 'vue';
 const cardCount = ref(4);
 </script>
 <template>
-  <div class="skeleton-container">    
+  <div class="skeleton-container content-container">    
     <div class="skeleton-grid">
       <div 
         v-for="index in cardCount" 
